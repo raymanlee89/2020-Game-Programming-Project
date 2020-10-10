@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Puddle
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Object
+  - Player
+  - Ground
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 3369143511
+    locked: 0
+  - name: ObjectOnTheGround
+    uniqueID: 2350444445
+    locked: 0
+  - name: Player
+    uniqueID: 1864498437
+    locked: 0
+  - name: Wall
+    uniqueID: 349263991
+    locked: 0
+  - name: ObjectOnTheTop
+    uniqueID: 3240720303
+    locked: 0
