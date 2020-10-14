@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: UnusedGlowStick
   m_EditorClassIdentifier: 
   name: UnusedGlowStick
-  icon: {fileID: 21300000, guid: ca18070b4f83798478d5f9270d697d09, type: 3}
+  icon: {fileID: 21300000, guid: bf6ee605cd64b1c44ac62fb6210fe599, type: 3}
   isResource: 1

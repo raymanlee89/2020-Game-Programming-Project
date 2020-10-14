@@ -69,6 +69,7 @@ public class FrashlightUser : MonoBehaviour
     // switch the frashlight
     protected bool MainAction()
     {
+        SoundManager.instance?.Play("ClickFrashlightSwitch");
         if(frashlight.activeSelf)
         {
             frashlight.SetActive(false);
@@ -83,6 +84,7 @@ public class FrashlightUser : MonoBehaviour
     // change the battery
     void ChangeBattery()
     {
+        SoundManager.instance?.Play("ChangeBattery");
         power = maxPower;
         powerBar.SetFill(power);
         powerBarNumber.text = (power / maxPower * 100).ToString("0") + "%";

@@ -86,6 +86,7 @@
     <Compile Include="Assets\Script\AttackingArea.cs" />
     <Compile Include="Assets\Script\Player\PlayerHealth.cs" />
     <Compile Include="Assets\Script\Player\ResourceUsers\BandageUser.cs" />
+    <Compile Include="Assets\Script\Player\SoundSpeed.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\EZ-Camera-Shake-Unity-master\EZ-Camera-Shake-Unity-master\ProjectSettings\ProjectVersion.txt" />

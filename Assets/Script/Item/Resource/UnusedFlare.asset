@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: UnusedFlare
   m_EditorClassIdentifier: 
   name: UnusedFlare
-  icon: {fileID: 21300000, guid: 5e5ec5776ed884446a324f33e0242961, type: 3}
+  icon: {fileID: 21300000, guid: 3e45ff619c331e64bbc66ef4d249c0f2, type: 3}
   isResource: 1

@@ -30,6 +30,7 @@ public class Openable : Interactable
     void Open()
     {
         Debug.Log("Open");
+        SoundManager.instance?.Play("OpenDoor");
         openedObject.SetActive(true);
         closedObject.SetActive(false);
     }
@@ -37,6 +38,7 @@ public class Openable : Interactable
     void Close()
     {
         Debug.Log("Close");
+        SoundManager.instance?.Play("CloseDoor");
         openedObject.SetActive(false);
         closedObject.SetActive(true);
     }
@@ -46,7 +48,7 @@ public class Openable : Interactable
         Debug.Log("Try to unlock");
         if(Inventory.instance.clues.Contains(key))
         {
-            SoundManager.instance.Play("Unlock");
+            SoundManager.instance?.Play("Unlock");
             isLocked = false;
             Open();
             return;

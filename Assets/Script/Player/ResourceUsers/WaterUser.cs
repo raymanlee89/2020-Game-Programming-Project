@@ -2,11 +2,19 @@
 
 public class WaterUser : ResourceUser
 {
-    public GameObject puddle;
+    PlayerMovement playerMovement;
+
+    private void Start()
+    {
+        playerMovement = GetComponent<PlayerMovement>();
+    }
 
     protected override bool ItemAct()
     {
-        Instantiate(puddle, transform.position, transform.rotation);
+        if (playerMovement.IsFullEnergy())
+            return false;
+        playerMovement.RecoverEnergy();
+        SoundManager.instance?.Play("DrinkWater");
         return true;
     }
 }

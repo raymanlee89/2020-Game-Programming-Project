@@ -22,6 +22,7 @@ public class BackpackUIController : MonoBehaviour
     {
         if(Input.GetButtonDown("OpenBackpack"))
         {
+            SoundManager.instance?.Play("OpenBackpack");
             backpackUI.SetActive(!backpackUI.activeSelf);
             if (backpackUI.activeSelf)
                 Time.timeScale = 0f;

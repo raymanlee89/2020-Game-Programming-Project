@@ -14,9 +14,7 @@ public class Pickable : Interactable
     void PickUp()
     {
         Destroy(gameObject);
-        if (SoundManager.instance != null)
-            SoundManager.instance.Play("PickUp");
-        if(Inventory.instance != null)
-            Inventory.instance.Add(item);
+        SoundManager.instance?.Play("PickUp");
+        Inventory.instance?.Add(item);
     }
 }
