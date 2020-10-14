@@ -63,4 +63,13 @@ public class SoundSpeed : MonoBehaviour
         gos = GameObject.FindGameObjectsWithTag("Enemy"); //找所有帶有"enemy" tag的物件
         return gos;
     }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, maxDist);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, minDist);
+    }
 }
