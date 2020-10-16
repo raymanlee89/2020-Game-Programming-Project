@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 7509348552486816752}
   - component: {fileID: 7509348552486816753}
   - component: {fileID: 7509348552486816754}
-  - component: {fileID: 7509348552486816759}
+  - component: {fileID: 4370683585202774390}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -100,7 +100,7 @@ Transform:
   m_GameObject: {fileID: 7509348552486816755}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children:
   - {fileID: 7509348551613167447}
   m_Father: {fileID: 0}
@@ -146,7 +146,7 @@ SpriteRenderer:
   m_SortingLayerID: -1944522851
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0f0a7cb219b8b6145a68d6fe6bec5d9a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ff50079a8910dbc4592419c51b07821f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -169,11 +169,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 459f90096cfc5de4e9f0d106451bc732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  touchable: 0
   shinning: {fileID: 7509348551613167441}
+  touchable: 0
   item: {fileID: 11400000, guid: 0d083f2225cae5d4bbca4995362570a4, type: 2}
---- !u!58 &7509348552486816759
-CircleCollider2D:
+--- !u!61 &4370683585202774390
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -185,6 +185,16 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.010854244, y: -0.016287327}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.98, y: 4.2}
+    newSize: {x: 1.34, y: 0.48}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.67
+  m_Size: {x: 1.0906744, y: 3.4290676}
+  m_EdgeRadius: 0

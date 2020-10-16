@@ -52,7 +52,7 @@ public class SoundSpeed : MonoBehaviour
         float x = Mathf.Clamp(dist, minDist, maxDist);
         float pitch = (farPitch - closePitch) * (x - minDist) / (maxDist - minDist) + closePitch;
         audioSource.pitch = pitch;
-        audioSource.volume = pitch-0.5f; //調音量
+        audioSource.volume = Mathf.Pow((maxDist - x) / maxDist, 3); //調音量
         AudioSpeedUp.SetFloat("pitchBend", 1f / pitch); //讓mixer調回去
     }
 
