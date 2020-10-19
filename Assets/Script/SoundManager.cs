@@ -35,4 +35,45 @@ public class SoundManager : MonoBehaviour
             return;
         s.source.Play();
     }
+
+    public void StopPlay(string name, float fadeTime)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+            return;
+        StartCoroutine(FadeOut(s.source, fadeTime));
+    }
+
+    IEnumerator FadeOut(AudioSource audioSource, float fadeTime)
+    {
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / fadeTime;
+
+            yield return null;
+        }
+
+        audioSource.Stop();
+        audioSource.volume = startVolume;
+    }
+
+    public void PauseAllSound()
+    {
+        foreach (Sound s in sounds)
+        {
+            if (s.source.isPlaying)
+                s.source.Pause();
+        }
+    }
+
+    public void UnPauseAllSound()
+    {
+        foreach (Sound s in sounds)
+        {
+            if (s.source.isPlaying)
+                s.source.UnPause();
+        }
+    }
 }

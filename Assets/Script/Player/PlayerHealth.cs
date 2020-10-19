@@ -19,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
     public void GetHurt(float damage)
     {
         Debug.Log("Get hurt!");
+        SoundManager.instance?.Play("GetHurt");
         cameraController.CameraShake();
         health -= damage;
         if(health <= 0)
@@ -32,6 +33,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void Healing(float healingAmount)
     {
+        SoundManager.instance?.Play("Healing");
         health += healingAmount;
         if (health > maxHealth)
         {

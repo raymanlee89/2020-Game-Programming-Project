@@ -72,4 +72,14 @@ public class SoundSpeed : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, minDist);
     }
+
+    public void Pause()
+    {
+        audioSource.Pause();
+    }
+
+    public void UnPause()
+    {
+        audioSource.UnPause();
+    }
 }

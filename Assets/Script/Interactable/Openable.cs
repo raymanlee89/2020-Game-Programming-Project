@@ -53,6 +53,7 @@ public class Openable : Interactable
             Open();
             return;
         }
+        SoundManager.instance?.Play("TryToUnlock");
         return;
     }
 }

@@ -21,11 +21,16 @@ public class Flare : MonoBehaviour
         if (flareKeepingTimeLeft > 0)
             flareLight.intensity = flareKeepingTimeLeft / flareKeepingTime;
         else
+        {
+            SoundManager.instance?.StopPlay("FlareBurnning", 1f);
             gameObject.SetActive(false);
+        }
+            
     }
 
     void OnEnable()
     {
+        SoundManager.instance?.Play("FlareBurnning");
         flareLight.intensity = 1;
         flareKeepingTimeLeft = flareKeepingTime;
     }

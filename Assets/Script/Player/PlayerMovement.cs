@@ -43,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
             runningOrNot = true;
             restingOrNot = false;
             moveSpeed = runningSpeed;
+            SoundManager.instance?.Play("RunningBreath");
         }
         else if(Input.GetButtonUp("Run") && !restingOrNot)
         {
@@ -50,12 +51,15 @@ public class PlayerMovement : MonoBehaviour
             runningOrNot = false;
             restingOrNot = true;
             moveSpeed = normalSpeed;
+            SoundManager.instance?.StopPlay("RunningBreath", 1f);
         }
         else if(presentEnergy < 0 && !restingOrNot) // get tired
         {
             runningOrNot = false;
             restingOrNot = true;
             moveSpeed = tiredSpeed;
+            SoundManager.instance?.StopPlay("RunningBreath", 0.5f);
+            SoundManager.instance?.Play("TiredBreath");
         }
         else if(presentEnergy > maxEnergy && restingOrNot) // full recovery
         {
@@ -90,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed = normalSpeed;
         presentEnergy = maxEnergy;
         energyBar.SetFill(presentEnergy);
+        SoundManager.instance?.StopPlay("TiredBreath", 1f);
     }
 
     public bool IsFullEnergy()
