@@ -6,6 +6,7 @@ public class Openable : Interactable
     public Item key;
     public GameObject openedObject;
     public GameObject closedObject;
+    public DialogueTrigger howToUnlockDialogue;
 
     void Start()
     {
@@ -54,6 +55,7 @@ public class Openable : Interactable
             return;
         }
         SoundManager.instance?.Play("TryToUnlock");
+        howToUnlockDialogue.TriggerDialogue();
         return;
     }
 }
