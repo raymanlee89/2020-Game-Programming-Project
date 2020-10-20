@@ -5,7 +5,7 @@ public class ItemSlot : MonoBehaviour
 {
     public Image icon;
 
-    Item item;
+    Item item = null;
 
     public void AddItem(Item newItem)
     {
@@ -21,5 +21,11 @@ public class ItemSlot : MonoBehaviour
 
         icon.sprite = null;
         icon.enabled = false;
+    }
+
+    public void OpenSlotDescription()
+    {
+        if(item != null)
+            Inventory.instance?.ShowCluePanel(item);
     }
 }

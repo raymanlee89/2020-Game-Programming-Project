@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Openable : Interactable
 {
@@ -7,6 +9,7 @@ public class Openable : Interactable
     public GameObject openedObject;
     public GameObject closedObject;
     public DialogueTrigger howToUnlockDialogue;
+    bool waitToOpen = false;
 
     void Start()
     {
@@ -20,7 +23,7 @@ public class Openable : Interactable
     {
         base.Interact();
 
-        if (closedObject.activeSelf && !isLocked)
+        if (closedObject.activeSelf && !isLocked && !waitToOpen)
             Open();
         else if (closedObject.activeSelf && isLocked)
             TryToUnlock();
@@ -51,11 +54,19 @@ public class Openable : Interactable
         {
             SoundManager.instance?.Play("Unlock");
             isLocked = false;
-            Open();
+            StartCoroutine(WaitAndOpen());
             return;
         }
         SoundManager.instance?.Play("TryToUnlock");
         howToUnlockDialogue.TriggerDialogue();
         return;
+    }
+
+    IEnumerator WaitAndOpen()
+    {
+        waitToOpen = true;
+        yield return new WaitForSeconds(1f);
+        Open();
+        waitToOpen = false;
     }
 }

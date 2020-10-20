@@ -6,4 +6,7 @@ public class Item : ScriptableObject
     new public string name;
     public Sprite icon;
     public bool isResource;
+    public Sprite image;
+    [TextArea(1, 10)]
+    public string discription;
 }

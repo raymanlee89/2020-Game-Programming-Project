@@ -189,7 +189,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4750860934380211195}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
   m_Name: 
@@ -207,7 +207,7 @@ MonoBehaviour:
   - {x: -0.15809236, y: 0.64190763, z: 0}
   m_ShapePathHash: 1047543565
   m_Mesh: {fileID: 0}
-  m_InstanceId: 17578
+  m_InstanceId: -1744
 --- !u!1 &4750860934453055812
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 4750860934453055814}
   - component: {fileID: 4750860934453055813}
   - component: {fileID: 4750860934453055815}
+  - component: {fileID: 1750347551}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -261,6 +262,7 @@ MonoBehaviour:
   key: {fileID: 11400000, guid: 74384285e155d7446b3f57c1094d94c3, type: 2}
   openedObject: {fileID: 4750860934380211195}
   closedObject: {fileID: 4750860935275855801}
+  howToUnlockDialogue: {fileID: 1750347551}
 --- !u!58 &4750860934453055815
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -274,9 +276,25 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.39122194, y: -0.026081324}
+  m_Offset: {x: -0.54138356, y: -0.026081324}
   serializedVersion: 2
-  m_Radius: 0.7527897
+  m_Radius: 0.9029513
+--- !u!114 &1750347551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4750860934453055812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b18aaaf5e8347f45bfcaf2618e555cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    speakerName: "\u4E3B\u89D2"
+    sentences:
+    - "\u6211\u9700\u8981\u9470\u5319\u624D\u80FD\u6253\u958B\u9019\u6247\u9580"
 --- !u!1 &4750860935275855801
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,7 +412,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4750860935275855801}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
   m_Name: 
@@ -412,4 +430,4 @@ MonoBehaviour:
   - {x: -0.16, y: 0.64, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 17690
+  m_InstanceId: -1748

@@ -6,6 +6,7 @@ public class BackpackUIController : MonoBehaviour
 {
     public Transform itemParent;
     public GameObject backpackUI;
+    
     ItemSlot[] slots;
     Inventory inventory;
 
@@ -15,6 +16,7 @@ public class BackpackUIController : MonoBehaviour
         inventory = Inventory.instance;
         inventory.onClueChangedCallBack += UpdateUI;
         slots = itemParent.GetComponentsInChildren<ItemSlot>();
+        backpackUI.SetActive(false);
     }
 
     // Update is called once per frame
