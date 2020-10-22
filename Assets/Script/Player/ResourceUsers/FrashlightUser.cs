@@ -7,7 +7,6 @@ public class FrashlightUser : MonoBehaviour
 {
     public GameObject frashlight;
     public float maxPower;
-    public Bar powerBar;
     public float flashingTimePeriod;
     public Text powerBarNumber;
     public Item resource;
@@ -20,8 +19,8 @@ public class FrashlightUser : MonoBehaviour
         inventory = Inventory.instance;
         frashlight.SetActive(false);
         power = 0;
-        powerBar.SetMaxFill(maxPower);
-        powerBar.SetFill(power);
+        UIManager.instance?.powerBar.SetMaxFill(maxPower);
+        UIManager.instance?.powerBar.SetFill(power);
         powerBarNumber.text = (power / maxPower * 100).ToString("0") + "%";
     }
 
@@ -39,14 +38,14 @@ public class FrashlightUser : MonoBehaviour
             if(power > 0)
             {
                 power -= Time.deltaTime;
-                powerBar.SetFill(power);
+                UIManager.instance?.powerBar.SetFill(power);
                 powerBarNumber.text = (power / maxPower * 100).ToString("0") + "%";
             }
             else // run out of power
             {
                 StartCoroutine(Flashing());
                 power = 0;
-                powerBar.SetFill(power);
+                UIManager.instance?.powerBar.SetFill(power);
                 powerBarNumber.text = (power / maxPower * 100).ToString("0") + "%";
             }
         }
@@ -86,7 +85,7 @@ public class FrashlightUser : MonoBehaviour
     {
         SoundManager.instance?.Play("ChangeBattery");
         power = maxPower;
-        powerBar.SetFill(power);
+        UIManager.instance?.powerBar.SetFill(power);
         powerBarNumber.text = (power / maxPower * 100).ToString("0") + "%";
         if(HasEnoughResource())
             inventory.Remove(resource);

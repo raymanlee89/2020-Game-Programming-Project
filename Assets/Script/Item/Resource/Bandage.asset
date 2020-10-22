@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0297d1f0bffdfc64693a5cd735cd3953, type: 3}
   m_Name: Bandage
   m_EditorClassIdentifier: 
-  name: Bandage
+  name: "\u65C5\u884C\u91AB\u7642\u5305"
   icon: {fileID: 21300000, guid: 68c3a08d5db48934e979715004f5acd9, type: 3}
   isResource: 1
+  image: {fileID: 21300000, guid: 76559cba545eee74cb243fe36db943df, type: 3}
+  discription: "\u85E5\u623F\u5E38\u898B\u7684\u65C5\u884C\u7528\u91AB\u7642\u5305\uFF0C\u5167\u6DB5\u9152\u7CBE\u68C9\u7247\u3001\u512A\u7898\u3001\u7E43\u5E36\u7B49\u7528\u54C1\uFF0C\u80FD\u9032\u884C\u7C21\u55AE\u7684\u5305\u7D2E\u3002"

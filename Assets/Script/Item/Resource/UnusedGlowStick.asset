@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0297d1f0bffdfc64693a5cd735cd3953, type: 3}
   m_Name: UnusedGlowStick
   m_EditorClassIdentifier: 
-  name: UnusedGlowStick
+  name: "\u87A2\u5149\u68D2"
   icon: {fileID: 21300000, guid: bf6ee605cd64b1c44ac62fb6210fe599, type: 3}
   isResource: 1
+  image: {fileID: 21300000, guid: 8b7e8266aaf4bc24a9592834d2e5a15c, type: 3}
+  discription: "\u96FB\u5B50\u87A2\u5149\u68D2\uFF0C\u4F7F\u7528\u58FD\u547D\u53EF\u4EE5\u7DAD\u63016\u81F38\u500B\u5C0F\u6642\uFF0C\u5B78\u6821\u665A\u6703\u7B49\u6D3B\u52D5\u6642\uFF0C\u7092\u71B1\u6C23\u6C1B\u7528\u7684\u9577\u898B\u9053\u5177\u3002"

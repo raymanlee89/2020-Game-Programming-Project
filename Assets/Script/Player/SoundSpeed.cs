@@ -33,7 +33,6 @@ public class SoundSpeed : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameObject closest = null;
         float distance = Mathf.Infinity; //一開始為無限遠（等於沒enemy）
         Vector3 position = transform.position;
         foreach (GameObject go in enemies) //對每個找

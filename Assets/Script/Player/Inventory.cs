@@ -25,22 +25,14 @@ public class Inventory : MonoBehaviour
     [HideInInspector]
     public List<Item> clues;
 
-    public GameObject cluePanel;
-    public Image itemImage;
-    public Text itemName;
-    public Text itemDiscription;
-    public GameObject backpackUI;
-
     public delegate void OnClueChanged();
     public OnClueChanged onClueChangedCallBack;
 
     public delegate void OnResourceChanged(Item resource);
     public OnResourceChanged onResourceChangedCallBack;
 
-    private void Start()
-    {
-        cluePanel.SetActive(false);
-    }
+    public delegate void ShowCluePanelCall(Item resource);
+    public ShowCluePanelCall showCluePanelCall;
 
     public void Add(Item item)
     {
@@ -50,20 +42,22 @@ public class Inventory : MonoBehaviour
             {
                 resourceCount[item]++;
                 Debug.Log("Get Resource " + item.name + " " + resourceCount[item]);
+                onResourceChangedCallBack?.Invoke(item);
             }
             else
             {
                 resourceCount.Add(item, 1);
                 Debug.Log("New Resource " + item.name + " " + resourceCount[item]);
+                onResourceChangedCallBack?.Invoke(item);
+                showCluePanelCall?.Invoke(item);
             }
-            onResourceChangedCallBack?.Invoke(item);
         }
         else
         {
             Debug.Log("New Clue " + item.name);
             clues.Add(item);
             onClueChangedCallBack?.Invoke();
-            StartCoroutine(WaitAndShowCluePanel(item));
+            showCluePanelCall?.Invoke(item);
         }
     }
 
@@ -74,36 +68,5 @@ public class Inventory : MonoBehaviour
             resourceCount[item]--;
         }
         onResourceChangedCallBack?.Invoke(item);
-    }
-
-    IEnumerator WaitAndShowCluePanel(Item item)
-    {
-        yield return new WaitForSeconds(0.2f);
-        ShowCluePanel(item);
-    }
-
-    public void ShowCluePanel(Item item)
-    {
-        SoundManager.instance?.PauseAllSound();
-        SoundSpeed heartBeats = FindObjectOfType<SoundSpeed>();
-        heartBeats?.Pause();
-        Time.timeScale = 0f;
-
-        cluePanel.SetActive(true);
-        itemName.text = item.name;
-        itemImage.sprite = item.image;
-        itemDiscription.text = item.discription;
-    }
-
-    public void CloseCluePanel()
-    {
-        if(!backpackUI.activeSelf)
-        {
-            SoundManager.instance?.UnPauseAllSound();
-            SoundSpeed heartBeats = FindObjectOfType<SoundSpeed>();
-            heartBeats?.UnPause();
-            Time.timeScale = 1f;
-        }
-        cluePanel.SetActive(false);
     }
 }

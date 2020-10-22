@@ -8,23 +8,29 @@ public class PlayerMovement : MonoBehaviour
     public float runningSpeed;
     public float tiredSpeed;
     public float maxEnergy;
-    public Bar energyBar;
-    float presentEnergy;
+    float energy;
     float moveSpeed;
-    bool runningOrNot = false;
-    bool restingOrNot = false;
+    RunningState runningState;
     Rigidbody2D ownRb;
     Camera cam;
     Vector2 movement;
     Vector2 mousePos;
+
+    private enum RunningState
+    {
+        Normal,
+        Running,
+        Tired
+    }
 
     void Start()
     {
         ownRb = GetComponent<Rigidbody2D>();
         cam = Camera.main;
         moveSpeed = normalSpeed;
-        presentEnergy = maxEnergy;
-        energyBar.SetMaxFill(maxEnergy);
+        energy = maxEnergy;
+        UIManager.instance?.energyBar.SetMaxFill(maxEnergy);
+        runningState = RunningState.Normal;
     }
 
     void Update()
@@ -37,43 +43,40 @@ public class PlayerMovement : MonoBehaviour
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 
         //running system
-        if(Input.GetButtonDown("Run") && !runningOrNot && presentEnergy > 0 && moveSpeed != tiredSpeed)
+        if(Input.GetButtonDown("Run") && runningState == RunningState.Normal && energy > 0)
         {
             //Debug.Log("Start running");
-            runningOrNot = true;
-            restingOrNot = false;
+            runningState = RunningState.Running;
             moveSpeed = runningSpeed;
             SoundManager.instance?.Play("RunningBreath");
         }
-        else if(Input.GetButtonUp("Run") && !restingOrNot)
+        else if(Input.GetButtonUp("Run") && runningState == RunningState.Running)
         {
             //Debug.Log("Stop running");
-            runningOrNot = false;
-            restingOrNot = true;
+            runningState = RunningState.Normal;
             moveSpeed = normalSpeed;
             SoundManager.instance?.StopPlay("RunningBreath", 1f);
         }
-        else if(presentEnergy < 0 && !restingOrNot) // get tired
+        else if(energy < 0 && runningState != RunningState.Tired) // get tired
         {
-            runningOrNot = false;
-            restingOrNot = true;
+            runningState = RunningState.Tired;
             moveSpeed = tiredSpeed;
             SoundManager.instance?.StopPlay("RunningBreath", 0.5f);
             SoundManager.instance?.Play("TiredBreath");
         }
-        else if(presentEnergy > maxEnergy && restingOrNot) // full recovery
+        else if(energy > maxEnergy && runningState != RunningState.Running) // full recovery
         {
             RecoverEnergy();
         }
-        else if(runningOrNot)
+        else if(runningState == RunningState.Running)
         {
-            presentEnergy -= Time.deltaTime;
-            energyBar.SetFill(presentEnergy);
+            energy -= Time.deltaTime;
+            UIManager.instance?.energyBar.SetFill(energy);
         }
-        else if(restingOrNot)
+        else if(runningState != RunningState.Running)
         {
-            presentEnergy += Time.deltaTime/3;
-            energyBar.SetFill(presentEnergy);
+            energy += Time.deltaTime/3;
+            UIManager.instance?.energyBar.SetFill(energy);
         }
         
         //Debug.Log("Present Energy :" + presentEnergy);
@@ -89,17 +92,16 @@ public class PlayerMovement : MonoBehaviour
 
     public void RecoverEnergy()
     {
-        runningOrNot = false;
-        restingOrNot = false;
+        runningState = RunningState.Normal;
         moveSpeed = normalSpeed;
-        presentEnergy = maxEnergy;
-        energyBar.SetFill(presentEnergy);
+        energy = maxEnergy;
+        UIManager.instance?.energyBar.SetFill(energy);
         SoundManager.instance?.StopPlay("TiredBreath", 1f);
     }
 
     public bool IsFullEnergy()
     {
-        if (presentEnergy == maxEnergy)
+        if (energy == maxEnergy)
             return true;
         return false;
     }

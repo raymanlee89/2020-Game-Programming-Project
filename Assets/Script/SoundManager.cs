@@ -6,6 +6,7 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public Sound[] sounds;
+    List<string> pausedList = new List<string>();
 
     public static SoundManager instance;
 
@@ -64,7 +65,10 @@ public class SoundManager : MonoBehaviour
         foreach (Sound s in sounds)
         {
             if (s.source.isPlaying)
+            {
                 s.source.Pause();
+                pausedList.Add(s.name);
+            }
         }
     }
 
@@ -72,8 +76,9 @@ public class SoundManager : MonoBehaviour
     {
         foreach (Sound s in sounds)
         {
-            if (s.source.isPlaying)
+            if (pausedList.Contains(s.name))
                 s.source.UnPause();
         }
+        pausedList.Clear();
     }
 }

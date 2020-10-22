@@ -6,32 +6,35 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class Flare : MonoBehaviour
 {
     public float flareKeepingTime;
+    public float flareMaxInstanseTime;
     public Light2D flareLight;
-    float flareKeepingTimeLeft;
 
     void Start()
     {
         gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator BurnTheFlare()
     {
-        flareKeepingTimeLeft -= Time.deltaTime;
-        if (flareKeepingTimeLeft > 0)
-            flareLight.intensity = flareKeepingTimeLeft / flareKeepingTime;
-        else
+        SoundManager.instance?.Play("FlareBurnning");
+        flareLight.intensity = 0;
+        for (float f = 0; f < flareMaxInstanseTime; f += Time.deltaTime)
         {
-            SoundManager.instance?.StopPlay("FlareBurnning", 1f);
-            gameObject.SetActive(false);
+            flareLight.intensity = f / flareMaxInstanseTime;
+            yield return null;
         }
-            
+        for (float f = flareKeepingTime; f > 0; f -= Time.deltaTime)
+        {
+            flareLight.intensity = f / flareKeepingTime;
+            yield return null;
+        }
+        flareLight.intensity = 0;
+        SoundManager.instance?.StopPlay("FlareBurnning", 1f);
+        gameObject.SetActive(false);
     }
 
     void OnEnable()
     {
-        SoundManager.instance?.Play("FlareBurnning");
-        flareLight.intensity = 1;
-        flareKeepingTimeLeft = flareKeepingTime;
+        StartCoroutine(BurnTheFlare());
     }
 }

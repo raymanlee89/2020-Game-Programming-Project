@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0297d1f0bffdfc64693a5cd735cd3953, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
-  name: Water
+  name: "\u7926\u6CC9\u6C34"
   icon: {fileID: 21300000, guid: dd21d7026435e55458e3812b9a761793, type: 3}
   isResource: 1
+  image: {fileID: 21300000, guid: ff50079a8910dbc4592419c51b07821f, type: 3}
+  discription: "\u798F\u5229\u793E\u8CE3\u7684\u4FBF\u5B9C\u7926\u6CC9\u6C34\uFF0C\u9AD4\u80B2\u8AB2\u5F8C\u89E3\u6E34\u3001\u88DC\u5145\u9AD4\u529B\u7684\u597D\u5E6B\u624B\u3002"

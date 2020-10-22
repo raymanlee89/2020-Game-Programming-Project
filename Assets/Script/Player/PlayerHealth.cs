@@ -5,14 +5,13 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public float maxHealth;
-    public Bar healthBar;
     float health;
     CameraController cameraController;
 
     void Start()
     {
         health = maxHealth;
-        healthBar.SetMaxFill(maxHealth);
+        UIManager.instance?.healthBar.SetMaxFill(maxHealth);
         cameraController = GetComponent<CameraController>();
     }
 
@@ -28,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
             // died and respawn
             // loading data
         }
-        healthBar.SetFill(health);
+        UIManager.instance?.healthBar.SetFill(health);
     }
 
     public void Healing(float healingAmount)
@@ -39,7 +38,7 @@ public class PlayerHealth : MonoBehaviour
         {
             health = maxHealth;
         }
-        healthBar.SetFill(health);
+        UIManager.instance?.healthBar.SetFill(health);
     }
 
     public bool IsFullHealth()

@@ -52,6 +52,7 @@
     <UnityVersion>2020.1.6f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Enemy\EnemyControllerImmobile.cs" />
     <Compile Include="Assets\Script\Player\SoundSpeed.cs" />
     <Compile Include="Assets\Script\Item\Item.cs" />
     <Compile Include="Assets\Script\Sound.cs" />
@@ -63,10 +64,11 @@
     <Compile Include="Assets\Script\SoundManager.cs" />
     <Compile Include="Assets\Script\Interactable\Interactable.cs" />
     <Compile Include="Assets\Script\Player\ResourceUsers\WaterUser.cs" />
-    <Compile Include="Assets\Script\BackpackUIController.cs" />
-    <Compile Include="Assets\Script\Bar.cs" />
+    <Compile Include="Assets\Script\UI\UIManager.cs" />
+    <Compile Include="Assets\Script\UI\Bar.cs" />
     <Compile Include="Assets\Script\Player\ResourceUsers\FrashlightUser.cs" />
     <Compile Include="Assets\Script\Player\ResourceUsers\FullScreenFlareUser.cs" />
+    <Compile Include="Assets\Script\Dialogue\DialogueManager.cs" />
     <Compile Include="Assets\EZ-Camera-Shake-Unity-master\EZ-Camera-Shake-Unity-master\Assets\EZ Camera Shake\Scripts\CameraShakeInstance.cs" />
     <Compile Include="Assets\Script\Interactable\Openable.cs" />
     <Compile Include="Assets\Script\Player\PlayerInteractor.cs" />
@@ -78,18 +80,19 @@
     <Compile Include="Assets\EZ-Camera-Shake-Unity-master\EZ-Camera-Shake-Unity-master\Assets\EZ Camera Shake\Demo\ShakeDemo.cs" />
     <Compile Include="Assets\EZ-Camera-Shake-Unity-master\EZ-Camera-Shake-Unity-master\Assets\EZ Camera Shake\Scripts\Utilities\CameraUtilities.cs" />
     <Compile Include="Assets\EZ-Camera-Shake-Unity-master\EZ-Camera-Shake-Unity-master\Assets\EZ Camera Shake\Scripts\CameraShaker.cs" />
-    <Compile Include="Assets\Script\ItemSlot.cs" />
+    <Compile Include="Assets\Script\UI\ItemSlot.cs" />
+    <Compile Include="Assets\Script\Dialogue\Dialogue.cs" />
     <Compile Include="Assets\Script\FootstepsController.cs" />
+    <Compile Include="Assets\Script\Enemy\EnemyControllerPatrol.cs" />
     <Compile Include="Assets\Script\Player\PlayerMovement.cs" />
+    <Compile Include="Assets\Script\PlayerManager.cs" />
     <Compile Include="Assets\Script\Player\ResourceUsers\UserControler.cs" />
     <Compile Include="Assets\Script\Player\CameraController.cs" />
     <Compile Include="Assets\Script\Player\Inventory.cs" />
-    <Compile Include="Assets\Script\AttackingArea.cs" />
+    <Compile Include="Assets\Script\Enemy\AttackingArea.cs" />
+    <Compile Include="Assets\Script\Dialogue\DialogueTrigger.cs" />
     <Compile Include="Assets\Script\Player\PlayerHealth.cs" />
     <Compile Include="Assets\Script\Player\ResourceUsers\BandageUser.cs" />
-    <Compile Include="Assets\Script\DialogueManager.cs" />
-    <Compile Include="Assets\Script\Dialogue.cs" />
-    <Compile Include="Assets\Script\DialogueTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\EZ-Camera-Shake-Unity-master\EZ-Camera-Shake-Unity-master\ProjectSettings\ProjectVersion.txt" />

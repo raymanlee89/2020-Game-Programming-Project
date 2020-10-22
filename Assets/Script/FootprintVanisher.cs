@@ -5,33 +5,23 @@ using UnityEngine;
 public class FootprintVanisher : MonoBehaviour
 {
     public float keepingTime;
-    public float fadingTime = 1f;
-    float startTime = 0;
     Renderer rend;
 
     // Start is called before the first frame update
     void Start()
     {
-        startTime = Time.time;
         rend = GetComponent<Renderer>();
+        StartCoroutine(FootprintVanishing());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator FootprintVanishing()
     {
-        if(Time.time - startTime > keepingTime)
+        Color c = rend.material.color;
+        for (float f = keepingTime; f > 0 ; f -= Time.deltaTime)
         {
-            if(rend.material.color.a > 0)
-            {
-                Color c = rend.material.color;
-                rend.material.color = new Color(c.r, c.g, c.b, c.a - ((1 / fadingTime) * Time.deltaTime));
-                //Debug.Log(rend.material.color.a);
-            }
-            else
-            {
-                Destroy(gameObject);
-                //Debug.Log("destroy");
-            }
+            rend.material.color = new Color(c.r, c.g, c.b, c.a * (f / keepingTime));
+            yield return null;
         }
+        Destroy(gameObject);
     }
 }

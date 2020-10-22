@@ -312,7 +312,7 @@ MonoBehaviour:
   - {x: -0.0109567195, y: 0.26350185, z: 0}
   m_ShapePathHash: -953657635
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1648
+  m_InstanceId: -1632
 --- !u!1 &878881300299308092
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frashlight: {fileID: 878881299974516743}
-  maxPower: 10
+  maxPower: 60
   powerBar: {fileID: 0}
   flashingTimePeriod: 0.2
   powerBarNumber: {fileID: 0}
@@ -557,6 +557,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clues: []
+  cluePanel: {fileID: 0}
+  itemImage: {fileID: 0}
+  itemName: {fileID: 0}
+  itemDiscription: {fileID: 0}
+  backpackUI: {fileID: 0}
 --- !u!114 &1494476173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,7 +588,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: b0c6e82bf3c0d6e4ab9d46324241678c,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 922a431440d4edf4ca929c62904ff3c1, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 570eb59a0284c8e4082619adead32b82, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -591,7 +596,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 100
+  Priority: 112
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -694,6 +699,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 878881300299308065}
     m_Modifications:
+    - target: {fileID: 2990963782230298637, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
+        type: 3}
+      propertyPath: flareMaxInstanseTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744154091548796990, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
+        type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6744154091548796990, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
         type: 3}
       propertyPath: m_PointLightInnerAngle
@@ -713,6 +728,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PointLightInnerRadius
       value: 11.758713
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744154091548796990, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
+        type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[4]
+      value: 349263991
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744154091548796990, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
+        type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[5]
+      value: -1054246993
       objectReference: {fileID: 0}
     - target: {fileID: 6744154091548796991, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
         type: 3}
