@@ -6,6 +6,7 @@ public class ResourceUser : MonoBehaviour
 {
     public Sprite icon;
     public Item resource;
+    public string userType;
 
     void Update()
     {
@@ -15,8 +16,11 @@ public class ResourceUser : MonoBehaviour
         if (Input.GetButtonDown("ItemAct") && HasEnoughResource())
         {
             bool succeed = ItemAct();
-            if(succeed && Inventory.instance != null)
+            if (succeed && Inventory.instance != null)
+            {
                 Inventory.instance.Remove(resource);
+                AnimationManager.instance?.UseItem(userType);
+            }
         }
     }
 

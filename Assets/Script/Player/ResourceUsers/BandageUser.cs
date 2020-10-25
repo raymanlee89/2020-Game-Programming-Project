@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class BandageUser : ResourceUser
 {
@@ -14,7 +15,13 @@ public class BandageUser : ResourceUser
     {
         if (playerHealth.IsFullHealth())
             return false;
-        playerHealth.Healing(playerHealth.maxHealth * healingPercentage);
+        StartCoroutine(WaitHoldTheBandage());
         return true;
+    }
+
+    IEnumerator WaitHoldTheBandage()
+    {
+        yield return new WaitForSeconds(0.2f);
+        playerHealth.Healing(playerHealth.maxHealth * healingPercentage);
     }
 }

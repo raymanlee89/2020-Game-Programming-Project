@@ -11,10 +11,29 @@ public class UserControler : MonoBehaviour
     public Text resourceCount;
     public Image batteryIcon;
     public Text batteryCount;
+    public Sprite defaultImage;
+    public Sprite defaultWithFrashlightImage;
+    public Sprite changingImage;
+    public Sprite changingWithFrashlightImage;
     FrashlightUser frashlightUser;
     ResourceUser[] users = null;
     Inventory inventory;
     int selectedUser = 0;
+
+    #region Singleton
+    public static UserControler instance;
+
+    void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one of instance of UImanager found!");
+            return;
+        }
+        instance = this;
+    }
+
+    #endregion
 
     // Start is called before the first frame update
     void Start()

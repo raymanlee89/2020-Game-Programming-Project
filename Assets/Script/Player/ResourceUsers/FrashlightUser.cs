@@ -13,7 +13,7 @@ public class FrashlightUser : MonoBehaviour
     float power;
     bool flashingOrNot = false;
     Inventory inventory;
-    
+
     void Start()
     {
         inventory = Inventory.instance;
@@ -72,12 +72,20 @@ public class FrashlightUser : MonoBehaviour
         if(frashlight.activeSelf)
         {
             frashlight.SetActive(false);
+            AnimationManager.instance?.SwitchFrashlight(false);
         }
         else if (power > 0)
         {
-            frashlight.SetActive(true);
+            StartCoroutine(TakeOutFrashlight());
         }
         return false;
+    }
+
+    IEnumerator TakeOutFrashlight()
+    {
+        AnimationManager.instance?.SwitchFrashlight(true);
+        yield return new WaitForSeconds(0.2f);
+        frashlight.SetActive(true);
     }
 
     // change the battery
@@ -104,5 +112,6 @@ public class FrashlightUser : MonoBehaviour
         }
         frashlight.SetActive(false);
         flashingOrNot = false;
+        frashlight.SetActive(false);
     }
 }

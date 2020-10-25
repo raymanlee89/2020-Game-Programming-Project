@@ -8,7 +8,15 @@ public class FullScreenFlareUser : ResourceUser
 
     protected override bool ItemAct()
     {
-        flareInHand.SetActive(true);
+        if (flareInHand.activeSelf)
+            return false;
+        StartCoroutine(TriggerTheFlare());
         return true;
+    }
+
+    IEnumerator TriggerTheFlare()
+    {
+        yield return new WaitForSeconds(0.4f);
+        flareInHand.SetActive(true);
     }
 }

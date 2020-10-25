@@ -67,6 +67,12 @@ public class DialogueManager : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(TypeSentence(sentence));
         }
+
+        if (sentences.Count == 1)
+        {
+            StartCoroutine(AutoEndCountdown());
+            Debug.Log("Start auto end countdown");
+        }
     }
 
     IEnumerator TypeSentence(string sentence)
@@ -80,6 +86,12 @@ public class DialogueManager : MonoBehaviour
         }
         sentences.Dequeue();
         isTypingSentence = false;
+    }
+
+    IEnumerator AutoEndCountdown()
+    {
+        yield return new WaitForSeconds(5f);
+        EndDialogue();
     }
 
     void EndDialogue()

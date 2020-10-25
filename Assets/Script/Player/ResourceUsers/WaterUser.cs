@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class WaterUser : ResourceUser
 {
@@ -13,8 +14,14 @@ public class WaterUser : ResourceUser
     {
         if (playerMovement.IsFullEnergy())
             return false;
-        playerMovement.RecoverEnergy();
-        SoundManager.instance?.Play("DrinkWater");
+        StartCoroutine(WaitHoldTheBottle());
         return true;
+    }
+
+    IEnumerator WaitHoldTheBottle()
+    {
+        yield return new WaitForSeconds(0.3f);
+        SoundManager.instance?.Play("DrinkWater");
+        playerMovement.RecoverEnergy();
     }
 }
