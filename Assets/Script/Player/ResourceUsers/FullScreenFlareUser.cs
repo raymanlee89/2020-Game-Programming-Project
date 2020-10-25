@@ -11,12 +11,13 @@ public class FullScreenFlareUser : ResourceUser
         if (flareInHand.activeSelf)
             return false;
         StartCoroutine(TriggerTheFlare());
+        UserControler.instance?.frashlightUser.TurnOffFrashlight();
         return true;
     }
 
     IEnumerator TriggerTheFlare()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.5f);
         flareInHand.SetActive(true);
     }
 }

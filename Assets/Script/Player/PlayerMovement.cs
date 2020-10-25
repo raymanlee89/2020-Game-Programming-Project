@@ -16,6 +16,21 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
     Vector2 mousePos;
 
+    #region Singleton
+    public static PlayerMovement instance;
+
+    void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one of instance of PlayerMovement found!");
+            return;
+        }
+        instance = this;
+    }
+
+    #endregion
+
     private enum RunningState
     {
         Normal,
@@ -101,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsFullEnergy()
     {
-        if (energy == maxEnergy)
+        if (energy >= maxEnergy)
             return true;
         return false;
     }

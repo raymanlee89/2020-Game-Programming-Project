@@ -15,7 +15,7 @@ public class UserControler : MonoBehaviour
     public Sprite defaultWithFrashlightImage;
     public Sprite changingImage;
     public Sprite changingWithFrashlightImage;
-    FrashlightUser frashlightUser;
+    public FrashlightUser frashlightUser;
     ResourceUser[] users = null;
     Inventory inventory;
     int selectedUser = 0;

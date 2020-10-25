@@ -69,6 +69,7 @@
     <Compile Include="Assets\Script\Player\ResourceUsers\FrashlightUser.cs" />
     <Compile Include="Assets\Script\Player\ResourceUsers\FullScreenFlareUser.cs" />
     <Compile Include="Assets\Script\Dialogue\DialogueManager.cs" />
+    <Compile Include="Assets\Script\Player\ResourceUsers\AnimationManager.cs" />
     <Compile Include="Assets\EZ-Camera-Shake-Unity-master\EZ-Camera-Shake-Unity-master\Assets\EZ Camera Shake\Scripts\CameraShakeInstance.cs" />
     <Compile Include="Assets\Script\Interactable\Openable.cs" />
     <Compile Include="Assets\Script\Player\PlayerInteractor.cs" />
@@ -93,7 +94,6 @@
     <Compile Include="Assets\Script\Dialogue\DialogueTrigger.cs" />
     <Compile Include="Assets\Script\Player\PlayerHealth.cs" />
     <Compile Include="Assets\Script\Player\ResourceUsers\BandageUser.cs" />
-    <Compile Include="Assets\Script\Player\ResourceUsers\AnimationManager.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\EZ-Camera-Shake-Unity-master\EZ-Camera-Shake-Unity-master\ProjectSettings\ProjectVersion.txt" />

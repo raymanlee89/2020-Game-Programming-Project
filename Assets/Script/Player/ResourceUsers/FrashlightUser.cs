@@ -29,7 +29,7 @@ public class FrashlightUser : MonoBehaviour
         if (Time.timeScale == 0f)
             return;
 
-        if (Input.GetButtonDown("OpenFrashlight") && !flashingOrNot)
+        if (Input.GetButtonDown("OpenFrashlight") && !flashingOrNot && !AnimationManager.instance.flareIsInHand)
         {
             MainAction();
         }
@@ -71,14 +71,18 @@ public class FrashlightUser : MonoBehaviour
         SoundManager.instance?.Play("ClickFrashlightSwitch");
         if(frashlight.activeSelf)
         {
-            frashlight.SetActive(false);
-            AnimationManager.instance?.SwitchFrashlight(false);
+            TurnOffFrashlight();
         }
         else if (power > 0)
         {
-            StartCoroutine(TakeOutFrashlight());
+            TurnOnFrashlight();
         }
         return false;
+    }
+
+    public void TurnOnFrashlight()
+    {
+        StartCoroutine(TakeOutFrashlight());
     }
 
     IEnumerator TakeOutFrashlight()
@@ -86,6 +90,12 @@ public class FrashlightUser : MonoBehaviour
         AnimationManager.instance?.SwitchFrashlight(true);
         yield return new WaitForSeconds(0.2f);
         frashlight.SetActive(true);
+    }
+
+    public void TurnOffFrashlight()
+    {
+        frashlight.SetActive(false);
+        AnimationManager.instance?.SwitchFrashlight(false);
     }
 
     // change the battery

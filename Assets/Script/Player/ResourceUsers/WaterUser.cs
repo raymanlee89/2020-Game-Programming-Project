@@ -3,16 +3,9 @@ using UnityEngine;
 
 public class WaterUser : ResourceUser
 {
-    PlayerMovement playerMovement;
-
-    private void Start()
-    {
-        playerMovement = GetComponent<PlayerMovement>();
-    }
-
     protected override bool ItemAct()
     {
-        if (playerMovement.IsFullEnergy())
+        if (PlayerMovement.instance.IsFullEnergy())
             return false;
         StartCoroutine(WaitHoldTheBottle());
         return true;
@@ -22,6 +15,6 @@ public class WaterUser : ResourceUser
     {
         yield return new WaitForSeconds(0.3f);
         SoundManager.instance?.Play("DrinkWater");
-        playerMovement.RecoverEnergy();
+        PlayerMovement.instance?.RecoverEnergy();
     }
 }

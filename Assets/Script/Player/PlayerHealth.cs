@@ -43,7 +43,7 @@ public class PlayerHealth : MonoBehaviour
 
     public bool IsFullHealth()
     {
-        if (health == maxHealth)
+        if (health >= maxHealth)
             return true;
         return false;
     }
