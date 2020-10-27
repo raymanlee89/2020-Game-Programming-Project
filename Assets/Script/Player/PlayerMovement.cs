@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     public float runningSpeed;
     public float tiredSpeed;
     public float maxEnergy;
+    public Volume postProcessingVolume;
+    Vignette vignette;
+    int staredCount = 0;
     float energy;
     float moveSpeed;
     RunningState runningState;
@@ -46,6 +51,10 @@ public class PlayerMovement : MonoBehaviour
         energy = maxEnergy;
         UIManager.instance?.energyBar.SetMaxFill(maxEnergy);
         runningState = RunningState.Normal;
+        if (postProcessingVolume.profile.TryGet<Vignette>(out vignette))
+        {
+            Debug.Log("Vignette exists");
+        }
     }
 
     void Update()
@@ -83,17 +92,18 @@ public class PlayerMovement : MonoBehaviour
         {
             RecoverEnergy();
         }
-        else if(runningState == RunningState.Running)
+        else if(runningState == RunningState.Running || staredCount > 0)
         {
-            energy -= Time.deltaTime;
+            if(energy > 0)
+                energy -= Time.deltaTime;
             UIManager.instance?.energyBar.SetFill(energy);
         }
-        else if(runningState != RunningState.Running)
+        else if(runningState != RunningState.Running && staredCount == 0)
         {
             energy += Time.deltaTime/3;
             UIManager.instance?.energyBar.SetFill(energy);
         }
-        
+        vignette.intensity.value = 1 - (energy / maxEnergy);
         //Debug.Log("Present Energy :" + presentEnergy);
     }
 
@@ -119,5 +129,19 @@ public class PlayerMovement : MonoBehaviour
         if (energy >= maxEnergy)
             return true;
         return false;
+    }
+
+    public void StartBeingStared()
+    {
+        staredCount++;
+        if (staredCount == 1)
+            SoundManager.instance?.Play("Scaring");
+    }
+
+    public void StopBeingStared()
+    {
+        staredCount--;
+        if(staredCount == 0 && runningState != RunningState.Running)
+            SoundManager.instance?.StopPlay("Scaring", 1f);
     }
 }

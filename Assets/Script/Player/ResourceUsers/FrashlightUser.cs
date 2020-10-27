@@ -122,6 +122,6 @@ public class FrashlightUser : MonoBehaviour
         }
         frashlight.SetActive(false);
         flashingOrNot = false;
-        frashlight.SetActive(false);
+        TurnOffFrashlight();
     }
 }

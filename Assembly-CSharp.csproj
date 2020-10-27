@@ -94,6 +94,7 @@
     <Compile Include="Assets\Script\Dialogue\DialogueTrigger.cs" />
     <Compile Include="Assets\Script\Player\PlayerHealth.cs" />
     <Compile Include="Assets\Script\Player\ResourceUsers\BandageUser.cs" />
+    <Compile Include="Assets\Script\Enemy\StaringArea.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\EZ-Camera-Shake-Unity-master\EZ-Camera-Shake-Unity-master\ProjectSettings\ProjectVersion.txt" />

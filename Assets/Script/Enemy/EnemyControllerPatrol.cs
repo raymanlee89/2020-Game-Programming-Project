@@ -48,8 +48,8 @@ public class EnemyControllerPatrol : MonoBehaviour
 		    if(Dis <= 0.01){
 		    	Debug.Log("touched");
 		    	ownRb.MovePosition(target_position);
-		    	SwitchTarget();
-		    }
+                StartCoroutine(Turn());
+            }
 		}
 		else
         {
@@ -57,17 +57,26 @@ public class EnemyControllerPatrol : MonoBehaviour
 		}
     }	
 
-    IEnumerator Turn(float angle)
+    IEnumerator Turn()
     {
-    	Debug.Log("turn!");
     	IsSwitching = true;
-    	float AdjAngle = AdjustDegree(angle - ownRb.rotation);
+
+        // switch target
+        CurrentTarget = (CurrentTarget + 1) % C;
+        target_position = target[CurrentTarget].position;
+        movement = target_position - ownRb.position;
+        movement = movement.normalized;
+        float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg - 90f;
+
+        // turnning
+        Debug.Log("turn!");
+        float AdjAngle = AdjustDegree(angle - ownRb.rotation);
     	if(AdjAngle > 0)
         {
     		while(AdjustDegree(angle - ownRb.rotation) > rotateSpeed)
             {
     			ownRb.rotation = ownRb.rotation + rotateSpeed;
-    			yield return 0;
+    			yield return new WaitForSeconds(0.01f);
     		}
     		ownRb.rotation = angle;
     	}
@@ -76,23 +85,12 @@ public class EnemyControllerPatrol : MonoBehaviour
     		while(AdjustDegree(angle - ownRb.rotation) < -1 * rotateSpeed)
             {
     			ownRb.rotation = ownRb.rotation - rotateSpeed;
-    			yield return 0;
-    		}
+    			yield return new WaitForSeconds(0.01f);
+            }
     		ownRb.rotation = angle;
     	}
     	IsSwitching = false;
-		
     }
-
-	void SwitchTarget()
-    {
-		CurrentTarget = (CurrentTarget + 1) % C;
-		target_position = target[CurrentTarget].position;
-    	movement = target_position - ownRb.position;
-        movement = movement.normalized;
-        float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg - 90f;
-        StartCoroutine(Turn(angle));
-	}
 
 	void OnDrawGizmos(){
 		if(target.Capacity >= 2)
