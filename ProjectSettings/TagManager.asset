@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Puddle
   - Enemy
+  - Interacter
   layers:
   - Default
   - TransparentFX
@@ -49,12 +50,15 @@ TagManager:
   - name: ObjectOnTheGround
     uniqueID: 2350444445
     locked: 0
+  - name: Table
+    uniqueID: 3595261477
+    locked: 0
+  - name: ObjectOnTheTable
+    uniqueID: 3240720303
+    locked: 0
   - name: Player
     uniqueID: 1864498437
     locked: 0
   - name: Wall
     uniqueID: 349263991
-    locked: 0
-  - name: ObjectOnTheTop
-    uniqueID: 3240720303
     locked: 0

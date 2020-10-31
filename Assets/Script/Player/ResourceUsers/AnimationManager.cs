@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class AnimationManager : MonoBehaviour
 {
-    int mode = 0; // 0 : frashlight off, 1 : frashlight on
+    private enum RightHandMode
+    {
+        Nothing,
+        Frashlight,
+        Flare
+    }
+
+    RightHandMode rightHandMode;
     public Sprite[] defaultImage; // 1 : with frashlight, 2 : with flare (right hand)
 
     public Sprite takeOutFrashlightImage;
@@ -58,7 +65,7 @@ public class AnimationManager : MonoBehaviour
         GFX.sprite = takeOutFrashlightImage;
         yield return new WaitForSeconds(0.2f);
         GFX.sprite = defaultImage[1];
-        mode = 1;
+        rightHandMode = RightHandMode.Frashlight;
     }
 
     IEnumerator TurnOffFrashlight()
@@ -66,7 +73,7 @@ public class AnimationManager : MonoBehaviour
         GFX.sprite = takeOutFrashlightImage;
         yield return new WaitForSeconds(0.2f);
         GFX.sprite = defaultImage[0];
-        mode = 0;
+        rightHandMode = RightHandMode.Nothing;
     }
 
     public void UseItem(string userType)
@@ -77,6 +84,12 @@ public class AnimationManager : MonoBehaviour
 
     IEnumerator UseItemAnimation(string userType)
     {
+        int mode = 0;
+        if (rightHandMode == RightHandMode.Frashlight)
+            mode = 1;
+        else if (rightHandMode == RightHandMode.Flare)
+            mode = 2;
+
         GFX.sprite = takingImage[mode];
 
         if (userType == "Flare")
@@ -87,10 +100,10 @@ public class AnimationManager : MonoBehaviour
                 yield return new WaitForSeconds(0.2f);
                 GFX.sprite = flareImage[i];
             }
-            mode = 2;
+            rightHandMode = RightHandMode.Flare;
             yield return new WaitForSeconds(6f);
             flareIsInHand = false;
-            mode = 0;
+            rightHandMode = RightHandMode.Nothing;
         }
         else
         {
@@ -111,21 +124,21 @@ public class AnimationManager : MonoBehaviour
                 userTypeIndex = 2;
 
             yield return new WaitForSeconds(0.2f);
-            if (mode == 0)
+            if (rightHandMode == RightHandMode.Nothing)
             {
                 GFX.sprite = holdInHandImage[userTypeIndex];
                 yield return new WaitForSeconds(0.2f);
                 GFX.sprite = usingImage[userTypeIndex];
                 yield return new WaitForSeconds(duration);
             }
-            else if (mode == 1)
+            else if (rightHandMode == RightHandMode.Frashlight)
             {
                 GFX.sprite = holdInHandWithFrashlightImage[userTypeIndex];
                 yield return new WaitForSeconds(0.2f);
                 GFX.sprite = usingWithFrashlightImage[userTypeIndex];
                 yield return new WaitForSeconds(duration);
             }
-            else if (mode == 2)
+            else if (rightHandMode == RightHandMode.Flare)
             {
                 GFX.sprite = holdInHandWithFlareImage[userTypeIndex];
                 yield return new WaitForSeconds(0.2f);
@@ -133,6 +146,12 @@ public class AnimationManager : MonoBehaviour
                 yield return new WaitForSeconds(duration);
             }
         }
+
+        mode = 0;
+        if (rightHandMode == RightHandMode.Frashlight)
+            mode = 1;
+        else if (rightHandMode == RightHandMode.Flare)
+            mode = 2;
         GFX.sprite = defaultImage[mode];
     }
 }

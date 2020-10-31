@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
 
         if (instance != null)
         {
-            Debug.LogWarning("More than one of instance of Inventory found!");
+            Debug.LogWarning("More than one of instance of PlayerManager found!");
             return;
         }
         instance = this;

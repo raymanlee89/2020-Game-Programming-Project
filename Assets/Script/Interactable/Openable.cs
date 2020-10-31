@@ -50,7 +50,7 @@ public class Openable : Interactable
     void TryToUnlock()
     {
         Debug.Log("Try to unlock");
-        if(Inventory.instance.clues.Contains(key))
+        if(Inventory.instance.clues.Contains(key) || Inventory.instance.resourceCount.ContainsKey(key))
         {
             SoundManager.instance?.Play("Unlock");
             isLocked = false;

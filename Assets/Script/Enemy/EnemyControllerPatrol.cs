@@ -6,12 +6,11 @@ public class EnemyControllerPatrol : MonoBehaviour
 {
 	public float moveSpeed;
 	public float rotateSpeed;
-	public bool moveToTarget1;
+	//public bool moveToTarget1;
 	public List<Transform> target = new List<Transform>();
 
-	int CurrentTarget;
-	int C;
-	bool IsSwitching;
+	int currentTargetIndex;
+	bool IsTurning = false;
 	Vector2 movement;
     Vector2 target_position;
     Rigidbody2D ownRb;
@@ -19,77 +18,64 @@ public class EnemyControllerPatrol : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-    	IsSwitching = false;
-    	C = target.Capacity;
-    	CurrentTarget = 0;
+    	currentTargetIndex = 0;
         ownRb = GetComponent<Rigidbody2D>();
 
-        target_position = target[CurrentTarget].position;
+        target_position = target[currentTargetIndex].position;
     	movement = target_position - ownRb.position;
         movement = movement.normalized;
         float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg - 90f;
-	    ownRb.rotation = angle;
-	    
-	    if(moveToTarget1){
-	    	ownRb.MovePosition(target[0].position);
-	    }
+        ownRb.rotation = angle;
+
+	    ownRb.MovePosition(target[0].position);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!IsSwitching)
+        if (!IsTurning)
         {
             movement = target_position - ownRb.position;
             movement = movement.normalized;
             ownRb.MovePosition(ownRb.position + movement * moveSpeed * Time.deltaTime);
 
             float Dis = Vector2.Distance(target_position, ownRb.position);
-		    if(Dis <= 0.01){
-		    	Debug.Log("touched");
-		    	ownRb.MovePosition(target_position);
+            if (Dis <= 0.01f)
+            {
+                Debug.Log("touched");
+                ownRb.MovePosition(target_position);
                 StartCoroutine(Turn());
             }
-		}
-		else
-        {
-			//switching
-		}
-    }	
+        }
+    }
+    
+    void ChangeTarget ()
+    {
+        currentTargetIndex = (currentTargetIndex + 1) % target.Capacity;
+        target_position = target[currentTargetIndex].position;
+        movement = target_position - ownRb.position;
+        movement = movement.normalized;
+    }
 
     IEnumerator Turn()
     {
-    	IsSwitching = true;
+        IsTurning = true;
 
-        // switch target
-        CurrentTarget = (CurrentTarget + 1) % C;
-        target_position = target[CurrentTarget].position;
-        movement = target_position - ownRb.position;
-        movement = movement.normalized;
-        float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg - 90f;
+        ChangeTarget();
 
         // turnning
         Debug.Log("turn!");
+        float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg - 90f;
         float AdjAngle = AdjustDegree(angle - ownRb.rotation);
-    	if(AdjAngle > 0)
+        while(Mathf.Abs(AdjAngle) > rotateSpeed)
         {
-    		while(AdjustDegree(angle - ownRb.rotation) > rotateSpeed)
-            {
-    			ownRb.rotation = ownRb.rotation + rotateSpeed;
-    			yield return new WaitForSeconds(0.01f);
-    		}
-    		ownRb.rotation = angle;
-    	}
-    	else
-        {
-    		while(AdjustDegree(angle - ownRb.rotation) < -1 * rotateSpeed)
-            {
-    			ownRb.rotation = ownRb.rotation - rotateSpeed;
-    			yield return new WaitForSeconds(0.01f);
-            }
-    		ownRb.rotation = angle;
-    	}
-    	IsSwitching = false;
+            ownRb.rotation = ownRb.rotation + Mathf.Sign(AdjAngle) * rotateSpeed;
+            AdjAngle = AdjustDegree(angle - ownRb.rotation);
+            yield return null;
+        }
+        ownRb.rotation = angle;
+
+    	IsTurning = false;
     }
 
 	void OnDrawGizmos(){

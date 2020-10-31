@@ -11,7 +11,7 @@ public class ItemSlot : MonoBehaviour
     {
         item = newItem;
 
-        icon.sprite = newItem.icon;
+        icon.sprite = newItem.image;
         icon.enabled = true;
     }
 

@@ -24,12 +24,17 @@ public class Inventory : MonoBehaviour
     public Dictionary<Item, int> resourceCount = new Dictionary<Item, int>();
     [HideInInspector]
     public List<Item> clues;
+    [HideInInspector]
+    public List<Item> gears;
 
     public delegate void OnClueChanged();
     public OnClueChanged onClueChangedCallBack;
 
     public delegate void OnResourceChanged(Item resource);
     public OnResourceChanged onResourceChangedCallBack;
+
+    public delegate void OnGearChanged(Item resource);
+    public OnGearChanged onGearChangedCallBack;
 
     public delegate void ShowCluePanelCall(Item resource);
     public ShowCluePanelCall showCluePanelCall;
@@ -47,8 +52,10 @@ public class Inventory : MonoBehaviour
             else
             {
                 resourceCount.Add(item, 1);
+                gears.Add(item);
                 Debug.Log("New Resource " + item.name + " " + resourceCount[item]);
                 onResourceChangedCallBack?.Invoke(item);
+                onGearChangedCallBack?.Invoke(item);
                 showCluePanelCall?.Invoke(item);
             }
         }

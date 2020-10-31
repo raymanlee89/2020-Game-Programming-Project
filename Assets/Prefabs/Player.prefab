@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 1722307236}
   m_Layer: 0
   m_Name: Interactor
-  m_TagString: Untagged
+  m_TagString: Interacter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722307234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0.63, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 878881300299308065}
@@ -87,9 +87,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.14811444}
+  m_Offset: {x: -0.0004720688, y: -0.12836379}
   serializedVersion: 2
-  m_Radius: 0.412552
+  m_Radius: 0.65148497
 --- !u!1 &878881299974516743
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 00000000d70cd1c89def188c05fd216f7758d114af7729c1
+  m_ApplyToSortingLayers: 00000000d70cd1c89def188c25564bd605fd216f7758d114af7729c1
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -284,7 +284,7 @@ MonoBehaviour:
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000d70cd1c89def188c05fd216f7758d114af7729c1
+  m_ApplyToSortingLayers: 00000000d70cd1c89def188c25564bd605fd216f7758d114af7729c1
   m_ShapePath:
   - {x: 0.7161678, y: -1.3914689, z: 0}
   - {x: 1.3168676, y: -1.4092479, z: 0}
@@ -294,7 +294,7 @@ MonoBehaviour:
   - {x: 0.37483972, y: -1.0703464, z: 0}
   m_ShapePathHash: 1747792360
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1716
+  m_InstanceId: -42122
 --- !u!212 &1260757010
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -333,7 +333,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1864498437
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 558276645322730826, guid: 58d8e3875ecc39e4c83abbdc85c09850, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -361,31 +361,42 @@ MonoBehaviour:
   defaultImage:
   - {fileID: 1682162215945569519, guid: ffa73e737b4c6fd4da2296e36306fd45, type: 3}
   - {fileID: -661077468876314764, guid: ffa73e737b4c6fd4da2296e36306fd45, type: 3}
+  - {fileID: -6591551515366475330, guid: 33dd514cb9614d948b4acdf0fc1faa57, type: 3}
   takeOutFrashlightImage: {fileID: 4920282242124885517, guid: ffa73e737b4c6fd4da2296e36306fd45,
     type: 3}
+  flareImage:
+  - {fileID: -6447279548697851978, guid: 33dd514cb9614d948b4acdf0fc1faa57, type: 3}
+  - {fileID: -1828784154493550395, guid: 33dd514cb9614d948b4acdf0fc1faa57, type: 3}
+  - {fileID: -6591551515366475330, guid: 33dd514cb9614d948b4acdf0fc1faa57, type: 3}
   takingImage:
   - {fileID: 4421884601807769259, guid: ffa73e737b4c6fd4da2296e36306fd45, type: 3}
+  - {fileID: -4847536834858857606, guid: 58d8e3875ecc39e4c83abbdc85c09850, type: 3}
   - {fileID: -4847536834858857606, guid: 58d8e3875ecc39e4c83abbdc85c09850, type: 3}
   holdInHandImage:
   - {fileID: 6687480367788018120, guid: ffa73e737b4c6fd4da2296e36306fd45, type: 3}
   - {fileID: 7375907458802178781, guid: ffa73e737b4c6fd4da2296e36306fd45, type: 3}
   - {fileID: -4178824759077432837, guid: ffa73e737b4c6fd4da2296e36306fd45, type: 3}
-  - {fileID: -3625570717394048454, guid: ffa73e737b4c6fd4da2296e36306fd45, type: 3}
   usingImage:
   - {fileID: 3137865224441286271, guid: ffa73e737b4c6fd4da2296e36306fd45, type: 3}
   - {fileID: -2359267587719627356, guid: ffa73e737b4c6fd4da2296e36306fd45, type: 3}
   - {fileID: 5545736509361927945, guid: ffa73e737b4c6fd4da2296e36306fd45, type: 3}
-  - {fileID: 1265497377778707890, guid: ffa73e737b4c6fd4da2296e36306fd45, type: 3}
   holdInHandWithFrashlightImage:
   - {fileID: 7019657637811031336, guid: 58d8e3875ecc39e4c83abbdc85c09850, type: 3}
   - {fileID: -3630140501633284603, guid: 58d8e3875ecc39e4c83abbdc85c09850, type: 3}
   - {fileID: -8069722812910653979, guid: 58d8e3875ecc39e4c83abbdc85c09850, type: 3}
-  - {fileID: 2809306499959211814, guid: 58d8e3875ecc39e4c83abbdc85c09850, type: 3}
   usingWithFrashlightImage:
   - {fileID: -5297314397878231864, guid: 58d8e3875ecc39e4c83abbdc85c09850, type: 3}
   - {fileID: 4584019175670964948, guid: 58d8e3875ecc39e4c83abbdc85c09850, type: 3}
   - {fileID: 3656684025487525413, guid: 58d8e3875ecc39e4c83abbdc85c09850, type: 3}
-  - {fileID: -4520891554167493803, guid: 58d8e3875ecc39e4c83abbdc85c09850, type: 3}
+  holdInHandWithFlareImage:
+  - {fileID: 4914026621562201162, guid: 33dd514cb9614d948b4acdf0fc1faa57, type: 3}
+  - {fileID: 8839850953270291390, guid: 33dd514cb9614d948b4acdf0fc1faa57, type: 3}
+  - {fileID: 1555909297379508215, guid: 33dd514cb9614d948b4acdf0fc1faa57, type: 3}
+  usingWithFlareImage:
+  - {fileID: 4750727578176695317, guid: 33dd514cb9614d948b4acdf0fc1faa57, type: 3}
+  - {fileID: 1461026738018285596, guid: 33dd514cb9614d948b4acdf0fc1faa57, type: 3}
+  - {fileID: 6500020484505611230, guid: 33dd514cb9614d948b4acdf0fc1faa57, type: 3}
+  flareIsInHand: 0
 --- !u!1 &878881300299308092
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,8 +463,8 @@ MonoBehaviour:
   frashlight: {fileID: 878881299974516743}
   maxPower: 60
   flashingTimePeriod: 0.2
-  powerBarNumber: {fileID: 0}
   resource: {fileID: 11400000, guid: 62f54146f72081443ba23d493fbc11b6, type: 2}
+  frashlightItem: {fileID: 11400000, guid: d8390f2e8fc5e8143b930e58a703e532, type: 2}
 --- !u!114 &878881300299308095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,6 +481,7 @@ MonoBehaviour:
   runningSpeed: 5
   tiredSpeed: 1
   maxEnergy: 5
+  postProcessingVolume: {fileID: 0}
 --- !u!50 &878881300299308093
 Rigidbody2D:
   serializedVersion: 4
@@ -522,8 +534,8 @@ MonoBehaviour:
     type: 3}
   leftStep: {fileID: 4214731685368310239, guid: 1245d5ced56109146a41d7fa09936d94,
     type: 3}
-  stepDistance: 1
-  footprintEffectiveDuration: 5
+  stepDistance: 0.8
+  footprintEffectiveDuration: 10
 --- !u!114 &1175550118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,11 +610,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce383b2e3cfc4cf4da6986147e08b5d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userIcon: {fileID: 0}
-  resourceIcon: {fileID: 0}
-  resourceCount: {fileID: 0}
-  batteryIcon: {fileID: 0}
-  batteryCount: {fileID: 0}
   defaultImage: {fileID: 1682162215945569519, guid: ffa73e737b4c6fd4da2296e36306fd45,
     type: 3}
   defaultWithFrashlightImage: {fileID: -661077468876314764, guid: ffa73e737b4c6fd4da2296e36306fd45,
@@ -611,6 +618,7 @@ MonoBehaviour:
     type: 3}
   changingWithFrashlightImage: {fileID: -4847536834858857606, guid: 58d8e3875ecc39e4c83abbdc85c09850,
     type: 3}
+  frashlightUser: {fileID: 0}
 --- !u!114 &1356604161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -624,6 +632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clues: []
+  gears: []
 --- !u!114 &1494476173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -805,7 +814,7 @@ PrefabInstance:
     - target: {fileID: 6744154091548796990, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
         type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6744154091548796990, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
         type: 3}
@@ -830,11 +839,21 @@ PrefabInstance:
     - target: {fileID: 6744154091548796990, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
         type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.data[4]
-      value: 349263991
+      value: 1864498437
       objectReference: {fileID: 0}
     - target: {fileID: 6744154091548796990, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
         type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.data[5]
+      value: 349263991
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744154091548796990, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
+        type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[3]
+      value: -699705819
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744154091548796990, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
+        type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[6]
       value: -1054246993
       objectReference: {fileID: 0}
     - target: {fileID: 6744154091548796991, guid: 48149ef2a8e49ab41a1d25dc90ef6682,

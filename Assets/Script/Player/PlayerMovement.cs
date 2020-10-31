@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = runningSpeed;
             SoundManager.instance?.Play("RunningBreath");
         }
-        else if(Input.GetButtonUp("Run") && runningState == RunningState.Running)
+        else if(runningState == RunningState.Running && Input.GetButtonUp("Run"))
         {
             //Debug.Log("Stop running");
             runningState = RunningState.Normal;

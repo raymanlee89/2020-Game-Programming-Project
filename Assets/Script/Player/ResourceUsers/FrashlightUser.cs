@@ -8,8 +8,8 @@ public class FrashlightUser : MonoBehaviour
     public GameObject frashlight;
     public float maxPower;
     public float flashingTimePeriod;
-    public Text powerBarNumber;
     public Item resource;
+    public Item frashlightItem;
     float power;
     bool flashingOrNot = false;
     Inventory inventory;
@@ -18,10 +18,20 @@ public class FrashlightUser : MonoBehaviour
     {
         inventory = Inventory.instance;
         frashlight.SetActive(false);
-        power = 0;
+        power = maxPower;
         UIManager.instance?.powerBar.SetMaxFill(maxPower);
         UIManager.instance?.powerBar.SetFill(power);
-        powerBarNumber.text = (power / maxPower * 100).ToString("0") + "%";
+        UIManager.instance?.UpdatePowerBarNumber((power / maxPower * 100).ToString("0"));
+    }
+
+    private void OnEnable()
+    {
+        UIManager.instance?.OpenFrashlightUI(resource);
+    }
+
+    private void OnDisable()
+    {
+        UIManager.instance?.CloseFrashlightUI();
     }
 
     void Update()
@@ -39,14 +49,14 @@ public class FrashlightUser : MonoBehaviour
             {
                 power -= Time.deltaTime;
                 UIManager.instance?.powerBar.SetFill(power);
-                powerBarNumber.text = (power / maxPower * 100).ToString("0") + "%";
+                UIManager.instance?.UpdatePowerBarNumber((power / maxPower * 100).ToString("0"));
             }
             else // run out of power
             {
                 StartCoroutine(Flashing());
                 power = 0;
                 UIManager.instance?.powerBar.SetFill(power);
-                powerBarNumber.text = (power / maxPower * 100).ToString("0") + "%";
+                UIManager.instance?.UpdatePowerBarNumber("0");
             }
         }
         else if(power <= 0 && HasEnoughResource() && !frashlight.activeSelf && !flashingOrNot) // atomatically change battery
@@ -104,8 +114,8 @@ public class FrashlightUser : MonoBehaviour
         SoundManager.instance?.Play("ChangeBattery");
         power = maxPower;
         UIManager.instance?.powerBar.SetFill(power);
-        powerBarNumber.text = (power / maxPower * 100).ToString("0") + "%";
-        if(HasEnoughResource())
+        UIManager.instance?.UpdatePowerBarNumber((power / maxPower * 100).ToString("0"));
+        if (HasEnoughResource())
             inventory.Remove(resource);
     }
 

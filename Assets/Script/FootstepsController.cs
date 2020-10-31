@@ -11,7 +11,7 @@ public class FootstepsController: MonoBehaviour
     float footprintEffectiveDurationLeft = 0f;
     bool nextRightStep = true;
     bool creatingFootstepSound = false;
-    string footstepSoundType;
+    string footstepSoundType = "NormalFootstepSound";
     Vector2 lastPosition;
 
     void Start()

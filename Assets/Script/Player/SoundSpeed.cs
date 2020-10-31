@@ -15,7 +15,7 @@ public class SoundSpeed : MonoBehaviour
     public float closePitch = 1.5f; //pitch會被audiomixer凹回來，所以這邊是速度
     public float farPitch = 0.5f;
     public AudioMixer AudioSpeedUp;
-    GameObject[] enemies;
+    GameObject[] enemies = null;
     GameObject closest = null;
 
     // Start is called before the first frame update
@@ -27,12 +27,17 @@ public class SoundSpeed : MonoBehaviour
         //Initialize the pitch
         audioSource.pitch = startingPitch;
 
+        audioSource.volume = 0; //調音量
+
         enemies = ScanEnemy();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (enemies.Length == 0)
+            return;
+
         float distance = Mathf.Infinity; //一開始為無限遠（等於沒enemy）
         Vector3 position = transform.position;
         foreach (GameObject go in enemies) //對每個找

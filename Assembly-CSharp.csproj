@@ -56,6 +56,7 @@
     <Compile Include="Assets\Script\Player\SoundSpeed.cs" />
     <Compile Include="Assets\Script\Item\Item.cs" />
     <Compile Include="Assets\Script\Sound.cs" />
+    <Compile Include="Assets\Script\Enemy\StaringArea.cs" />
     <Compile Include="Assets\Script\FootprintVanisher.cs" />
     <Compile Include="Assets\Script\Player\ResourceUsers\ResourceUser.cs" />
     <Compile Include="Assets\EZ-Camera-Shake-Unity-master\EZ-Camera-Shake-Unity-master\Assets\EZ Camera Shake\Demo\Sample Scripts\ShakeByDistance.cs" />
@@ -94,7 +95,8 @@
     <Compile Include="Assets\Script\Dialogue\DialogueTrigger.cs" />
     <Compile Include="Assets\Script\Player\PlayerHealth.cs" />
     <Compile Include="Assets\Script\Player\ResourceUsers\BandageUser.cs" />
-    <Compile Include="Assets\Script\Enemy\StaringArea.cs" />
+    <Compile Include="Assets\Script\Interactable\Grabbable.cs" />
+    <Compile Include="Assets\Script\PlotManager.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\EZ-Camera-Shake-Unity-master\EZ-Camera-Shake-Unity-master\ProjectSettings\ProjectVersion.txt" />
