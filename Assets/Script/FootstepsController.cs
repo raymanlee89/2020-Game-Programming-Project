@@ -73,6 +73,13 @@ public class FootstepsController: MonoBehaviour
             creatingFootstepSound = true;
             footstepSoundType = collision.tag + "FootstepSound";
         }
+
+        if (collision.gameObject.tag == "Podium")
+        {
+            Debug.Log("Step in podium");
+            creatingFootstepSound = true;
+            footstepSoundType = collision.tag + "FootstepSound";
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -83,5 +90,12 @@ public class FootstepsController: MonoBehaviour
             footprintEffectiveDurationLeft = footprintEffectiveDuration;
             creatingFootstepSound = false;
         }
+        
+        if (collision.gameObject.tag == "Podium")
+        {
+            Debug.Log("Step out podium");
+            creatingFootstepSound = false;
+        }
+        
     }
 }

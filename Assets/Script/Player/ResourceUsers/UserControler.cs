@@ -134,6 +134,6 @@ public class UserControler : MonoBehaviour
         if (availableUsers.Count == 1)
             UIManager.instance?.OpenResourceUserUI();
 
-        UpdateResourceUserUI();
+        SelectUser();
     }
 }

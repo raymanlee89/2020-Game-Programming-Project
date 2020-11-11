@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    private Queue<string> sentences;
+    private Queue<string> sentences = new Queue<string>();
     public GameObject dialoguePanel;
     public Text speakerNameText;
     public Text dialogueText;
@@ -29,7 +29,6 @@ public class DialogueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sentences = new Queue<string>();
         dialoguePanel.SetActive(false);
     }
 
@@ -37,7 +36,8 @@ public class DialogueManager : MonoBehaviour
     {
         dialoguePanel.SetActive(true);
         speakerNameText.text = dialogue.speakerName;
-        foreach(string sentence in dialogue.sentences)
+        sentences.Clear();
+        foreach (string sentence in dialogue.sentences)
         {
             sentences.Enqueue(sentence);
         }
@@ -68,11 +68,8 @@ public class DialogueManager : MonoBehaviour
             StartCoroutine(TypeSentence(sentence));
         }
 
-        if (sentences.Count == 1)
-        {
-            StartCoroutine(AutoEndCountdown());
-            Debug.Log("Start auto end countdown");
-        }
+        StartCoroutine(AutoNextCountdown());
+        Debug.Log("Start auto next countdown");
     }
 
     IEnumerator TypeSentence(string sentence)
@@ -82,16 +79,16 @@ public class DialogueManager : MonoBehaviour
         foreach(char letter in sentence)
         {
             dialogueText.text += letter;
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.1f);
         }
         sentences.Dequeue();
         isTypingSentence = false;
     }
 
-    IEnumerator AutoEndCountdown()
+    IEnumerator AutoNextCountdown()
     {
         yield return new WaitForSeconds(5f);
-        EndDialogue();
+        DisplayNextSentence();
     }
 
     void EndDialogue()

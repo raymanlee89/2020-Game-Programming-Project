@@ -24,13 +24,25 @@ public class PlotManager : MonoBehaviour
     [TextArea(1, 10)]
     public List<string> hints;
 
+    [TextArea(1, 10)]
+    public List<string> chapterMarks;
+
+    public List<DialogueTrigger> plotDialogueTriggers;
+
     private void Start()
     {
         ShowHint(0);
+        StartCoroutine(StartPlotDialogue(0.5f, 0));
     }
 
     public void ShowHint(int hintIndex)
     {
         UIManager.instance?.UpdateHintText(hints[hintIndex]);
+    }
+
+    IEnumerator StartPlotDialogue(float waitTime, int dialogueIndex)
+    {
+        yield return new WaitForSeconds(waitTime);
+        plotDialogueTriggers[dialogueIndex]?.TriggerDialogue();
     }
 }

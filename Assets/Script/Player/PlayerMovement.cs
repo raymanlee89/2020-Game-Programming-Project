@@ -64,8 +64,6 @@ public class PlayerMovement : MonoBehaviour
 
         movement = movement.normalized;
 
-        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-
         //running system
         if(Input.GetButtonDown("Run") && runningState == RunningState.Normal && energy > 0)
         {
@@ -98,9 +96,9 @@ public class PlayerMovement : MonoBehaviour
                 energy -= Time.deltaTime;
             UIManager.instance?.energyBar.SetFill(energy);
         }
-        else if(runningState != RunningState.Running && staredCount == 0)
+        else if(runningState != RunningState.Running && staredCount == 0 && energy < maxEnergy)
         {
-            energy += Time.deltaTime/3;
+            energy += Time.deltaTime/2;
             UIManager.instance?.energyBar.SetFill(energy);
         }
         vignette.intensity.value = 1 - (energy / maxEnergy);
@@ -109,6 +107,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         ownRb.MovePosition(ownRb.position + movement * moveSpeed * Time.fixedDeltaTime);
         Vector2 lookDir = mousePos - ownRb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;

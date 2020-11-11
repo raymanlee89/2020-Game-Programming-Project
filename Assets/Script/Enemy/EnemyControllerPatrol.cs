@@ -9,11 +9,11 @@ public class EnemyControllerPatrol : MonoBehaviour
 	//public bool moveToTarget1;
 	public List<Transform> target = new List<Transform>();
 
-	int currentTargetIndex;
-	bool IsTurning = false;
-	Vector2 movement;
-    Vector2 target_position;
-    Rigidbody2D ownRb;
+    protected int currentTargetIndex;
+	protected bool IsTurning = false;
+    protected Vector2 movement;
+    protected Vector2 target_position;
+    protected Rigidbody2D ownRb;
 
     // Start is called before the first frame update
     void Start()
@@ -48,8 +48,8 @@ public class EnemyControllerPatrol : MonoBehaviour
             }
         }
     }
-    
-    void ChangeTarget ()
+
+    protected void ChangeTarget ()
     {
         currentTargetIndex = (currentTargetIndex + 1) % target.Capacity;
         target_position = target[currentTargetIndex].position;
@@ -57,7 +57,7 @@ public class EnemyControllerPatrol : MonoBehaviour
         movement = movement.normalized;
     }
 
-    IEnumerator Turn()
+    protected IEnumerator Turn()
     {
         IsTurning = true;
 
@@ -78,7 +78,7 @@ public class EnemyControllerPatrol : MonoBehaviour
     	IsTurning = false;
     }
 
-	void OnDrawGizmos(){
+    protected void OnDrawGizmos(){
 		if(target.Capacity >= 2)
 		{
 			for(int i=0 ; i<target.Capacity ; i++)
@@ -89,7 +89,7 @@ public class EnemyControllerPatrol : MonoBehaviour
 		}
 	}
 
-	float AdjustDegree(float angle)
+    protected float AdjustDegree(float angle)
     {
 		float AdjAngle = angle;
 		while(AdjAngle > 180){

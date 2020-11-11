@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 283060152081616526}
   - component: {fileID: 3425742108013281094}
   - component: {fileID: 4236346358068435387}
+  - component: {fileID: 5628880501657955884}
   m_Layer: 0
   m_Name: Bandage
   m_TagString: Untagged
@@ -126,6 +127,36 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.6724875, y: 1.3150392}
   m_EdgeRadius: 0
+--- !u!114 &5628880501657955884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905248486481750789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000d70cd1c89def188c25564bd6
+  m_ShapePath:
+  - {x: -0.88260597, y: -0.4830866, z: 0}
+  - {x: 0.59391403, y: -0.4985524, z: 0}
+  - {x: 0.69154614, y: -0.40411878, z: 0}
+  - {x: 0.69670135, y: 0.48257935, z: 0}
+  - {x: 0.6248449, y: 0.5552596, z: 0}
+  - {x: -0.86198527, y: 0.5707255, z: 0}
+  - {x: -0.9684356, y: 0.47742406, z: 0}
+  - {x: -0.9684356, y: -0.38865316, z: 0}
+  m_ShapePathHash: 1378498497
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -237954
 --- !u!1 &6261136346307445568
 GameObject:
   m_ObjectHideFlags: 0

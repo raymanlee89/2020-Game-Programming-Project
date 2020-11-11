@@ -106,7 +106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &878881299974516745
 Transform:
   m_ObjectHideFlags: 0
@@ -261,7 +261,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 878881300139668313}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.882, y: 0.941, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.868011, y: 0.868011, z: 0.868011}
   m_Children: []
   m_Father: {fileID: 878881300299308065}
@@ -286,15 +286,15 @@ MonoBehaviour:
   m_SelfShadows: 0
   m_ApplyToSortingLayers: 00000000d70cd1c89def188c25564bd605fd216f7758d114af7729c1
   m_ShapePath:
-  - {x: 0.7161678, y: -1.3914689, z: 0}
-  - {x: 1.3168676, y: -1.4092479, z: 0}
-  - {x: 1.6586527, y: -1.101245, z: 0}
-  - {x: 1.2827257, y: -0.9548829, z: 0}
-  - {x: 0.7425942, y: -0.9489375, z: 0}
-  - {x: 0.37483972, y: -1.0703464, z: 0}
-  m_ShapePathHash: 1747792360
+  - {x: -0.27867648, y: -0.4229785, z: 0}
+  - {x: 0.23637444, y: -0.43416864, z: 0}
+  - {x: 0.63086647, y: -0.11298884, z: 0}
+  - {x: 0.25493956, y: 0.026785295, z: 0}
+  - {x: -0.3049574, y: 0.012963786, z: 0}
+  - {x: -0.6200043, y: -0.16773872, z: 0}
+  m_ShapePathHash: -754793693
   m_Mesh: {fileID: 0}
-  m_InstanceId: -42122
+  m_InstanceId: -155210
 --- !u!212 &1260757010
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -660,7 +660,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: b0c6e82bf3c0d6e4ab9d46324241678c,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 570eb59a0284c8e4082619adead32b82, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 922a431440d4edf4ca929c62904ff3c1, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -760,7 +760,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingPitch: 1
   minDist: 0.5
-  maxDist: 6
+  maxDist: 10
   closePitch: 1.5
   farPitch: 0.5
   AudioSpeedUp: {fileID: 24100000, guid: b0c6e82bf3c0d6e4ab9d46324241678c, type: 2}
@@ -789,11 +789,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.35254967, y: 0.30653727}
-      - {x: -0.5021118, y: -0.1255844}
-      - {x: -0.0003476739, y: -0.30563903}
-      - {x: 0.4875114, y: -0.16333473}
-      - {x: 0.35435808, y: 0.3144672}
+    - - {x: -0.37542474, y: 0.26650584}
+      - {x: -0.49639285, y: -0.22852209}
+      - {x: -0.0003476739, y: -0.3857019}
+      - {x: 0.4817927, y: -0.2433976}
+      - {x: 0.35435808, y: 0.27443576}
 --- !u!1001 &878881298923190310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -869,12 +869,12 @@ PrefabInstance:
     - target: {fileID: 6744154092984062778, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.03
       objectReference: {fileID: 0}
     - target: {fileID: 6744154092984062778, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.395
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 6744154092984062778, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
         type: 3}
