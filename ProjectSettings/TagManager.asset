@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Interacter
   - Podium
+  - Miner
+  - Zombie
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - Object
   - Player
   - Ground
-  - 
+  - Enemy
   - 
   - 
   - 

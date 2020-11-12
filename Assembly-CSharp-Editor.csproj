@@ -52,7 +52,12 @@
     <UnityVersion>2020.1.6f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\HardLight2D\Editor\HardLight2DEditor.cs" />
+    <Compile Include="Assets\SAP2D\Resources\Main\Editor\SAP2DAboutWindow.cs" />
+    <Compile Include="Assets\SAP2D\Resources\Main\Editor\SAP2DPathfinderEditor.cs" />
+    <Compile Include="Assets\SAP2D\Resources\Main\Editor\UserGridDataLoader.cs" />
+    <Compile Include="Assets\SAP2D\Resources\Main\Editor\SAP2DGridEditorWindow.cs" />
+    <Compile Include="Assets\SAP2D\Resources\Main\Editor\SAP2DPathfindingConfigEditor.cs" />
+    <Compile Include="Assets\SAP2D\Resources\Main\Editor\SAP2DDynamicObstacleEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -252,9 +257,6 @@
     </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\15.0\Editor\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
-    </Reference>
-    <Reference Include="HardLight2D">
-      <HintPath>Assets\HardLight2D\Scripts\HardLight2D.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.NRefactory">
       <HintPath>Library\PackageCache\com.unity.render-pipelines.core@8.2.0\Editor\ShaderGenerator\ICSharpCode.NRefactory.dll</HintPath>

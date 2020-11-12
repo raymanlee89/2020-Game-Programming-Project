@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1378774504}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FallPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 1722307235}
   - component: {fileID: 1722307237}
   - component: {fileID: 1722307236}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Interactor
   m_TagString: Interacter
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 878881299974516745}
   - component: {fileID: 878881299974516744}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Frashlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 878881300077611174}
   - component: {fileID: 878881300077611175}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BodyLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 484429259}
   - component: {fileID: 1260757010}
   - component: {fileID: 1260757008}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ MonoBehaviour:
   - {x: -0.6200043, y: -0.16773872, z: 0}
   m_ShapePathHash: -754793693
   m_Mesh: {fileID: 0}
-  m_InstanceId: -155210
+  m_InstanceId: -8566
 --- !u!212 &1260757010
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 1744428504}
   - component: {fileID: 1744428505}
   - component: {fileID: 948594910}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -461,7 +461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frashlight: {fileID: 878881299974516743}
-  maxPower: 60
+  maxPower: 180
   flashingTimePeriod: 0.2
   resource: {fileID: 11400000, guid: 62f54146f72081443ba23d493fbc11b6, type: 2}
   frashlightItem: {fileID: 11400000, guid: d8390f2e8fc5e8143b930e58a703e532, type: 2}
@@ -477,10 +477,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf77497d1c4a35d43add7eb3c6b95d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalSpeed: 3
-  runningSpeed: 5
+  normalSpeed: 2
+  runningSpeed: 6
   tiredSpeed: 1
-  maxEnergy: 5
+  maxEnergy: 8
   postProcessingVolume: {fileID: 0}
 --- !u!50 &878881300299308093
 Rigidbody2D:
@@ -534,7 +534,7 @@ MonoBehaviour:
     type: 3}
   leftStep: {fileID: 4214731685368310239, guid: 1245d5ced56109146a41d7fa09936d94,
     type: 3}
-  stepDistance: 0.8
+  stepDistance: 1.2
   footprintEffectiveDuration: 10
 --- !u!114 &1175550118
 MonoBehaviour:
@@ -760,7 +760,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingPitch: 1
   minDist: 0.5
-  maxDist: 10
+  maxDist: 12
   closePitch: 1.5
   farPitch: 0.5
   AudioSpeedUp: {fileID: 24100000, guid: b0c6e82bf3c0d6e4ab9d46324241678c, type: 2}
@@ -789,10 +789,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.37542474, y: 0.26650584}
-      - {x: -0.49639285, y: -0.22852209}
+    - - {x: -0.37102044, y: 0.32193387}
+      - {x: -0.46208036, y: -0.14098051}
       - {x: -0.0003476739, y: -0.3857019}
-      - {x: 0.4817927, y: -0.2433976}
+      - {x: 0.4536445, y: -0.2433976}
       - {x: 0.35435808, y: 0.27443576}
 --- !u!1001 &878881298923190310
 PrefabInstance:
@@ -806,10 +806,20 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 791948240866090887, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2990963782230298637, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
         type: 3}
       propertyPath: flareMaxInstanseTime
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744154091548796988, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6744154091548796990, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
         type: 3}
@@ -925,6 +935,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Flare
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744154092984062779, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6855456899559552412, guid: 48149ef2a8e49ab41a1d25dc90ef6682,
         type: 3}

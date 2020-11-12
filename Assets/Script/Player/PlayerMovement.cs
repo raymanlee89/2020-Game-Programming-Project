@@ -140,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
     public void StopBeingStared()
     {
         staredCount--;
-        if(staredCount == 0 && runningState != RunningState.Running)
+        if(staredCount == 0)
             SoundManager.instance?.StopPlay("Scaring", 1f);
     }
 }
