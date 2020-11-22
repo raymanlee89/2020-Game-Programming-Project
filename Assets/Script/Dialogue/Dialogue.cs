@@ -5,7 +5,14 @@ using UnityEngine;
 [System.Serializable]
 public class Dialogue
 {
-    public string speakerName;
+    public Speaker speaker = Speaker.Player;
+
+    public enum Speaker
+    {
+        Player,
+        Friend,
+        Unknown
+    }
 
     [TextArea(1, 10)]
     public string[] sentences;

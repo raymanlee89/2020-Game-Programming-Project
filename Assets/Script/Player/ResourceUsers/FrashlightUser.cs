@@ -29,11 +29,6 @@ public class FrashlightUser : MonoBehaviour
         UIManager.instance?.OpenFrashlightUI(resource);
     }
 
-    private void OnDisable()
-    {
-        UIManager.instance?.CloseFrashlightUI();
-    }
-
     void Update()
     {
         if (Time.timeScale == 0f)
@@ -67,12 +62,9 @@ public class FrashlightUser : MonoBehaviour
 
     protected bool HasEnoughResource()
     {
-        if (inventory.resourceCount.ContainsKey(resource))
-        {
-            if (inventory.resourceCount[resource] > 0)
-                return true;
-        }
-        return false;
+        if (Inventory.instance == null)
+            return false;
+        return Inventory.instance.ContainResource(resource);
     }
 
     // switch the frashlight
@@ -112,11 +104,16 @@ public class FrashlightUser : MonoBehaviour
     void ChangeBattery()
     {
         SoundManager.instance?.Play("ChangeBattery");
+        RecoverPower();
+        if (HasEnoughResource())
+            inventory.Remove(resource);
+    }
+
+    public void RecoverPower()
+    {
         power = maxPower;
         UIManager.instance?.powerBar.SetFill(power);
         UIManager.instance?.UpdatePowerBarNumber((power / maxPower * 100).ToString("0"));
-        if (HasEnoughResource())
-            inventory.Remove(resource);
     }
 
     IEnumerator Flashing()

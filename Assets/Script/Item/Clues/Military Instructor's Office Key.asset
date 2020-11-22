@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0297d1f0bffdfc64693a5cd735cd3953, type: 3}
   m_Name: Military Instructor's Office Key
   m_EditorClassIdentifier: 
-  name: "\u6559\u5B98\u5BA4\u9470\u5319"
-  icon: {fileID: 21300000, guid: c381951ab14b77c418a17926c1c3ba56, type: 3}
-  isResource: 0
-  image: {fileID: 21300000, guid: c381951ab14b77c418a17926c1c3ba56, type: 3}
-  discription: "\u6559\u5B98\u5BA4\u7684\u9470\u5319\uFF0C\u6709\u5169\u526F\uFF0C\u4E00\u526F\u7531\u8B66\u885B\u4FDD\u7BA1\uFF0C\u53E6\u4E00\u526F\u7531\u6559\u5B98\u4FDD\u7BA1\u3002"
+  itemData:
+    name: "\u6559\u5B98\u5BA4\u9470\u5319"
+    icon: {fileID: 21300000, guid: c381951ab14b77c418a17926c1c3ba56, type: 3}
+    isResource: 0
+    image: {fileID: 21300000, guid: c381951ab14b77c418a17926c1c3ba56, type: 3}
+    discription: "\u6559\u5B98\u5BA4\u9470\u5319\u3002\u6709\u5169\u526F\uFF0C\u4E00\u526F\u7531\u6559\u5B98\u4FDD\u7BA1\uFF0C\u53E6\u6709\u4E00\u628A\u5099\u7528\u9470\u5319\u653E\u5728\u8B66\u885B\u5BA4\u3002"

@@ -26,18 +26,31 @@ public class PlayerHealth : MonoBehaviour
             health = 0;
             // died and respawn
             // loading data
+            StartCoroutine(Die());
         }
         UIManager.instance?.healthBar.SetFill(health);
     }
 
+    IEnumerator Die()
+    {
+        GameManager.instance.DisablePlayer();
+        yield return new WaitForSeconds(1f);
+        UIManager.instance.OpenLossPanel();
+    }
+
     public void Healing(float healingAmount)
     {
-        SoundManager.instance?.Play("Healing");
         health += healingAmount;
         if (health > maxHealth)
         {
             health = maxHealth;
         }
+        UIManager.instance?.healthBar.SetFill(health);
+    }
+
+    public void RecoverHealth()
+    {
+        health = maxHealth;
         UIManager.instance?.healthBar.SetFill(health);
     }
 

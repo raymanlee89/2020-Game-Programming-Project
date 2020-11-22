@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0297d1f0bffdfc64693a5cd735cd3953, type: 3}
   m_Name: Club Room Key
   m_EditorClassIdentifier: 
-  name: "\u793E\u8FA6\u9470\u5319"
-  icon: {fileID: 21300000, guid: 94688b72cc504954a899d13fa234e2da, type: 3}
-  isResource: 0
-  image: {fileID: 21300000, guid: 94688b72cc504954a899d13fa234e2da, type: 3}
-  discription: "\u767B\u5C71\u793E\u7684\u793E\u5718\u8FA6\u516C\u5BA4\u9470\u5319\uFF0C\u901A\u5E38\u653E\u5728\u5C0E\u5E2B\u5BA4\u3002"
+  itemData:
+    name: "\u793E\u8FA6\u9470\u5319"
+    icon: {fileID: 21300000, guid: 94688b72cc504954a899d13fa234e2da, type: 3}
+    isResource: 0
+    image: {fileID: 21300000, guid: 94688b72cc504954a899d13fa234e2da, type: 3}
+    discription: "\u793E\u5718\u8FA6\u516C\u5BA4\u7684\u9470\u5319\uFF0C\u901A\u5E38\u6703\u653E\u5728\u5C0E\u5E2B\u5BA4\u88E1\uFF0C\u5B78\u751F\u9808\u586B\u5BEB\u8CC7\u6599\u624D\u80FD\u501F\u7528\u3002"

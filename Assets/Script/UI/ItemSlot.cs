@@ -11,7 +11,7 @@ public class ItemSlot : MonoBehaviour
     {
         item = newItem;
 
-        icon.sprite = newItem.image;
+        icon.sprite = item.itemData.image;
         icon.enabled = true;
     }
 
@@ -26,6 +26,8 @@ public class ItemSlot : MonoBehaviour
     public void OpenSlotDescription()
     {
         if (item != null)
+        {
             Inventory.instance?.showCluePanelCall?.Invoke(item);
+        }
     }
 }

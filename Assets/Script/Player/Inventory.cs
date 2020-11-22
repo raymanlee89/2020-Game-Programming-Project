@@ -21,11 +21,11 @@ public class Inventory : MonoBehaviour
     #endregion
 
     [HideInInspector]
-    public Dictionary<Item, int> resourceCount = new Dictionary<Item, int>();
+    Dictionary<ItemData, int> resourceCount = new Dictionary<ItemData, int>();
     [HideInInspector]
-    public List<Item> clues;
+    List<ItemData> clues = new List<ItemData>();
     [HideInInspector]
-    public List<Item> gears;
+    List<ItemData> gears = new List<ItemData>();
 
     public delegate void OnClueChanged();
     public OnClueChanged onClueChangedCallBack;
@@ -41,28 +41,32 @@ public class Inventory : MonoBehaviour
 
     public void Add(Item item)
     {
-        if(item.isResource)
+        Debug.Log("Add " + item.itemData.name);
+        if(item.itemData.isResource)
         {
-            if (resourceCount.ContainsKey(item))
+            if (resourceCount.ContainsKey(item.itemData))
             {
-                resourceCount[item]++;
-                Debug.Log("Get Resource " + item.name + " " + resourceCount[item]);
+                Debug.Log("Get Resource " + item.itemData.name + " " + resourceCount[item.itemData]);
+                resourceCount[item.itemData]++;
                 onResourceChangedCallBack?.Invoke(item);
             }
-            else
+            else 
             {
-                resourceCount.Add(item, 1);
-                gears.Add(item);
-                Debug.Log("New Resource " + item.name + " " + resourceCount[item]);
+                Debug.Log("New Resource " + item.itemData.name);
+                resourceCount.Add(item.itemData, 1);
+                if (!gears.Contains(item.itemData))
+                {
+                    gears.Add(item.itemData);
+                    onGearChangedCallBack?.Invoke(item);
+                    showCluePanelCall?.Invoke(item);
+                }
                 onResourceChangedCallBack?.Invoke(item);
-                onGearChangedCallBack?.Invoke(item);
-                showCluePanelCall?.Invoke(item);
             }
         }
         else
         {
-            Debug.Log("New Clue " + item.name);
-            clues.Add(item);
+            Debug.Log("New Clue " + item.itemData.name);
+            clues.Add(item.itemData);
             onClueChangedCallBack?.Invoke();
             showCluePanelCall?.Invoke(item);
         }
@@ -70,10 +74,63 @@ public class Inventory : MonoBehaviour
 
     public void Remove(Item item)
     {
-        if (item.isResource && resourceCount.ContainsKey(item))
+        if (item.itemData.isResource && resourceCount.ContainsKey(item.itemData))
         {
-            resourceCount[item]--;
+            resourceCount[item.itemData]--;
         }
         onResourceChangedCallBack?.Invoke(item);
+    }
+
+    public bool ContainClue(Item item)
+    {
+        return clues.Contains(item.itemData);
+    }
+
+    public bool ContainResource(Item item)
+    {
+        if (resourceCount.ContainsKey(item.itemData))
+        {
+            return resourceCount[item.itemData] > 0;
+        }
+        else
+            return false;
+    }
+
+    public int GetResourceCount(Item item)
+    {
+        if (resourceCount.ContainsKey(item.itemData))
+        {
+            return resourceCount[item.itemData];
+        }
+        else
+            return 0;
+    }
+
+    // deep copy
+    public Dictionary<ItemData, int> GetResourceCount()
+    {
+        Dictionary<ItemData, int> newResourceCount = new Dictionary<ItemData, int>(resourceCount);
+        return newResourceCount;
+    }
+
+    public List<ItemData> GetCluesList()
+    {
+        List<ItemData> newClues = new List<ItemData>(clues);
+        return newClues;
+    }
+
+    public List<ItemData> GetGearsList()
+    {
+        List<ItemData> newGears = new List<ItemData>(gears);
+        return newGears;
+    }
+
+    public void ResetData(Dictionary<ItemData, int> newResourceCount, List<ItemData> newClues)
+    {
+        resourceCount = newResourceCount;
+        clues = newClues;
+
+        onResourceChangedCallBack?.Invoke(null);
+        onClueChangedCallBack?.Invoke();
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 652547050261207341}
   - component: {fileID: 8221814127720877094}
   - component: {fileID: 8221814127720877095}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: UnusedGlowStick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,15 +26,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 652547050261207340}
-  m_LocalRotation: {x: -0, y: -0, z: -0.4777881, w: 0.8784752}
-  m_LocalPosition: {x: 7.42, y: -2.74, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children:
   - {fileID: 652547050673229940}
   - {fileID: 8221814127951157443}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -57.082}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &652547050261207341
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1944522851
-  m_SortingLayer: 2
+  m_SortingLayerID: -1054246993
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8b7e8266aaf4bc24a9592834d2e5a15c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shinning: {fileID: 8221814127951157453}
+  plotTrigger: {fileID: 0}
   touchable: 0
   item: {fileID: 11400000, guid: 149f775d9ea54e341b8e0d4fe7a14835, type: 2}
 --- !u!1 &652547050673229943
@@ -199,7 +200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8221814127951157443}
   - component: {fileID: 8221814127951157452}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shinning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,13 +233,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LightType: 3
+  m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: af7729c19def188c
+  m_ApplyToSortingLayers: af7729c1
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -257,7 +258,7 @@ MonoBehaviour:
   m_ShapeLightFalloffSize: 0.5
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: -0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: 0.5, z: 0}
-  - {x: -0.5, y: 0.5, z: 0}
+  - {x: -1.0829763, y: -1.4531242, z: 0}
+  - {x: -0.7209382, y: -1.6326602, z: 0}
+  - {x: 0.88714194, y: 1.3906525, z: 0}
+  - {x: 0.6468477, y: 1.4891571, z: 0}

@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shinning: {fileID: 7433466228138514652}
+  plotTrigger: {fileID: 0}
   touchable: 0
   item: {fileID: 11400000, guid: 74384285e155d7446b3f57c1094d94c3, type: 2}
 --- !u!58 &7433466227759416303
@@ -126,7 +127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7433466228138514642}
   - component: {fileID: 7433466228138514643}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shinning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +141,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7433466228138514652}
-  m_LocalRotation: {x: -0, y: 0, z: -0.04306243, w: 0.99907243}
+  m_LocalRotation: {x: -0, y: -0, z: -0.065530635, w: 0.99785054}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -165,7 +166,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 9def188c
+  m_ApplyToSortingLayers: af7729c1
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -174,8 +175,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0.13109349
-  m_PointLightOuterRadius: 0.2581708
+  m_PointLightInnerRadius: 0.29291922
+  m_PointLightOuterRadius: 0.293149
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5

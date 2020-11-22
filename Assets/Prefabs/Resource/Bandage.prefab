@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 283060152081616526}
   - component: {fileID: 3425742108013281094}
   - component: {fileID: 4236346358068435387}
-  - component: {fileID: 5628880501657955884}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bandage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shinning: {fileID: 6261136346307445568}
+  plotTrigger: {fileID: 0}
   touchable: 0
   item: {fileID: 11400000, guid: 046dc2bbcd9d1d048b3e516e809f1069, type: 2}
 --- !u!61 &4236346358068435387
@@ -127,36 +127,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.6724875, y: 1.3150392}
   m_EdgeRadius: 0
---- !u!114 &5628880501657955884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 905248486481750789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000d70cd1c89def188c25564bd6
-  m_ShapePath:
-  - {x: -0.88260597, y: -0.4830866, z: 0}
-  - {x: 0.59391403, y: -0.4985524, z: 0}
-  - {x: 0.69154614, y: -0.40411878, z: 0}
-  - {x: 0.69670135, y: 0.48257935, z: 0}
-  - {x: 0.6248449, y: 0.5552596, z: 0}
-  - {x: -0.86198527, y: 0.5707255, z: 0}
-  - {x: -0.9684356, y: 0.47742406, z: 0}
-  - {x: -0.9684356, y: -0.38865316, z: 0}
-  m_ShapePathHash: 1378498497
-  m_Mesh: {fileID: 0}
-  m_InstanceId: -237954
 --- !u!1 &6261136346307445568
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,7 +137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5710263599582135852}
   - component: {fileID: 2616508414090352640}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shinning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,14 +170,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LightType: 3
+  m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: af7729c19def188c
-  m_LightCookieSprite: {fileID: 0}
+  m_ApplyToSortingLayers: af7729c1
+  m_LightCookieSprite: {fileID: 21300000, guid: 76559cba545eee74cb243fe36db943df,
+    type: 3}
   m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
@@ -222,10 +193,10 @@ MonoBehaviour:
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffSize: 0
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: -0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: 0.5, z: 0}
-  - {x: -0.5, y: 0.5, z: 0}
+  - {x: -0.9025743, y: -0.37594178, z: 0}
+  - {x: 0.7142574, y: -0.6616892, z: 0}
+  - {x: 0.9024875, y: 0.3612129, z: 0}
+  - {x: -0.7166916, y: 0.64526826, z: 0}

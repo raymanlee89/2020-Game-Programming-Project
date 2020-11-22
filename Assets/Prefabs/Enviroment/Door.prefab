@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4750860933612881177}
   - component: {fileID: 4750860933612881176}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Shinning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4750860933612881177
 Transform:
   m_ObjectHideFlags: 0
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LightType: 3
+  m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -68,10 +68,12 @@ MonoBehaviour:
   m_ShapeLightFalloffSize: 0.5
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: -0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: 0.5, z: 0}
-  - {x: -0.5, y: 0.5, z: 0}
+  - {x: -1.2346413, y: -0.51733786, z: 0}
+  - {x: 0.46389028, y: -0.605099, z: 0}
+  - {x: 0.56314653, y: 1.0214912, z: 0}
+  - {x: 0.3689241, y: 1.0350808, z: 0}
+  - {x: 0.2954057, y: -0.409855, z: 0}
+  - {x: -1.2244141, y: -0.33996147, z: 0}
 --- !u!1 &4750860934453055812
 GameObject:
   m_ObjectHideFlags: 0
@@ -84,7 +86,7 @@ GameObject:
   - component: {fileID: 4750860934453055813}
   - component: {fileID: 4750860934453055815}
   - component: {fileID: 1750347551}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,8 +123,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shinning: {fileID: 4750860933612881183}
+  plotTrigger: {fileID: 0}
   touchable: 0
   isLocked: 1
+  isClosedByDefalut: 1
+  isOpen: 0
   key: {fileID: 11400000, guid: 74384285e155d7446b3f57c1094d94c3, type: 2}
   openedObject: {fileID: 5073993251518249307}
   closedObject: {fileID: 4750860935275855801}
@@ -156,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    speakerName: "\u4E3B\u89D2"
+    speaker: 0
     sentences:
     - "\u6211\u9700\u8981\u9470\u5319\u624D\u80FD\u6253\u958B\u9019\u6247\u9580"
 --- !u!1 &4750860935275855801
@@ -172,7 +177,7 @@ GameObject:
   - component: {fileID: 4750860935275855780}
   - component: {fileID: 4750860935275855781}
   - component: {fileID: 2802346659019080900}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ClosedDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +300,7 @@ MonoBehaviour:
   - {x: -0.05713608, y: 0.4472607, z: 0}
   m_ShapePathHash: -997539212
   m_Mesh: {fileID: 0}
-  m_InstanceId: 31264
+  m_InstanceId: 194436
 --- !u!114 &2802346659019080900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,7 +327,7 @@ GameObject:
   - component: {fileID: 8162540607774926539}
   - component: {fileID: 7355987150836238762}
   - component: {fileID: 1013678511403578454}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: OpenedDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +450,7 @@ MonoBehaviour:
   - {x: -0.05713608, y: 0.4472607, z: 0}
   m_ShapePathHash: -997539212
   m_Mesh: {fileID: 0}
-  m_InstanceId: 31276
+  m_InstanceId: 194448
 --- !u!114 &1013678511403578454
 MonoBehaviour:
   m_ObjectHideFlags: 0

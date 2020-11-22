@@ -9,13 +9,12 @@ public class PatrolEnemy : Enemy
 
 	void Start()
 	{
-		rotateSpeed = rotateSpeed / 5;
     	current_target_index = 0;
         ownRb = GetComponent<Rigidbody2D>();
         agent = GetComponent<SAP2DAgent>();
         agent.MovementSpeed = moveSpeed;
         agent.Target = targets[current_target_index];
-        player = PlayerManager.instance.player.transform;
+        player = GameManager.instance.player.transform;
 	}
 
 	void Update()

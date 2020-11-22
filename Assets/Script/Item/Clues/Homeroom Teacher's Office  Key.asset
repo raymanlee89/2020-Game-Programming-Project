@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0297d1f0bffdfc64693a5cd735cd3953, type: 3}
   m_Name: Homeroom Teacher's Office  Key
   m_EditorClassIdentifier: 
-  name: "\u5C0E\u5E2B\u5BA4\u9470\u5319"
-  icon: {fileID: 21300000, guid: 4e96dd7fcc095d4409f796a689bc9979, type: 3}
-  isResource: 0
-  image: {fileID: 21300000, guid: 4e96dd7fcc095d4409f796a689bc9979, type: 3}
-  discription: "\u5C0E\u5E2B\u5BA4\u7684\u9470\u5319\uFF0C\u53EF\u4EE5\u6253\u958B\u5C0E\u5E2B\u5BA4\u7684\u9580\uFF0C\u5E73\u6642\u653E\u5728\u8B66\u885B\u5BA4\u7531\u8B66\u885B\u4FDD\u7BA1\u3002"
+  itemData:
+    name: "\u5C0E\u5E2B\u5BA4\u9470\u5319"
+    icon: {fileID: 21300000, guid: 4e96dd7fcc095d4409f796a689bc9979, type: 3}
+    isResource: 0
+    image: {fileID: 21300000, guid: 4e96dd7fcc095d4409f796a689bc9979, type: 3}
+    discription: "\u5C0E\u5E2B\u5BA4\u9470\u5319\u3002\u901A\u5E38\u7531\u8B66\u885B\u4FDD\u7BA1\uFF0C\u6BCF\u5929\u65E9\u4E0A\u8B66\u885B\u6703\u4F86\u6253\u958B\u5C0E\u5E2B\u5BA4\u7684\u9580\u3002"

@@ -23,5 +23,6 @@ public class BandageUser : ResourceUser
     {
         yield return new WaitForSeconds(0.2f);
         playerHealth.Healing(playerHealth.maxHealth * healingPercentage);
+        SoundManager.instance?.Play("Healing");
     }
 }

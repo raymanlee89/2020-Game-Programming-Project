@@ -160,7 +160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3114461250203640835
 Transform:
   m_ObjectHideFlags: 0
@@ -300,6 +300,7 @@ GameObject:
   - component: {fileID: 3114461250933986668}
   - component: {fileID: 3114461250933986670}
   - component: {fileID: 3114461250933986669}
+  - component: {fileID: 7042036860275051362}
   m_Layer: 0
   m_Name: ElectricLight
   m_TagString: Untagged
@@ -336,8 +337,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shinning: {fileID: 3114461250203640837}
+  plotTrigger: {fileID: 0}
   touchable: 0
   switchableThing: {fileID: 7054977578998165788}
+  howToTurnOnPowerDialogue: {fileID: 7042036860275051362}
 --- !u!212 &3114461250933986670
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -405,6 +408,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &7042036860275051362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3114461250933986673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b18aaaf5e8347f45bfcaf2618e555cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    speaker: 0
+    sentences:
+    - "\u96FB\u71C8\u6253\u4E0D\u958B..."
+    - "\u6821\u820D\u4F3C\u4E4E\u65B7\u96FB\u4E86\u3002"
 --- !u!1 &7054977578998165788
 GameObject:
   m_ObjectHideFlags: 0

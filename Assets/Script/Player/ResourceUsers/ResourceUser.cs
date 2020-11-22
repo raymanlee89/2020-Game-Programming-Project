@@ -26,15 +26,9 @@ public class ResourceUser : MonoBehaviour
 
     protected bool HasEnoughResource()
     {
-        if (Inventory.instance != null)
-        {
-            if(Inventory.instance.resourceCount.ContainsKey(resource))
-            {
-                if (Inventory.instance.resourceCount[resource] > 0)
-                    return true;
-            }
-        }
-        return false;
+        if (Inventory.instance == null)
+            return false;
+        return Inventory.instance.ContainResource(resource);
     }
 
     protected virtual bool ItemAct()

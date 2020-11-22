@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SAP2D;
 
 public class Enemy : MonoBehaviour
 {
 	public float moveSpeed;
-	public float lookRadius;
+    public float minRadius = 0.5f;  // enemy will find player no matter what
+    public float lookRadius;
+    public float giveUpRadius;
 	public float lookAngleDegree;
 	public float rotateSpeed; // level
 
-	protected Vector2 movement;
+    protected bool checkSafeAreaOrNot = false;
+
+    protected Vector2 movement;
 	protected Rigidbody2D ownRb;
 
 	public List<Transform> targets = new List<Transform>();
@@ -20,8 +23,8 @@ public class Enemy : MonoBehaviour
 
 	protected bool foundPlayerOrNot = false;
 
-	protected Vector2[] path;
-    protected SAP2DPathfinder pathfinder;
+    protected bool isIncreaseRotation = true;
+    protected float originalRotation;
 
     protected void StareAtPlayer()
     {
@@ -53,22 +56,48 @@ public class Enemy : MonoBehaviour
 	protected void LookingForPlayer()
 	{
 		float distance = Vector2.Distance(player.position, transform.position);
-
-        if(distance <= lookRadius)
+        if (distance <= lookRadius)
         {
 	        Vector2 lookDir = (Vector2)player.position - ownRb.position;
 	        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
 	        float AdjAngle = AdjustDegree(angle - ownRb.rotation);
-	        if(Mathf.Abs(AdjAngle) <= lookAngleDegree)
+	        if(Mathf.Abs(AdjAngle) <= lookAngleDegree || distance <= minRadius)
 	    	{
-	    		foundPlayerOrNot = true;
+                if(!checkSafeAreaOrNot || !GameManager.instance.playerIsInSafeAreaOrNot)
+                {
+                    if (!foundPlayerOrNot)
+                        SoundManager.instance.Play("BeFound");
+                    foundPlayerOrNot = true;
+                }
+                else if (checkSafeAreaOrNot && GameManager.instance.playerIsInSafeAreaOrNot)
+                {
+                    foundPlayerOrNot = false;
+                }
 	    	}
         }
-        else if(distance >= 2 * lookRadius)
+        else if(distance >= giveUpRadius)
         {
         	foundPlayerOrNot = false;
         }
 	}
+
+    protected void LookingAround(float lookingAroundAngle)
+    {
+        if (isIncreaseRotation)
+        {
+            if(ownRb.rotation < originalRotation + lookingAroundAngle)
+                ownRb.rotation += rotateSpeed/5;
+            else
+                isIncreaseRotation = false;
+        }
+        else
+        {
+            if (ownRb.rotation > originalRotation - lookingAroundAngle)
+                ownRb.rotation -= rotateSpeed/5;
+            else
+                isIncreaseRotation = true;
+        }
+    }
 
 	protected void Disappear()
 	{
@@ -83,6 +112,14 @@ public class Enemy : MonoBehaviour
             Gizmos.DrawLine(targets[i].position, targets[(i + 1) % targets.Capacity].position);
         }
 
+        Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, minRadius);
+    }
+
+    private void OnEnable()
+    {
+        Heartbeat.instance.ScanEnemy();
     }
 }

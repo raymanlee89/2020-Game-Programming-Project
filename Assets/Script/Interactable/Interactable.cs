@@ -5,6 +5,7 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     public GameObject shinning;
+    public PlotTrigger plotTrigger = null;
 
     [HideInInspector]
     public bool touchable = false;

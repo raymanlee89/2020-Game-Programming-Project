@@ -9,7 +9,12 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialoguePanel;
     public Text speakerNameText;
     public Text dialogueText;
+    public string playerName;
+    public string friendName;
     bool isTypingSentence = false;
+
+    public delegate void OnDialogueEnd();
+    public OnDialogueEnd onDialogueEndCallBack;
 
     #region Singleton
     public static DialogueManager instance;
@@ -34,8 +39,15 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
+        Time.timeScale = 0.1f;
+        GameManager.instance.DisablePlayer();
         dialoguePanel.SetActive(true);
-        speakerNameText.text = dialogue.speakerName;
+        if (dialogue.speaker == Dialogue.Speaker.Player)
+            speakerNameText.text = playerName;
+        else if (dialogue.speaker == Dialogue.Speaker.Friend)
+            speakerNameText.text = friendName;
+        else
+            speakerNameText.text = "???";
         sentences.Clear();
         foreach (string sentence in dialogue.sentences)
         {
@@ -79,7 +91,7 @@ public class DialogueManager : MonoBehaviour
         foreach(char letter in sentence)
         {
             dialogueText.text += letter;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.01f);
         }
         sentences.Dequeue();
         isTypingSentence = false;
@@ -88,18 +100,22 @@ public class DialogueManager : MonoBehaviour
     IEnumerator AutoNextCountdown()
     {
         yield return new WaitForSeconds(5f);
-        DisplayNextSentence();
+        if(sentences.Count > 0)
+            DisplayNextSentence();
     }
 
     void EndDialogue()
     {
         dialoguePanel.SetActive(false);
         sentences.Clear();
+        GameManager.instance.EnablePlayer();
+        onDialogueEndCallBack?.Invoke();
+        Time.timeScale = 1f;
     }
 
     private void Update()
     {
-        if(Input.GetButtonDown("NextSentence"))
+        if(Input.GetButtonDown("NextSentence") && Time.timeScale != 0)
         {
             DisplayNextSentence();
         }

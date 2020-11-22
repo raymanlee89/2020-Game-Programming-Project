@@ -10,10 +10,13 @@ public class UserControler : MonoBehaviour
     public Sprite changingImage;
     public Sprite changingWithFrashlightImage;
     public FrashlightUser frashlightUser;
+    bool frashlightUserHasBeenEnabled = false;
     ResourceUser[] allUsers = null;
-    List<ResourceUser> availableUsers = new List<ResourceUser>();
+    [HideInInspector]
+    public List<ResourceUser> availableUsers = new List<ResourceUser>();
     Inventory inventory;
-    int selectedUser = 0;
+    [HideInInspector]
+    public int selectedUser = 0;
 
     #region Singleton
     public static UserControler instance;
@@ -87,9 +90,16 @@ public class UserControler : MonoBehaviour
 
     void ResourceCountChange(Item resource)
     {
+        if(resource == null)
+        {
+            UIManager.instance?.UpdateBatteryCount(frashlightUser.resource);
+            UpdateResourceUserUI();
+        }
+
         if (resource == frashlightUser.frashlightItem)
         {
             frashlightUser.enabled = true;
+            frashlightUserHasBeenEnabled = true;
         }
         else if (resource == frashlightUser.resource)
         {
@@ -103,7 +113,6 @@ public class UserControler : MonoBehaviour
         {
             UpdateResourceUserUI();
         }
-        
     }
 
     void UpdateResourceUserUI()
@@ -125,6 +134,7 @@ public class UserControler : MonoBehaviour
 
     void OpenResourceUser(Item resource)
     {
+        Debug.Log("Open user" + resource.itemData.name);
         foreach(ResourceUser user in allUsers)
         {
             if (resource == user.resource)
@@ -135,5 +145,22 @@ public class UserControler : MonoBehaviour
             UIManager.instance?.OpenResourceUserUI();
 
         SelectUser();
+    }
+
+    void OnDisable()
+    {
+        if(availableUsers.Count != 0)
+            availableUsers[selectedUser].enabled = false;
+        if (frashlightUserHasBeenEnabled)
+            frashlightUser.enabled = false;
+    }
+
+    void OnEnable()
+    {
+        if (availableUsers.Count != 0)
+            availableUsers[selectedUser].enabled = true;
+
+        if(frashlightUserHasBeenEnabled)
+            frashlightUser.enabled = true;
     }
 }

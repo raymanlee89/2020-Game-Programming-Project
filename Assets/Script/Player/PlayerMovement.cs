@@ -57,6 +57,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        runningState = RunningState.Normal;
+        moveSpeed = normalSpeed;
+        SoundManager.instance?.StopPlay("RunningBreath", 1f);
+    }
+
     void Update()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
@@ -77,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
             //Debug.Log("Stop running");
             runningState = RunningState.Normal;
             moveSpeed = normalSpeed;
-            SoundManager.instance?.StopPlay("RunningBreath", 1f);
+            SoundManager.instance?.StopPlay("RunningBreath", 0.5f);
         }
         else if(energy < 0 && runningState != RunningState.Tired) // get tired
         {
@@ -110,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         ownRb.MovePosition(ownRb.position + movement * moveSpeed * Time.fixedDeltaTime);
         Vector2 lookDir = mousePos - ownRb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         ownRb.rotation = angle;
     }
 

@@ -101,7 +101,7 @@ public class AnimationManager : MonoBehaviour
                 GFX.sprite = flareImage[i];
             }
             rightHandMode = RightHandMode.Flare;
-            yield return new WaitForSeconds(6f);
+            yield return new WaitForSeconds(11f);
             flareIsInHand = false;
             rightHandMode = RightHandMode.Nothing;
         }

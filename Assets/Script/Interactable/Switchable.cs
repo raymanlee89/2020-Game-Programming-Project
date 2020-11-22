@@ -3,12 +3,19 @@
 public class Switchable : Interactable
 {
     public GameObject switchableThing;
+    public DialogueTrigger howToTurnOnPowerDialogue;
 
     public override void Interact()
     {
         base.Interact();
 
-        Switch();
+        if(PlotManager.instance.powerIsOnOrNot)
+            Switch();
+        else
+        {
+            SoundManager.instance.Play("ClickLightSwitch");
+            howToTurnOnPowerDialogue.TriggerDialogue();
+        }
     }
 
     void Switch()

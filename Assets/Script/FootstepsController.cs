@@ -41,10 +41,10 @@ public class FootstepsController: MonoBehaviour
 
     void CreatFootprint()
     {
-        Debug.Log("Creat footprint");
         if (nextRightStep)
         {
             Transform step = Instantiate(rightStep, transform.position, transform.rotation);
+            step.Rotate(0, 0, -90);
             Renderer rend = step.GetComponent<Renderer>();
             Color c = rend.material.color;
             rend.material.color = new Color(c.r, c.g, c.b, c.a * footprintEffectiveDurationLeft / footprintEffectiveDuration);
@@ -53,6 +53,7 @@ public class FootstepsController: MonoBehaviour
         else
         {
             Transform step = Instantiate(leftStep, transform.position, transform.rotation);
+            step.Rotate(0, 0, -90);
             Renderer rend = step.GetComponent<Renderer>();
             Color c = rend.material.color;
             rend.material.color = new Color(c.r, c.g, c.b, c.a * footprintEffectiveDurationLeft / footprintEffectiveDuration);
@@ -62,7 +63,7 @@ public class FootstepsController: MonoBehaviour
 
     void CreatFootstepSound()
     {
-        SoundManager.instance.Play(footstepSoundType);
+        SoundManager.instance.Play(footstepSoundType, 0, transform);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -71,6 +72,7 @@ public class FootstepsController: MonoBehaviour
         {
             Debug.Log("Step in puddle");
             creatingFootstepSound = true;
+            footprintEffectiveDurationLeft = 0;
             footstepSoundType = collision.tag + "FootstepSound";
         }
 

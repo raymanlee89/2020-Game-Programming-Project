@@ -5,18 +5,29 @@ using SAP2D;
 
 public class ChaseEnemy : Enemy
 {
-	bool IsChasing;
     public float chaseSpeed;
-    float tempRotateSpeed;
-	float timer;
+    public float startChasingDelay;
+    public float lookingAroundDuration;
+    public float lookingAroundAngle;
+    public float recoverDuration;
 
-	SAP2DAgent agent;
+    float tempRotateSpeed;
+	float timer = 0;
+    EnemyState state;
+
+    SAP2DAgent agent;
+
+    private enum EnemyState
+    {
+        Chasing,
+        LookingAround,
+        Patroling
+    }
 
 	void Start()
 	{
-		timer = 0;
-    	IsChasing = false;
-    	player = PlayerManager.instance.player.transform;
+        state = EnemyState.Patroling;
+    	player = GameManager.instance.player.transform;
     	current_target_index = 0;
         ownRb = GetComponent<Rigidbody2D>();
         agent = GetComponent<SAP2DAgent>();
@@ -24,52 +35,92 @@ public class ChaseEnemy : Enemy
         current_target = targets[current_target_index];
         agent.Target = current_target;
         tempRotateSpeed = agent.RotationSpeed;
+
+        checkSafeAreaOrNot = true;
     }
 
 	void Update()
     {	
     	LookingForPlayer();
-    	if(foundPlayerOrNot)
+
+        if (foundPlayerOrNot)
     	{
-    		if(!IsChasing)
+    		if(state != EnemyState.Chasing)
     		{
-    			if(timer < 1)
+    			if(timer < startChasingDelay)
     			{
-    				agent.enabled = false;
+                    if (timer == 0)
+                        agent.enabled = false;
     				timer += Time.deltaTime;
     			}
     			else
     			{
-                    IsChasing = true;
-    				agent.enabled = true;
+                    state = EnemyState.Chasing;
+                    agent.enabled = true;
                     agent.MovementSpeed = chaseSpeed;
                     agent.Target = player;
     				agent.RotationSpeed = 0;
+                    timer = 0;
 			    }
     		}
 
+            if (agent.isActiveAndEnabled)
+                agent.MovementSpeed = chaseSpeed;
     		StareAtPlayer();
     	}
     	else
     	{
-            if (IsChasing)
+            if (state == EnemyState.Chasing)
             {
-                IsChasing = false;
-    		    agent.enabled = true;
-                agent.MovementSpeed = moveSpeed;
-                agent.RotationSpeed = tempRotateSpeed;
-    		    timer = 0;
-    		    agent.Target = current_target;
+                state = EnemyState.LookingAround;
+                agent.enabled = false;
+                originalRotation = ownRb.rotation;
             }
-	    	float Dis = Vector2.Distance(agent.Target.position, ownRb.position);
-		    if(Dis <= 0.2)
-		    {
-		    	//ownRb.MovePosition(agent.Target.position);
-		    	current_target_index = (current_target_index + 1) % targets.Capacity;
-		    	current_target = targets[current_target_index];
-		    	agent.Target = current_target;
-		    }
+            else if (state == EnemyState.LookingAround)
+            {
+                if (timer < lookingAroundDuration)
+                {
+                    LookingAround(lookingAroundAngle);
+                    timer += Time.deltaTime;
+                }
+                else
+                {
+                    state = EnemyState.Patroling;
+                    agent.enabled = true;
+                    agent.MovementSpeed = moveSpeed;
+                    agent.RotationSpeed = tempRotateSpeed;
+                    timer = 0;
+                    agent.Target = current_target;
+                }
+            }
+            else if (state == EnemyState.Patroling)
+            {
+                float Dis = Vector2.Distance(agent.Target.position, ownRb.position);
+		        if(Dis <= 0.2)
+		        {
+		    	    //ownRb.MovePosition(agent.Target.position);
+		    	    current_target_index = (current_target_index + 1) % targets.Capacity;
+		    	    current_target = targets[current_target_index];
+		    	    agent.Target = current_target;
+		        }
+            }
     	}
-        
+    }
+
+    public void SlowDown()
+    {
+        float originSpeed = chaseSpeed;
+        chaseSpeed = 0;
+        StartCoroutine(RecoverSpeed(recoverDuration, originSpeed));
+    }
+
+    IEnumerator RecoverSpeed(float recoverDuration, float originSpeed)
+    {
+        while (chaseSpeed < originSpeed)
+        {
+            chaseSpeed += (originSpeed / recoverDuration) * Time.deltaTime;
+            yield return null;
+        }
+        chaseSpeed = originSpeed;
     }
 }

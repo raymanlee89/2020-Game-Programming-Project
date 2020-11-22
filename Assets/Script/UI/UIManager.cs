@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Experimental;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class UIManager : MonoBehaviour
     public Image itemImage;
     public Text itemName;
     public Text itemDiscription;
-   
+    Queue<Item> clueWaitingQueue = new Queue<Item>();
+
     // backpack panel
     public GameObject backpackPanel;
     public Transform clueParent;
@@ -40,6 +42,19 @@ public class UIManager : MonoBehaviour
 
     // hints
     public Text hintText;
+    public Text chapterText;
+    public Text chapterMark;
+
+    // loss panel
+    public GameObject lossPanel;
+
+    // loading panel
+    public GameObject loadingPanel;
+    public GameObject skyLight;
+    public Text shortHintText;
+    [TextArea(1, 10)]
+    public string[] shortHints;
+    int shortHintsIndex = 0;
 
     #region Singleton
     public static UIManager instance;
@@ -84,10 +99,16 @@ public class UIManager : MonoBehaviour
     void UpdateClueList()
     {
         Debug.Log("Update Clue List");
-        for(int i = 0 ; i < clueSlots.Length ; i++)
+
+        List<ItemData> clues = inventory.GetCluesList();
+        for (int i = 0 ; i < clueSlots.Length ; i++)
         {
-            if(i < inventory.clues.Count)
-                clueSlots[i].AddItem(inventory.clues[i]);
+            if (i < clues.Count)
+            {
+                Item item = ScriptableObject.CreateInstance<Item>();
+                item.itemData = clues[i];
+                clueSlots[i].AddItem(item);
+            }
             else
                 clueSlots[i].ClearSlot();
         }
@@ -96,10 +117,16 @@ public class UIManager : MonoBehaviour
     void UpdateGearList(Item resource)
     {
         Debug.Log("Update Gear List");
+
+        List<ItemData> gears = inventory.GetGearsList();
         for (int i = 0; i < gearSlots.Length; i++)
         {
-            if (i < inventory.gears.Count)
-                gearSlots[i].AddItem(inventory.gears[i]);
+            if (i < gears.Count)
+            {
+                Item item = ScriptableObject.CreateInstance<Item>();
+                item.itemData = gears[i];
+                gearSlots[i].AddItem(item);
+            }
             else
                 gearSlots[i].ClearSlot();
         }
@@ -111,7 +138,7 @@ public class UIManager : MonoBehaviour
 
         // stop time
         SoundManager.instance?.PauseAllSound();
-        SoundSpeed heartBeats = FindObjectOfType<SoundSpeed>();
+        Heartbeat heartBeats = FindObjectOfType<Heartbeat>();
         heartBeats?.Pause();
         SoundManager.instance?.Play("OpenBackpack");
         Time.timeScale = 0f;
@@ -119,14 +146,17 @@ public class UIManager : MonoBehaviour
 
     public void CloseBackpackPanel()
     {
+        if (cluePanel.activeSelf)
+        {
+            clueWaitingQueue.Clear();
+            CloseCluePanel();
+        }
+
         backpackPanel.SetActive(false);
         
-        if (cluePanel.activeSelf)
-            CloseCluePanel();
-
         // restart time
         SoundManager.instance?.UnPauseAllSound();
-        SoundSpeed heartBeats = FindObjectOfType<SoundSpeed>();
+        Heartbeat heartBeats = FindObjectOfType<Heartbeat>();
         heartBeats?.UnPause();
         SoundManager.instance?.Play("CloseBackpack");
         Time.timeScale = 1f;
@@ -136,25 +166,39 @@ public class UIManager : MonoBehaviour
     {
         if(!backpackPanel.activeSelf)
             OpenBackpackPanel();
-        cluePanel.SetActive(true);
-        itemName.text = item.name;
-        itemImage.sprite = item.image;
-        itemDiscription.text = item.discription;
+        if(!cluePanel.activeSelf)
+        {
+            cluePanel.SetActive(true);
+            itemName.text = item.itemData.name;
+            itemImage.sprite = item.itemData.image;
+            itemDiscription.text = item.itemData.discription;
+        }
+        else
+            clueWaitingQueue.Enqueue(item);
     }
 
     public void CloseCluePanel()
     {
-        cluePanel.SetActive(false);
+        if(clueWaitingQueue.Count == 0)
+            cluePanel.SetActive(false);
+        else
+        {
+            Item item = clueWaitingQueue.Dequeue();
+            cluePanel.SetActive(true);
+            itemName.text = item.itemData.name;
+            itemImage.sprite = item.itemData.image;
+            itemDiscription.text = item.itemData.discription;
+        }
     }
 
     public void OpenFrashlightUI(Item battery)
     {
         frashlightUI.SetActive(true);
-        if(inventory.resourceCount.ContainsKey(battery))
-            batteryCount.text = "× " + (inventory.resourceCount[battery]).ToString("0");
+        if(inventory.ContainResource(battery))
+            batteryCount.text = "× " + inventory.GetResourceCount(battery).ToString("0");
         else
             batteryCount.text = "× 0";
-        batteryIcon.sprite = battery.icon;
+        batteryIcon.sprite = battery.itemData.icon;
     }
 
     public void UpdatePowerBarNumber(string powerPercentage)
@@ -166,7 +210,7 @@ public class UIManager : MonoBehaviour
     public void UpdateBatteryCount(Item battery)
     {
         if(frashlightUI.activeSelf)
-            batteryCount.text = "× " + (inventory.resourceCount[battery]).ToString("0");
+            batteryCount.text = "× " + inventory.GetResourceCount(battery).ToString("0");
     }
 
     public void CloseFrashlightUI()
@@ -201,10 +245,10 @@ public class UIManager : MonoBehaviour
 
         selectedUserIcon.sprite = selectedUser.icon;
 
-        resourceIcon.sprite = selectedUser.resource.icon;
+        resourceIcon.sprite = selectedUser.resource.itemData.icon;
 
-        if (inventory.resourceCount.ContainsKey(selectedUser.resource))
-            resourceCount.text = "× " + (inventory.resourceCount[selectedUser.resource]).ToString("0");
+        if (inventory.ContainResource(selectedUser.resource))
+            resourceCount.text = "× " + inventory.GetResourceCount(selectedUser.resource).ToString("0");
         else
             resourceCount.text = "× 0";
     }
@@ -217,5 +261,72 @@ public class UIManager : MonoBehaviour
     public void UpdateHintText(string hint)
     {
         hintText.text = hint;
+    }
+
+    public void UpdateChapterText(string chapter)
+    {
+        chapterText.text = chapter;
+        chapterMark.text = chapter;
+        StartCoroutine(ShowChapterMark(5));
+    }
+
+    IEnumerator ShowChapterMark(float duration)
+    {
+        while(chapterMark.color.a < 1)
+        {
+            float newA = chapterMark.color.a + Time.deltaTime / duration;
+            chapterMark.color = new Color(chapterMark.color.r, chapterMark.color.g, chapterMark.color.b,  newA);
+            yield return null;
+        }
+        chapterMark.color = new Color(chapterMark.color.r, chapterMark.color.g, chapterMark.color.b, 1);
+        while (chapterMark.color.a > 0)
+        {
+            float newA = chapterMark.color.a - Time.deltaTime / duration;
+            chapterMark.color = new Color(chapterMark.color.r, chapterMark.color.g, chapterMark.color.b, newA);
+            yield return null;
+        }
+        chapterMark.color = new Color(chapterMark.color.r, chapterMark.color.g, chapterMark.color.b, 0);
+    }
+
+    public void OpenLossPanel()
+    {
+        // stop time
+        skyLight.SetActive(false);
+        SoundManager.instance?.PauseAllSound();
+        Heartbeat heartBeats = FindObjectOfType<Heartbeat>();
+        heartBeats?.Pause();
+        Time.timeScale = 0f;
+        lossPanel.SetActive(true);
+    }
+
+    public void ClossLossPanel()
+    {
+        SoundManager.instance?.UnPauseAllSound();
+        Heartbeat heartBeats = FindObjectOfType<Heartbeat>();
+        heartBeats?.UnPause();
+        Time.timeScale = 1f;
+        lossPanel.SetActive(false);
+    }
+
+    public void OpenLoadingPanel()
+    {
+        loadingPanel.SetActive(true);
+        StartCoroutine(ShowShortHints());
+    }
+
+    public void ClossLoadingPanel()
+    {
+        skyLight.SetActive(true);
+        loadingPanel.SetActive(false);
+    }
+
+    IEnumerator ShowShortHints()
+    {
+        while(loadingPanel.activeSelf)
+        {
+            shortHintText.text = shortHints[shortHintsIndex];
+            shortHintsIndex = (shortHintsIndex + 1) % shortHints.Length;
+            yield return new WaitForSeconds(3f);
+        }
     }
 }

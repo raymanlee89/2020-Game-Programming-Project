@@ -23,9 +23,10 @@ public class Flare : MonoBehaviour
             flareLight.intensity = f / flareMaxInstanseTime;
             yield return null;
         }
-        for (float f = flareKeepingTime; f > 0; f -= Time.deltaTime)
+        yield return new WaitForSeconds(flareKeepingTime - 3);
+        for (float f = 3; f > 0; f -= Time.deltaTime)
         {
-            flareLight.intensity = f / flareKeepingTime;
+            flareLight.intensity = f / 3;
             yield return null;
         }
         flareLight.intensity = 0;
@@ -36,5 +37,11 @@ public class Flare : MonoBehaviour
     void OnEnable()
     {
         StartCoroutine(BurnTheFlare());
+        ChaseEnemy[] enemies = FindObjectsOfType<ChaseEnemy>();
+        foreach(ChaseEnemy enemy in enemies)
+        {
+            enemy.SlowDown();
+            Debug.Log("slow down enemy");
+        }
     }
 }
