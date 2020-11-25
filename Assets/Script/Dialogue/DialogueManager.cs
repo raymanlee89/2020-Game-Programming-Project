@@ -80,7 +80,7 @@ public class DialogueManager : MonoBehaviour
             StartCoroutine(TypeSentence(sentence));
         }
 
-        StartCoroutine(AutoNextCountdown());
+        //StartCoroutine(AutoNextCountdown());
         Debug.Log("Start auto next countdown");
     }
 

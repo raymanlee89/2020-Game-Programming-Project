@@ -12,6 +12,7 @@ public class Openable : Interactable
     public GameObject openedObject;
     public GameObject closedObject;
     public DialogueTrigger howToUnlockDialogue;
+    public bool isLockedPlotOrNot;
     bool waitToOpen = false;
 
     void Start()
@@ -53,6 +54,8 @@ public class Openable : Interactable
         openedObject.SetActive(true);
         closedObject.SetActive(false);
         isOpen = true;
+        if (!isLockedPlotOrNot && plotTrigger != null && plotTrigger.isActiveAndEnabled)
+            plotTrigger.TriggerPlot();
     }
 
     void Close()
@@ -74,7 +77,10 @@ public class Openable : Interactable
             return;
         }
         SoundManager.instance?.Play("TryToUnlock");
-        howToUnlockDialogue.TriggerDialogue();
+        if (isLockedPlotOrNot && plotTrigger != null && plotTrigger.isActiveAndEnabled)
+            plotTrigger.TriggerPlot();
+        else
+            howToUnlockDialogue.TriggerDialogue();
         return;
     }
 

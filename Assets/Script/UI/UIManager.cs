@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Experimental;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class UIManager : MonoBehaviour
 {
@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
 
     // loading panel
     public GameObject loadingPanel;
-    public GameObject skyLight;
+    public Light2D skyLight;
     public Text shortHintText;
     [TextArea(1, 10)]
     public string[] shortHints;
@@ -290,8 +290,8 @@ public class UIManager : MonoBehaviour
 
     public void OpenLossPanel()
     {
+        skyLight.intensity = 0;
         // stop time
-        skyLight.SetActive(false);
         SoundManager.instance?.PauseAllSound();
         Heartbeat heartBeats = FindObjectOfType<Heartbeat>();
         heartBeats?.Pause();
@@ -301,22 +301,24 @@ public class UIManager : MonoBehaviour
 
     public void ClossLossPanel()
     {
-        SoundManager.instance?.UnPauseAllSound();
-        Heartbeat heartBeats = FindObjectOfType<Heartbeat>();
-        heartBeats?.UnPause();
-        Time.timeScale = 1f;
         lossPanel.SetActive(false);
     }
 
     public void OpenLoadingPanel()
     {
+        // restart time
+        SoundManager.instance?.UnPauseAllSound();
+        Heartbeat heartBeats = FindObjectOfType<Heartbeat>();
+        heartBeats?.UnPause();
+        Time.timeScale = 1f;
+
         loadingPanel.SetActive(true);
         StartCoroutine(ShowShortHints());
     }
 
     public void ClossLoadingPanel()
     {
-        skyLight.SetActive(true);
+        skyLight.intensity = 0.25f;
         loadingPanel.SetActive(false);
     }
 

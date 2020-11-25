@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6223725380936498962}
   - component: {fileID: 6223725380936498963}
   - component: {fileID: 6223725380936498964}
+  - component: {fileID: 3050090945969724948}
   m_Layer: 0
   m_Name: LowWallWithPlant
   m_TagString: Untagged
@@ -109,3 +110,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.965928, y: 1.0676993}
   m_EdgeRadius: 0
+--- !u!114 &3050090945969724948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6223725380936498960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000d70cd1c89def188c25564bd6
+  m_ShapePath:
+  - {x: -3.0008671, y: -0.55709606, z: 0}
+  - {x: 3.0147521, y: -0.5432172, z: 0}
+  - {x: 3.0008671, y: 0.55709785, z: 0}
+  - {x: -3.0008676, y: 0.5848725, z: 0}
+  m_ShapePathHash: -821946607
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 248918

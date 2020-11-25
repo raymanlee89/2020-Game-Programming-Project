@@ -65,10 +65,13 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            Debug.Log("New Clue " + item.itemData.name);
-            clues.Add(item.itemData);
-            onClueChangedCallBack?.Invoke();
-            showCluePanelCall?.Invoke(item);
+            if(!clues.Contains(item.itemData))
+            {
+                Debug.Log("New Clue " + item.itemData.name);
+                clues.Add(item.itemData);
+                onClueChangedCallBack?.Invoke();
+                showCluePanelCall?.Invoke(item);
+            }
         }
     }
 
