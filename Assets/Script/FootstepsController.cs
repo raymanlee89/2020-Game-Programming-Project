@@ -12,6 +12,7 @@ public class FootstepsController: MonoBehaviour
     bool nextRightStep = true;
     bool creatingFootstepSound = false;
     string footstepSoundType = "NormalFootstepSound";
+    public GameObject splash;
     Vector2 lastPosition;
 
     void Start()
@@ -64,6 +65,8 @@ public class FootstepsController: MonoBehaviour
     void CreatFootstepSound()
     {
         SoundManager.instance.Play(footstepSoundType, 0, transform);
+        if (footstepSoundType == "PuddleFootstepSound")
+            Instantiate(splash, transform.position, transform.rotation);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -79,6 +82,13 @@ public class FootstepsController: MonoBehaviour
         if (collision.gameObject.tag == "Podium")
         {
             Debug.Log("Step in podium");
+            creatingFootstepSound = true;
+            footstepSoundType = collision.tag + "FootstepSound";
+        }
+
+        if (collision.gameObject.tag == "Soil")
+        {
+            Debug.Log("Step in soil");
             creatingFootstepSound = true;
             footstepSoundType = collision.tag + "FootstepSound";
         }
@@ -98,6 +108,11 @@ public class FootstepsController: MonoBehaviour
             Debug.Log("Step out podium");
             creatingFootstepSound = false;
         }
-        
+
+        if (collision.gameObject.tag == "Soil")
+        {
+            Debug.Log("Step in soil");
+            creatingFootstepSound = false;
+        }
     }
 }

@@ -69,6 +69,7 @@ MonoBehaviour:
     type: 3}
   stepDistance: 1.2
   footprintEffectiveDuration: 10
+  splash: {fileID: 342828275145127527, guid: 67f0391491213064db126a4c9880db97, type: 3}
 --- !u!114 &8300079899036695250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,6 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
+  minRadius: 0.5
   lookRadius: 5
   giveUpRadius: 8
   lookAngleDegree: 90
@@ -395,7 +397,7 @@ PrefabInstance:
     - target: {fileID: 7370231214926927392, guid: e871c32a2e7b53449b1f2af2c600e69d,
         type: 3}
       propertyPath: m_InstanceId
-      value: -214074
+      value: -96800
       objectReference: {fileID: 0}
     - target: {fileID: 7370231214926927392, guid: e871c32a2e7b53449b1f2af2c600e69d,
         type: 3}

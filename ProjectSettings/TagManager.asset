@@ -10,6 +10,7 @@ TagManager:
   - Podium
   - Miner
   - Zombie
+  - Soil
   layers:
   - Default
   - TransparentFX

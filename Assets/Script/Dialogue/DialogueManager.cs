@@ -115,7 +115,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButtonDown("NextSentence") && Time.timeScale != 0)
+        if(Input.GetButtonDown("NextSentence") && Time.timeScale != 0 && dialoguePanel.activeSelf)
         {
             DisplayNextSentence();
         }
