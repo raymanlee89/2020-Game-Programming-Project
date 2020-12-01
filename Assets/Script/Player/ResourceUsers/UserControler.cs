@@ -48,7 +48,7 @@ public class UserControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (availableUsers.Count == 0)
+        if (availableUsers.Count <= 1)
             return;
 
         int previousSelectedUser = selectedUser;
@@ -90,7 +90,7 @@ public class UserControler : MonoBehaviour
 
     void ResourceCountChange(Item resource)
     {
-        if(resource == null)
+        if(resource == null) // reset data
         {
             UIManager.instance?.UpdateBatteryCount(frashlightUser.resource);
             UpdateResourceUserUI();
@@ -151,16 +151,11 @@ public class UserControler : MonoBehaviour
     {
         if(availableUsers.Count != 0)
             availableUsers[selectedUser].enabled = false;
-        if (frashlightUserHasBeenEnabled)
-            frashlightUser.enabled = false;
     }
 
     void OnEnable()
     {
         if (availableUsers.Count != 0)
             availableUsers[selectedUser].enabled = true;
-
-        if(frashlightUserHasBeenEnabled)
-            frashlightUser.enabled = true;
     }
 }

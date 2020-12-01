@@ -24,7 +24,8 @@ public class PlotTrigger : MonoBehaviour
 
     public void TriggerPlot()
     {
-        PlotManager.instance.StartPlotDialogue(plot);
+        GameManager.instance.DisablePlayer();
+        plot.TriggerDialogue();
         DialogueManager.instance.onDialogueEndCallBack += TriggerCutscene;
     }
 
@@ -35,7 +36,6 @@ public class PlotTrigger : MonoBehaviour
 
         if(cutscene != null)
         {
-            GameManager.instance.DisablePlayer();
             Debug.Log("Cutscene Start");
             TimelineManager.instance.StartCutscene(cutscene);
         }
@@ -51,8 +51,7 @@ public class PlotTrigger : MonoBehaviour
 
     void TriggerPlot2(PlayableDirector aDirector)
     {
-        GameManager.instance.DisablePlayer();
-        PlotManager.instance.StartPlotDialogue(plot2);
+        plot2.TriggerDialogue();
         DialogueManager.instance.onDialogueEndCallBack -= TriggerCutscene;
         TimelineManager.instance.playableDirector.stopped -= TriggerPlot2;
         EndThePlot();
@@ -60,6 +59,7 @@ public class PlotTrigger : MonoBehaviour
 
     void EndThePlot()
     {
+        GameManager.instance.EnablePlayer();
         GameManager.instance.SaveGame();
         Destroy(gameObject);
     }

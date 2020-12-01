@@ -10,9 +10,14 @@ public class Interactable : MonoBehaviour
     [HideInInspector]
     public bool touchable = false;
 
-    void Start()
+    private void OnDisable()
     {
-        shinning.SetActive(false);
+        CloseShinning();
+    }
+
+    private void OnEnable()
+    {
+        CloseShinning();
     }
 
     void Update()
@@ -26,5 +31,15 @@ public class Interactable : MonoBehaviour
     public virtual void Interact()
     {
         //Debug.Log("Item is interacted");
+    }
+
+    public void OpenShinning()
+    {
+        shinning.SetActive(true);
+    }
+
+    public void CloseShinning()
+    {
+        shinning.SetActive(false);
     }
 }

@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool playerIsInSafeAreaOrNot = false;
 
+    int stopTimeCount = 0;
+    int disablePlayerCount = 0;
+
     // player condition
     float[] playerPosition = new float[3];
 
@@ -36,19 +39,67 @@ public class GameManager : MonoBehaviour
     Pickable[] pickableItems;
     Openable[] doors;
     bool[] isDoorOpened = null;
+    Playable[] miniGames;
     public GameObject rainTrigger;
     bool rainIsOn = false;
 
     public void DisablePlayer()
     {
-        player.GetComponent<PlayerMovement>().enabled = false;
-        player.GetComponent<UserControler>().enabled = false;
+        Debug.Log("Disable Player");
+        disablePlayerCount++;
+        if(disablePlayerCount == 1)
+        {
+            player.GetComponent<PlayerMovement>().enabled = false;
+            player.GetComponent<UserControler>().enabled = false;
+        }
     }
 
     public void EnablePlayer()
     {
-        player.GetComponent<PlayerMovement>().enabled = true;
-        player.GetComponent<UserControler>().enabled = true;
+        Debug.Log("Enable Player");
+        disablePlayerCount--;
+        if(disablePlayerCount == 0)
+        {
+            player.GetComponent<PlayerMovement>().enabled = true;
+            player.GetComponent<UserControler>().enabled = true;
+        }
+        else if (disablePlayerCount < 0)
+            disablePlayerCount = 0;
+    }
+
+    public bool IsPlayerDisable()
+    {
+        return disablePlayerCount > 0;
+    }
+
+    public void StopTime()
+    {
+        Debug.Log("Stop Time");
+        stopTimeCount++;
+        if (stopTimeCount == 1)
+        {
+            //SoundManager.instance?.PauseAllSound();
+            Heartbeat heartBeats = FindObjectOfType<Heartbeat>();
+            heartBeats?.Pause();
+            Time.timeScale = 0f;
+            DisablePlayer();
+        }
+    }
+
+    public void RestartTime()
+    {
+        Debug.Log("Restart Time");
+        stopTimeCount--;
+        if (stopTimeCount == 0)
+        {
+            //SoundManager.instance?.UnPauseAllSound();
+            Heartbeat heartBeats = FindObjectOfType<Heartbeat>();
+            heartBeats?.UnPause();
+            Time.timeScale = 1f;
+            EnablePlayer();
+        }
+        else if (stopTimeCount < 0)
+            stopTimeCount = 0;
     }
 
     public void SaveGame()
@@ -72,6 +123,7 @@ public class GameManager : MonoBehaviour
             isDoorOpened[i] = doors[i].isOpen;
         }
         rainIsOn = rainTrigger.activeSelf;
+        miniGames = FindObjectsOfType<Playable>();
     }
 
     public void LoadGame()
@@ -106,6 +158,11 @@ public class GameManager : MonoBehaviour
         }
         rainTrigger.SetActive(false);
         rainTrigger.SetActive(rainTrigger);
+
+        foreach (Playable miniGame in miniGames)
+        {
+            miniGame.enabled = true;
+        }
 
         StartCoroutine(RespawnWaiting());
     }

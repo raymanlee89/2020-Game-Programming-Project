@@ -61,7 +61,14 @@ public class PlayerMovement : MonoBehaviour
     {
         runningState = RunningState.Normal;
         moveSpeed = normalSpeed;
-        SoundManager.instance?.StopPlay("RunningBreath", 1f);
+        ownRb.velocity = new Vector2(0, 0);
+        ownRb.bodyType = RigidbodyType2D.Kinematic;
+        SoundManager.instance?.StopPlay("RunningBreath");
+    }
+
+    private void OnEnable()
+    {
+        ownRb.bodyType = RigidbodyType2D.Dynamic;
     }
 
     void Update()

@@ -39,9 +39,12 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
-        Time.timeScale = 0.1f;
-        GameManager.instance.DisablePlayer();
-        dialoguePanel.SetActive(true);
+        if(!dialoguePanel.activeSelf)
+        {
+            Time.timeScale = 0.1f;
+            GameManager.instance.DisablePlayer();
+            dialoguePanel.SetActive(true);
+        }
         if (dialogue.speaker == Dialogue.Speaker.Player)
             speakerNameText.text = playerName;
         else if (dialogue.speaker == Dialogue.Speaker.Friend)
@@ -115,9 +118,14 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButtonDown("NextSentence") && Time.timeScale != 0 && dialoguePanel.activeSelf)
+        if(Input.GetButtonDown("NextSentence") && Time.timeScale == 0.1f && dialoguePanel.activeSelf)
         {
             DisplayNextSentence();
         }
+    }
+
+    public bool IsDialogueStarted()
+    {
+        return dialoguePanel.activeSelf;
     }
 }

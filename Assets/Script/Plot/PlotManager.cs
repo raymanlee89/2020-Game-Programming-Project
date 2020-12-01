@@ -40,11 +40,6 @@ public class PlotManager : MonoBehaviour
             ChangeChapter(chapterIndex);
     }
 
-    public void StartPlotDialogue(DialogueTrigger dialogueTrigger)
-    {
-        dialogueTrigger.TriggerDialogue();
-    }
-
     public void TurnOnPower()
     {
         powerIsOnOrNot = true;

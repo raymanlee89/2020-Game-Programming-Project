@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     // clue panel
     public GameObject cluePanel;
     public Image itemImage;
+    public GameObject itemDetail;
     public Text itemName;
     public Text itemDiscription;
     Queue<Item> clueWaitingQueue = new Queue<Item>();
@@ -56,6 +57,7 @@ public class UIManager : MonoBehaviour
     public string[] shortHints;
     int shortHintsIndex = 0;
 
+
     #region Singleton
     public static UIManager instance;
 
@@ -87,9 +89,9 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Backpack"))
+        if(Input.GetButtonDown("Backpack") && !DialogueManager.instance.IsDialogueStarted())
         {
-            if (!backpackPanel.activeSelf && !cluePanel.activeSelf)
+            if (!backpackPanel.activeSelf)
                 OpenBackpackPanel();
             else
                 CloseBackpackPanel();
@@ -135,39 +137,26 @@ public class UIManager : MonoBehaviour
     public void OpenBackpackPanel()
     {
         backpackPanel.SetActive(true);
-
         // stop time
-        SoundManager.instance?.PauseAllSound();
-        Heartbeat heartBeats = FindObjectOfType<Heartbeat>();
-        heartBeats?.Pause();
+        GameManager.instance.StopTime();
         SoundManager.instance?.Play("OpenBackpack");
-        Time.timeScale = 0f;
     }
 
     public void CloseBackpackPanel()
     {
-        if (cluePanel.activeSelf)
-        {
-            clueWaitingQueue.Clear();
-            CloseCluePanel();
-        }
-
         backpackPanel.SetActive(false);
-        
+
         // restart time
-        SoundManager.instance?.UnPauseAllSound();
-        Heartbeat heartBeats = FindObjectOfType<Heartbeat>();
-        heartBeats?.UnPause();
+        GameManager.instance.RestartTime();
         SoundManager.instance?.Play("CloseBackpack");
-        Time.timeScale = 1f;
     }
 
     public void OpenCluePanel(Item item)
     {
-        if(!backpackPanel.activeSelf)
-            OpenBackpackPanel();
-        if(!cluePanel.activeSelf)
+        Debug.Log("Open Clue Panel");
+        if (!cluePanel.activeSelf)
         {
+            GameManager.instance.StopTime();
             cluePanel.SetActive(true);
             itemName.text = item.itemData.name;
             itemImage.sprite = item.itemData.image;
@@ -179,16 +168,31 @@ public class UIManager : MonoBehaviour
 
     public void CloseCluePanel()
     {
-        if(clueWaitingQueue.Count == 0)
+        Debug.Log("Close Clue Panel");
+        if (clueWaitingQueue.Count == 0)
+        {
             cluePanel.SetActive(false);
+            itemDetail?.SetActive(false);
+            GameManager.instance.RestartTime();
+        }
         else
         {
             Item item = clueWaitingQueue.Dequeue();
-            cluePanel.SetActive(true);
             itemName.text = item.itemData.name;
             itemImage.sprite = item.itemData.image;
             itemDiscription.text = item.itemData.discription;
         }
+    }
+
+    public void ClueDetail()
+    {
+        if (!itemDetail.activeSelf)
+        {
+            itemDetail.GetComponent<Image>().sprite = itemImage.sprite;
+            itemDetail.SetActive(true);
+        }
+        else
+            itemDetail.SetActive(false);
     }
 
     public void OpenFrashlightUI(Item battery)
@@ -292,10 +296,8 @@ public class UIManager : MonoBehaviour
     {
         skyLight.intensity = 0;
         // stop time
-        SoundManager.instance?.PauseAllSound();
-        Heartbeat heartBeats = FindObjectOfType<Heartbeat>();
-        heartBeats?.Pause();
-        Time.timeScale = 0f;
+        GameManager.instance.StopTime();
+
         lossPanel.SetActive(true);
     }
 
@@ -307,10 +309,7 @@ public class UIManager : MonoBehaviour
     public void OpenLoadingPanel()
     {
         // restart time
-        SoundManager.instance?.UnPauseAllSound();
-        Heartbeat heartBeats = FindObjectOfType<Heartbeat>();
-        heartBeats?.UnPause();
-        Time.timeScale = 1f;
+        GameManager.instance.RestartTime();
 
         loadingPanel.SetActive(true);
         StartCoroutine(ShowShortHints());

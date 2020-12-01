@@ -71,12 +71,12 @@ public class Openable : Interactable
         Debug.Log("Try to unlock");
         if(Inventory.instance.ContainClue(key) || Inventory.instance.ContainResource(key))
         {
-            SoundManager.instance?.Play("Unlock");
+            SoundManager.instance?.Play("UnlockDoor");
             isLocked = false;
             StartCoroutine(WaitAndOpen());
             return;
         }
-        SoundManager.instance?.Play("TryToUnlock");
+        SoundManager.instance?.Play("TryToUnlockDoor");
         if (isLockedPlotOrNot && plotTrigger != null && plotTrigger.isActiveAndEnabled)
             plotTrigger.TriggerPlot();
         else

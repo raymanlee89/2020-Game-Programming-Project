@@ -7,20 +7,20 @@ public class PlayerInteractor : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         Interactable targetItem = collision.GetComponent<Interactable>();
-        if(targetItem != null)
+        if(targetItem != null && targetItem.isActiveAndEnabled)
         {
             targetItem.touchable = true;
-            targetItem.shinning.SetActive(true);
+            targetItem.OpenShinning();
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
         Interactable targetItem = collision.GetComponent<Interactable>();
-        if (targetItem != null)
+        if (targetItem != null && targetItem.isActiveAndEnabled)
         {
             targetItem.touchable = false;
-            targetItem.shinning.SetActive(false);
+            targetItem.CloseShinning();
         }
     }
 

@@ -71,6 +71,8 @@ public class SoundManager : MonoBehaviour
 
         if (fadeTime != 0)
             StartCoroutine(FadeOut(s.source, fadeTime));
+        else
+            s.source.Stop();
     }
 
     IEnumerator FadeOut(AudioSource audioSource, float fadeTime)
