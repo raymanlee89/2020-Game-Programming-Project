@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
 
     // loading panel
     public GameObject loadingPanel;
-    public Light2D skyLight;
+    public GameObject skyLight;
     public Text shortHintText;
     [TextArea(1, 10)]
     public string[] shortHints;
@@ -294,7 +294,7 @@ public class UIManager : MonoBehaviour
 
     public void OpenLossPanel()
     {
-        skyLight.intensity = 0;
+        skyLight.SetActive(false);
         // stop time
         GameManager.instance.StopTime();
 
@@ -317,7 +317,7 @@ public class UIManager : MonoBehaviour
 
     public void ClossLoadingPanel()
     {
-        skyLight.intensity = 0.25f;
+        skyLight.SetActive(true);
         loadingPanel.SetActive(false);
     }
 

@@ -26,15 +26,13 @@ public class PlayerHealth : MonoBehaviour
             health = 0;
             // died and respawn
             // loading data
-            StartCoroutine(Die());
+            Die();
         }
         UIManager.instance?.healthBar.SetFill(health);
     }
 
-    IEnumerator Die()
+    void Die()
     {
-        GameManager.instance.DisablePlayer();
-        yield return new WaitForSeconds(1f);
         UIManager.instance.OpenLossPanel();
     }
 

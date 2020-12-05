@@ -106,8 +106,12 @@ public class PlayerMovement : MonoBehaviour
         }
         else if(runningState == RunningState.Running || staredCount > 0)
         {
-            if(energy > 0)
-                energy -= Time.deltaTime;
+            if (energy > 0)
+            {
+                if (runningState == RunningState.Running)
+                    energy -= Time.deltaTime;
+                energy -= Time.deltaTime * staredCount;
+            }
             UIManager.instance?.energyBar.SetFill(energy);
         }
         else if(runningState != RunningState.Running && staredCount == 0 && energy < maxEnergy)

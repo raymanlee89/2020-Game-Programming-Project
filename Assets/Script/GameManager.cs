@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
         if(disablePlayerCount == 1)
         {
             player.GetComponent<PlayerMovement>().enabled = false;
+            player.GetComponent<PlayerHealth>().enabled = false;
             player.GetComponent<UserControler>().enabled = false;
         }
     }
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
         if(disablePlayerCount == 0)
         {
             player.GetComponent<PlayerMovement>().enabled = true;
+            player.GetComponent<PlayerHealth>().enabled = true;
             player.GetComponent<UserControler>().enabled = true;
         }
         else if (disablePlayerCount < 0)
@@ -163,6 +165,11 @@ public class GameManager : MonoBehaviour
         {
             miniGame.enabled = true;
         }
+
+        if (rainIsOn)
+            rainTrigger.SetActive(true);
+        else
+            rainTrigger.SetActive(false);
 
         StartCoroutine(RespawnWaiting());
     }
