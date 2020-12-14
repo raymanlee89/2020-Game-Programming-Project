@@ -95,6 +95,7 @@ public class ChaseEnemy : Enemy
             }
             else if (state == EnemyState.Patroling)
             {
+                agent.enabled = true;
                 float Dis = Vector2.Distance(agent.Target.position, ownRb.position);
 		        if(Dis <= 0.2)
 		        {
