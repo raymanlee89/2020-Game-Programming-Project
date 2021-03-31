@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0297d1f0bffdfc64693a5cd735cd3953, type: 3}
+  m_Name: Invoice
+  m_EditorClassIdentifier: 
+  itemData:
+    name: "\u9732\u71DF\u71C8\u767C\u7968"
+    icon: {fileID: 0}
+    isResource: 0
+    image: {fileID: 21300000, guid: 0b7d220ec385bcd458df7fe5df6431f3, type: 3}
+    discription: "\u767B\u5C71\u7528\u54C1\u5E97\u7684\u767C\u7968\uFF0C\u6709\u958B\u7D71\u7DE8\uFF0C\u53EF\u80FD\u662F\u7528\u5B78\u6821\u7D93\u8CBB\u8CB7\u7684\u3002\u70BA\u751A\u9EBC\u963F\u5CB3\u8981\u7D66\u6211\u770B\u9019\u500B\u5462?"

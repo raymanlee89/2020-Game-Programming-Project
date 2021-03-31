@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public float tiredSpeed;
     public float maxEnergy;
     public Volume postProcessingVolume;
+    public GameObject legs;
+    Animator legsAnimator;
     Vignette vignette;
     int staredCount = 0;
     float energy;
@@ -20,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     Camera cam;
     Vector2 movement;
     Vector2 mousePos;
+    float legs_angle;
 
     #region Singleton
     public static PlayerMovement instance;
@@ -55,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Vignette exists");
         }
+        legsAnimator = legs.GetComponent<Animator>();
+        legsAnimator.SetFloat("Animation_Mode", 0);
     }
 
     private void OnDisable()
@@ -64,6 +69,9 @@ public class PlayerMovement : MonoBehaviour
         ownRb.velocity = new Vector2(0, 0);
         ownRb.bodyType = RigidbodyType2D.Kinematic;
         SoundManager.instance?.StopPlay("RunningBreath");
+        SoundManager.instance?.StopPlay("Scaring");
+        SoundManager.instance?.StopPlay("TiredBreath");
+        legsAnimator.SetFloat("Animation_Mode", 0);
     }
 
     private void OnEnable()
@@ -121,6 +129,22 @@ public class PlayerMovement : MonoBehaviour
         }
         vignette.intensity.value = 1 - (energy / maxEnergy);
         //Debug.Log("Present Energy :" + presentEnergy);
+
+        if(movement.magnitude > 0)
+        {
+            if(runningState == RunningState.Running)
+                legsAnimator.SetFloat("Animation_Mode", 2);
+            else
+                legsAnimator.SetFloat("Animation_Mode", 1);
+            legs_angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
+            legs.transform.rotation = Quaternion.Euler(0, 0, legs_angle - 90f);
+        }
+        else
+        {
+            legsAnimator.SetFloat("Animation_Mode", 0);
+            legs.transform.rotation = transform.rotation;
+            legs.transform.Rotate(0, 0, -90);
+        }
     }
 
     void FixedUpdate()

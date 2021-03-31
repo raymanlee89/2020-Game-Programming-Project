@@ -8,8 +8,8 @@ public class GameData{
     public float[] playerPosition;
 
     // inventory condition
-    public Dictionary<ItemData, int> resourceCount;
-    public List<ItemData> clues;
+    public Dictionary<Item, int> resourceCount;
+    public List<Item> clues;
 
     public GameData (Transform playerTransform, Inventory inventory)
     {

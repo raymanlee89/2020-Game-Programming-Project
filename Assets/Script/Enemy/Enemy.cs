@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public float giveUpRadius;
 	public float lookAngleDegree;
 	public float rotateSpeed; // level
+    public bool playBGMOrNot = true;
 
     protected bool checkSafeAreaOrNot = false;
 
@@ -25,6 +26,30 @@ public class Enemy : MonoBehaviour
 
     protected bool isIncreaseRotation = true;
     protected float originalRotation;
+    protected bool playerIsInSafeArea = false;
+
+    protected Vector2 startPosition;
+
+    protected EnemyState state;
+    protected enum EnemyState
+    {
+        Chasing,
+        LookingAround,
+        Back,
+        Default,
+        Unactive
+    }
+
+    protected virtual void Start()
+    {
+        if (checkSafeAreaOrNot)
+        {
+            GameManager.instance.OnPlayerEnterSafeAreaCallBack += PlayerEnterSafeArea;
+            GameManager.instance.OnPlayerLeaveSafeAreaCallBack += PlayerLeaveSafeArea;
+        }
+        startPosition = transform.position;
+        GameManager.instance.onPlayerDieCallBack += ResetPosition;
+    }
 
     protected void StareAtPlayer()
     {
@@ -56,28 +81,31 @@ public class Enemy : MonoBehaviour
 	protected void LookingForPlayer()
 	{
 		float distance = Vector2.Distance(player.position, transform.position);
-        if (distance <= lookRadius)
+        if (distance <= lookRadius && !playerIsInSafeArea)
         {
 	        Vector2 lookDir = (Vector2)player.position - ownRb.position;
 	        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
 	        float AdjAngle = AdjustDegree(angle - ownRb.rotation);
 	        if(Mathf.Abs(AdjAngle) <= lookAngleDegree || distance <= minRadius)
 	    	{
-                if(!checkSafeAreaOrNot || !GameManager.instance.playerIsInSafeAreaOrNot)
+                if (!foundPlayerOrNot)
                 {
-                    if (!foundPlayerOrNot)
-                        SoundManager.instance.Play("BeFound");
-                    foundPlayerOrNot = true;
+                    if(playBGMOrNot)
+                        GameManager.instance.FoundPlayer();
+                    SoundManager.instance.Play("BeFound");
+                    Debug.Log("Player be found");
                 }
-                else if (checkSafeAreaOrNot && GameManager.instance.playerIsInSafeAreaOrNot)
-                {
-                    foundPlayerOrNot = false;
-                }
+                foundPlayerOrNot = true;
 	    	}
         }
-        else if(distance >= giveUpRadius)
+        else if(distance >= giveUpRadius || playerIsInSafeArea)
         {
-        	foundPlayerOrNot = false;
+            if (foundPlayerOrNot && playBGMOrNot)
+            {
+                Debug.Log("Player be lost");
+                GameManager.instance.LosePlayer();
+            }
+            foundPlayerOrNot = false;
         }
 	}
 
@@ -99,10 +127,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-	protected void Disappear()
+	protected virtual void Disappear()
 	{
-
-		Destroy(gameObject);
+        gameObject.SetActive(false);
 	}
 
     protected void OnDrawGizmos()
@@ -121,5 +148,20 @@ public class Enemy : MonoBehaviour
     private void OnEnable()
     {
         Heartbeat.instance.ScanEnemy();
+    }
+
+    protected void PlayerLeaveSafeArea()
+    {
+        playerIsInSafeArea = false;
+    }
+
+    protected void PlayerEnterSafeArea()
+    {
+        playerIsInSafeArea = true;
+    }
+
+    protected void ResetPosition()
+    {
+        transform.position = startPosition;
     }
 }

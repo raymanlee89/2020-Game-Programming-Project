@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0297d1f0bffdfc64693a5cd735cd3953, type: 3}
+  m_Name: TurnLockHint3
+  m_EditorClassIdentifier: 
+  itemData:
+    name: "\u7DDA\u7D22"
+    icon: {fileID: 0}
+    isResource: 0
+    image: {fileID: 21300000, guid: d4c8e3d64698e4349a342ec0a31e8589, type: 3}
+    discription: "\u5947\u602A\u7684\u7D19\u689D\uFF0C\u8AAA\u4E0D\u5B9A\u662F\u4FDD\u96AA\u7BB1\u5BC6\u78BC\u7684\u7DDA\u7D22\u3002"

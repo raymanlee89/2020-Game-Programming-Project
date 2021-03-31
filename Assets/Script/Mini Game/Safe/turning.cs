@@ -10,23 +10,22 @@ public class turning : MonoBehaviour
     private float totalRotate;
     Vector3 dialCenterPos;
     Vector3 cameraCenterPos;
-
-    private void Start()
-    {
-        dialCenterPos = this.GetComponent<RectTransform>().anchoredPosition;
-        cameraCenterPos = GameManager.instance.player.transform.position;
-    }
+    IEnumerator coroutine;
 
     public void OnMouseDown()
     {
+        dialCenterPos = this.GetComponent<RectTransform>().anchoredPosition;
+        cameraCenterPos = GameManager.instance.player.transform.position;
         Debug.Log("mouse down");
-        StartCoroutine(RotatingDial());
+        coroutine = RotatingDial();
+        StartCoroutine(coroutine);
+        SoundManager.instance?.Play("TurnningClick");
     }
 
     public void OnMouseUp()
     {
         //Debug.Log("mouse up");
-        StopAllCoroutines(); //end rotating and calculate angle
+        StopCoroutine(coroutine); //end rotating and calculate angle
 
         int num = Mathf.RoundToInt(this.GetComponent<RectTransform>().eulerAngles.z / blockAngles);
         Vector3 rotation = this.GetComponent<RectTransform>().eulerAngles;
@@ -68,7 +67,7 @@ public class turning : MonoBehaviour
                 angle = -angle;
             }
 
-            Debug.Log(preAngle - angle);
+            //Debug.Log(preAngle - angle);
             
             this.GetComponent<RectTransform>().eulerAngles = new Vector3(0, 0, preAngle - angle);
             totalRotate += angle;

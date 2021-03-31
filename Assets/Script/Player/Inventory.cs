@@ -21,11 +21,11 @@ public class Inventory : MonoBehaviour
     #endregion
 
     [HideInInspector]
-    Dictionary<ItemData, int> resourceCount = new Dictionary<ItemData, int>();
+    Dictionary<Item, int> resourceCount = new Dictionary<Item, int>();
     [HideInInspector]
-    List<ItemData> clues = new List<ItemData>();
+    List<Item> clues = new List<Item>();
     [HideInInspector]
-    List<ItemData> gears = new List<ItemData>();
+    List<Item> gears = new List<Item>();
 
     public delegate void OnClueChanged();
     public OnClueChanged onClueChangedCallBack;
@@ -44,19 +44,19 @@ public class Inventory : MonoBehaviour
         Debug.Log("Add " + item.itemData.name);
         if(item.itemData.isResource)
         {
-            if (resourceCount.ContainsKey(item.itemData))
+            if (resourceCount.ContainsKey(item))
             {
-                Debug.Log("Get Resource " + item.itemData.name + " " + resourceCount[item.itemData]);
-                resourceCount[item.itemData]++;
+                Debug.Log("Get Resource " + item.itemData.name + " " + resourceCount[item]);
+                resourceCount[item]++;
                 onResourceChangedCallBack?.Invoke(item);
             }
             else 
             {
                 Debug.Log("New Resource " + item.itemData.name);
-                resourceCount.Add(item.itemData, 1);
-                if (!gears.Contains(item.itemData))
+                resourceCount.Add(item, 1);
+                if (!gears.Contains(item))
                 {
-                    gears.Add(item.itemData);
+                    gears.Add(item);
                     onGearChangedCallBack?.Invoke(item);
                     showCluePanelCall?.Invoke(item);
                 }
@@ -65,10 +65,10 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            if(!clues.Contains(item.itemData))
+            if(!clues.Contains(item))
             {
                 Debug.Log("New Clue " + item.itemData.name);
-                clues.Add(item.itemData);
+                clues.Add(item);
                 onClueChangedCallBack?.Invoke();
                 showCluePanelCall?.Invoke(item);
             }
@@ -77,23 +77,23 @@ public class Inventory : MonoBehaviour
 
     public void Remove(Item item)
     {
-        if (item.itemData.isResource && resourceCount.ContainsKey(item.itemData))
+        if (item.itemData.isResource && resourceCount.ContainsKey(item))
         {
-            resourceCount[item.itemData]--;
+            resourceCount[item]--;
         }
         onResourceChangedCallBack?.Invoke(item);
     }
 
     public bool ContainClue(Item item)
     {
-        return clues.Contains(item.itemData);
+        return clues.Contains(item);
     }
 
     public bool ContainResource(Item item)
     {
-        if (resourceCount.ContainsKey(item.itemData))
+        if (resourceCount.ContainsKey(item))
         {
-            return resourceCount[item.itemData] > 0;
+            return resourceCount[item] > 0;
         }
         else
             return false;
@@ -101,39 +101,44 @@ public class Inventory : MonoBehaviour
 
     public int GetResourceCount(Item item)
     {
-        if (resourceCount.ContainsKey(item.itemData))
+        if (resourceCount.ContainsKey(item))
         {
-            return resourceCount[item.itemData];
+            return resourceCount[item];
         }
         else
             return 0;
     }
 
-    // deep copy
-    public Dictionary<ItemData, int> GetResourceCount()
+    public int GetClueAmount()
     {
-        Dictionary<ItemData, int> newResourceCount = new Dictionary<ItemData, int>(resourceCount);
-        return newResourceCount;
+        return clues.Count;
     }
 
-    public List<ItemData> GetCluesList()
+    public int GetGearCount()
     {
-        List<ItemData> newClues = new List<ItemData>(clues);
-        return newClues;
+        return gears.Count;
     }
 
-    public List<ItemData> GetGearsList()
+    public Dictionary<Item, int> GetResourceCount()
     {
-        List<ItemData> newGears = new List<ItemData>(gears);
-        return newGears;
+        return resourceCount;
     }
 
-    public void ResetData(Dictionary<ItemData, int> newResourceCount, List<ItemData> newClues)
+    public List<Item> GetCluesList()
     {
-        resourceCount = newResourceCount;
-        clues = newClues;
+        return clues;
+    }
+
+    public List<Item> GetGearsList()
+    {
+        return gears;
+    }
+
+    public void ResetData(Dictionary<Item, int> newResourceCount)
+    {
+        resourceCount.Clear();
+        resourceCount = new Dictionary<Item, int> (newResourceCount); // deep copy
 
         onResourceChangedCallBack?.Invoke(null);
-        onClueChangedCallBack?.Invoke();
     }
 }

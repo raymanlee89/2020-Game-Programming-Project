@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0297d1f0bffdfc64693a5cd735cd3953, type: 3}
+  m_Name: PrincipalDoorNote
+  m_EditorClassIdentifier: 
+  itemData:
+    name: "\u7D66\u5DE5\u53CB\u7684\u4FBF\u689D"
+    icon: {fileID: 0}
+    isResource: 0
+    image: {fileID: 21300000, guid: 4399b4c56757b064d9800e672e553767, type: 3}
+    discription: "\u7D66\u5DE5\u53CB\u7684\u4FBF\u689D\uFF0C\u4F3C\u4E4E\u6697\u793A\u4E86\u6821\u9577\u5BA4\u9580\u9396\u7684\u5BC6\u78BC\u3002"

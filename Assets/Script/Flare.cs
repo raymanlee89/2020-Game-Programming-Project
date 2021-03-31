@@ -12,6 +12,7 @@ public class Flare : MonoBehaviour
     void Start()
     {
         gameObject.SetActive(false);
+        SoundManager.instance?.StopPlay("FlareBurnning");
     }
 
     IEnumerator BurnTheFlare()
@@ -39,6 +40,13 @@ public class Flare : MonoBehaviour
         StartCoroutine(BurnTheFlare());
         ChaseEnemy[] enemies = FindObjectsOfType<ChaseEnemy>();
         foreach(ChaseEnemy enemy in enemies)
+        {
+            enemy.SlowDown();
+            Debug.Log("slow down enemy");
+        }
+
+        StandAndChaseEnemy[] enemies2 = FindObjectsOfType<StandAndChaseEnemy>();
+        foreach (StandAndChaseEnemy enemy in enemies2)
         {
             enemy.SlowDown();
             Debug.Log("slow down enemy");

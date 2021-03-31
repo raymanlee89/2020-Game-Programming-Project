@@ -5,6 +5,11 @@ public class Switchable : Interactable
     public GameObject switchableThing;
     public DialogueTrigger howToTurnOnPowerDialogue;
 
+    private void Start()
+    {
+        PlotManager.instance.OnPowerSwitchedCallBack += SwitchWithPower;
+    }
+
     public override void Interact()
     {
         base.Interact();
@@ -25,5 +30,11 @@ public class Switchable : Interactable
         else
             switchableThing.SetActive(false);
         SoundManager.instance.Play("ClickLightSwitch");
+    }
+
+    void SwitchWithPower(bool powerIsOnOrNot)
+    {
+        if (!powerIsOnOrNot)
+            switchableThing.SetActive(false);
     }
 }

@@ -55,18 +55,26 @@ public class UserControler : MonoBehaviour
         if(Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
             selectedUser = (selectedUser + 1) % availableUsers.Count;
-            SoundManager.instance?.Play("ChangeUser");
         }
         if(Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
             selectedUser--;
-            SoundManager.instance?.Play("ChangeUser");
             if (selectedUser < 0)
                 selectedUser = availableUsers.Count - 1;
         }
 
+        if (Input.GetButtonDown("Gear1") && availableUsers.Count >= 1)
+            selectedUser = 0;
+        if (Input.GetButtonDown("Gear2") && availableUsers.Count >= 2)
+            selectedUser = 1;
+        if (Input.GetButtonDown("Gear3") && availableUsers.Count >= 3)
+            selectedUser = 2;
+        if (Input.GetButtonDown("Gear4") && availableUsers.Count >= 4)
+            selectedUser = 3;
+
         if (previousSelectedUser != selectedUser || availableUsers.Count == 1)
         {
+            SoundManager.instance?.Play("ChangeUser");
             SelectUser();
         }
     }

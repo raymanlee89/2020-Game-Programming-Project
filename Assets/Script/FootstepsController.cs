@@ -8,15 +8,23 @@ public class FootstepsController: MonoBehaviour
     public Transform leftStep;
     public float stepDistance;
     public float footprintEffectiveDuration;
+    public GameObject legs = null;
     float footprintEffectiveDurationLeft = 0f;
     bool nextRightStep = true;
     bool creatingFootstepSound = false;
     string footstepSoundType = "NormalFootstepSound";
     public GameObject splash;
     Vector2 lastPosition;
+    Transform footprintCreatorTransform;
+    public bool turnNinetyDegree = true;
 
     void Start()
     {
+        if (legs == null)
+            footprintCreatorTransform = transform;
+        else
+            footprintCreatorTransform = legs.transform;
+
         lastPosition = transform.position;
     }
 
@@ -43,9 +51,20 @@ public class FootstepsController: MonoBehaviour
     void CreatFootprint()
     {
         if (nextRightStep)
-        {
-            Transform step = Instantiate(rightStep, transform.position, transform.rotation);
-            step.Rotate(0, 0, -90);
+        {   
+            Transform step = Instantiate(rightStep, footprintCreatorTransform.position, footprintCreatorTransform.rotation);
+            if (legs == null)
+            {
+                if(turnNinetyDegree)
+                    step.Rotate(0, 0, -90);
+                else
+                    step.Rotate(0, 0, 180);
+            }
+            else
+            {
+                if(Mathf.Abs(footprintCreatorTransform.rotation.z - transform.rotation.z + 90) > 90)
+                    step.Rotate(0, 0, 180);
+            }
             Renderer rend = step.GetComponent<Renderer>();
             Color c = rend.material.color;
             rend.material.color = new Color(c.r, c.g, c.b, c.a * footprintEffectiveDurationLeft / footprintEffectiveDuration);
@@ -53,8 +72,20 @@ public class FootstepsController: MonoBehaviour
         }
         else
         {
-            Transform step = Instantiate(leftStep, transform.position, transform.rotation);
-            step.Rotate(0, 0, -90);
+            Transform step = Instantiate(leftStep, footprintCreatorTransform.position, footprintCreatorTransform.rotation);
+            if (legs == null)
+            {
+                if (turnNinetyDegree)
+                    step.Rotate(0, 0, -90);
+                else
+                    step.Rotate(0, 0, 180);
+
+            }
+            else
+            {
+                if (Mathf.Abs(footprintCreatorTransform.rotation.z - transform.rotation.z + 90) > 90)
+                    step.Rotate(0, 0, 180);
+            }
             Renderer rend = step.GetComponent<Renderer>();
             Color c = rend.material.color;
             rend.material.color = new Color(c.r, c.g, c.b, c.a * footprintEffectiveDurationLeft / footprintEffectiveDuration);
@@ -73,7 +104,7 @@ public class FootstepsController: MonoBehaviour
     {
         if (collision.gameObject.tag == "Puddle")
         {
-            Debug.Log("Step in puddle");
+            //Debug.Log("Step in puddle");
             creatingFootstepSound = true;
             footprintEffectiveDurationLeft = 0;
             footstepSoundType = collision.tag + "FootstepSound";
@@ -81,14 +112,14 @@ public class FootstepsController: MonoBehaviour
 
         if (collision.gameObject.tag == "Podium")
         {
-            Debug.Log("Step in podium");
+            //Debug.Log("Step in podium");
             creatingFootstepSound = true;
             footstepSoundType = collision.tag + "FootstepSound";
         }
 
         if (collision.gameObject.tag == "Soil")
         {
-            Debug.Log("Step in soil");
+            //Debug.Log("Step in soil");
             creatingFootstepSound = true;
             footstepSoundType = collision.tag + "FootstepSound";
         }
@@ -98,20 +129,20 @@ public class FootstepsController: MonoBehaviour
     {
         if (collision.gameObject.tag == "Puddle")
         {
-            Debug.Log("Step out puddle");
+            //Debug.Log("Step out puddle");
             footprintEffectiveDurationLeft = footprintEffectiveDuration;
             creatingFootstepSound = false;
         }
         
         if (collision.gameObject.tag == "Podium")
         {
-            Debug.Log("Step out podium");
+            //Debug.Log("Step out podium");
             creatingFootstepSound = false;
         }
 
         if (collision.gameObject.tag == "Soil")
         {
-            Debug.Log("Step in soil");
+            //Debug.Log("Step in soil");
             creatingFootstepSound = false;
         }
     }

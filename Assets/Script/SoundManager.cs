@@ -6,6 +6,7 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public float maxDistence;
+    string presentBGM = "";
     public Sound[] sounds;
     List<string> pausedList = new List<string>();
 
@@ -27,6 +28,7 @@ public class SoundManager : MonoBehaviour
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
+            s.isFadingOutOrNot = false;
         }
     }
 
@@ -35,6 +37,8 @@ public class SoundManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
             return;
+
+        s.isFadingOutOrNot = false;
         if (soundCreator != null)
         {
             float dis = Vector2.Distance(transform.position, soundCreator.position);
@@ -46,21 +50,20 @@ public class SoundManager : MonoBehaviour
 
         s.source.Play();
         if(fadeTime != 0)
-            StartCoroutine(FadeIn(s.source, fadeTime));
+            StartCoroutine(FadeIn(s, fadeTime));
     }
 
-    IEnumerator FadeIn(AudioSource audioSource, float fadeTime)
+    IEnumerator FadeIn(Sound s, float fadeTime)
     {
-        float targetVolume = audioSource.volume;
-        audioSource.volume = 0;
+        s.source.volume = 0;
 
-        while (audioSource.volume < targetVolume)
+        while (s.source.volume < s.volume)
         {
-            audioSource.volume += targetVolume * Time.deltaTime / fadeTime;
+            s.source.volume += s.volume * Time.deltaTime / fadeTime;
 
             yield return null;
         }
-        audioSource.volume = targetVolume;
+        s.source.volume = s.volume;
     }
 
     public void StopPlay(string name, float fadeTime = 0)
@@ -68,26 +71,45 @@ public class SoundManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
             return;
+        else if (!s.source.isPlaying)
+            return;
 
         if (fadeTime != 0)
-            StartCoroutine(FadeOut(s.source, fadeTime));
+            StartCoroutine(FadeOut(s, fadeTime));
         else
+        {
+            s.isFadingOutOrNot = false;
             s.source.Stop();
+            s.source.volume = s.volume;
+        }
     }
 
-    IEnumerator FadeOut(AudioSource audioSource, float fadeTime)
+    IEnumerator FadeOut(Sound s, float fadeTime)
     {
-        float startVolume = audioSource.volume;
-
-        while (audioSource.volume > 0)
+        s.isFadingOutOrNot = true;
+        while (s.source.volume > 0)
         {
-            audioSource.volume -= startVolume * Time.deltaTime / fadeTime;
+            if (s.isFadingOutOrNot)
+                s.source.volume -= s.volume * Time.deltaTime / fadeTime;
+            else
+            {
+                s.source.volume = s.volume;
+                yield break;
+            }
 
             yield return null;
         }
 
-        audioSource.Stop();
-        audioSource.volume = startVolume;
+        if (s.isFadingOutOrNot)
+        {
+            s.source.Stop();
+            s.source.volume = s.volume;
+        }
+        else
+        {
+            s.source.volume = s.volume;
+            yield break;
+        }
     }
 
     public void PauseAllSound()
@@ -110,5 +132,15 @@ public class SoundManager : MonoBehaviour
                 s.source.UnPause();
         }
         pausedList.Clear();
+    }
+
+    public void PlayBGM(string BGM)
+    {
+        if (BGM != presentBGM || presentBGM == "")
+        {
+            StopPlay(presentBGM, 2);
+            Play(BGM);
+            presentBGM = BGM;
+        }
     }
 }

@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class StealArea : MonoBehaviour
 {
-	public GameObject currentInstructor;
-	public GameObject nextInstructor;
-	public string Stage;
+    public float stealTime;
 
 	bool inArea = false;
 	bool isStealing = false;
@@ -16,6 +14,8 @@ public class StealArea : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
+            UIManager.instance?.stealBar.SetMaxFill(stealTime);
+            UIManager.instance?.stealBar.SetFill(timer);
             inArea = true;
         }
     }
@@ -30,37 +30,38 @@ public class StealArea : MonoBehaviour
 
     void Update()
     {
-    	if(inArea && Input.GetButtonDown("Steal"))
+    	if(inArea && Input.GetButtonDown("Interact"))
     	{
     		isStealing = true;
-    		Debug.Log("stealing");
+            UIManager.instance?.stealBarPanel.SetActive(true);
+            Debug.Log("stealing");
     	}
-    	if(!inArea || Input.GetButtonUp("Steal"))
+    	if((!inArea || Input.GetButtonUp("Interact")) && isStealing)
     	{
     		isStealing = false;
-    	}
+            UIManager.instance?.stealBarPanel.SetActive(false);
+            Debug.Log("stop stealing");
+        }
 
     	if(isStealing)
     	{
-    		if(timer <= 3)
+    		if(timer <= stealTime && timer >= 0)
     		{
     			timer += Time.deltaTime;
     			Debug.Log(timer);
-    		}
-    		if(timer > 3)
+                UIManager.instance?.stealBar.SetFill(timer);
+            }
+    		if(timer > stealTime && GameManager.instance.isPlayerAlive)
     		{
-    			string s = "Stage " + Stage + " Clear!";
-    			Debug.Log(s);
-    			currentInstructor.SetActive(false);
-    			if(Stage != "3")
-    			{
-    				nextInstructor.SetActive(true);
-    			}
-    		}
+                timer = -1;
+                UIManager.instance?.stealBarPanel.SetActive(false);
+                GetComponentInParent<Instructor>()?.ChangeStage();
+                this.enabled = false;
+            }
     	}
     	else
     	{
-    		timer = 0;
-    	}
+            timer = 0;
+        }
     }
 }

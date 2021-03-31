@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public GameObject player;
-    [HideInInspector]
     public bool playerIsInSafeAreaOrNot = false;
+    public bool isPlayerAlive = true;
 
     int stopTimeCount = 0;
     int disablePlayerCount = 0;
@@ -32,16 +32,65 @@ public class GameManager : MonoBehaviour
     float[] playerPosition = new float[3];
 
     // inventory condition
-    Dictionary<ItemData, int> resourceCount;
-    List<ItemData> clues;
+    Dictionary<Item, int> resourceCount = new Dictionary<Item, int>();
+    // the clues will be keeped
 
     // enviroment condition
-    Pickable[] pickableItems;
-    Openable[] doors;
-    bool[] isDoorOpened = null;
-    Playable[] miniGames;
+    List<Pickable> pickableItems = new List<Pickable>();
     public GameObject rainTrigger;
     bool rainIsOn = false;
+    int enemyCount = 0; // those enemies who found the player
+
+    public int respawnTimes = 0;
+    public float startTime; // to count the total amount of time
+    public float gameTotalTime = 0;
+
+    public delegate void OnPlayerDie();
+    public OnPlayerDie onPlayerDieCallBack;
+
+    public delegate void OnPlayerRespawn();
+    public OnPlayerRespawn OnPlayerRespawnCallBack;
+
+    public delegate void OnPlayerLeaveSafeArea();
+    public OnPlayerLeaveSafeArea OnPlayerLeaveSafeAreaCallBack;
+
+    public delegate void OnPlayerEnterSafeArea();
+    public OnPlayerEnterSafeArea OnPlayerEnterSafeAreaCallBack;
+
+    void Start()
+    {
+        SoundManager.instance?.PlayBGM("MainBGM");
+        startTime = Time.realtimeSinceStartup;
+        SaveGame();
+    }
+
+    public void PlayerLeaveSafeArea()
+    {
+        playerIsInSafeAreaOrNot = false;
+        OnPlayerLeaveSafeAreaCallBack?.Invoke();
+    }
+
+    public void PlayerEnterSafeArea()
+    {
+        playerIsInSafeAreaOrNot = true;
+        OnPlayerEnterSafeAreaCallBack?.Invoke();
+    }
+
+    public void FoundPlayer() // enemy
+    {
+        enemyCount++;
+        if (enemyCount == 1)
+            SoundManager.instance?.PlayBGM("ChasingBGM");
+    }
+
+    public void LosePlayer() // enemy
+    {
+        enemyCount--;
+        if (enemyCount == 0)
+            SoundManager.instance?.PlayBGM("MainBGM");
+        else if (enemyCount < 0)
+            enemyCount = 0;
+    }
 
     public void DisablePlayer()
     {
@@ -52,6 +101,7 @@ public class GameManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().enabled = false;
             player.GetComponent<PlayerHealth>().enabled = false;
             player.GetComponent<UserControler>().enabled = false;
+            gameTotalTime += Time.realtimeSinceStartup - startTime;
         }
     }
 
@@ -59,13 +109,14 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Enable Player");
         disablePlayerCount--;
-        if(disablePlayerCount == 0)
+        if(disablePlayerCount <= 0)
         {
             player.GetComponent<PlayerMovement>().enabled = true;
             player.GetComponent<PlayerHealth>().enabled = true;
             player.GetComponent<UserControler>().enabled = true;
+            startTime = Time.realtimeSinceStartup;
         }
-        else if (disablePlayerCount < 0)
+        if (disablePlayerCount < 0)
             disablePlayerCount = 0;
     }
 
@@ -80,9 +131,6 @@ public class GameManager : MonoBehaviour
         stopTimeCount++;
         if (stopTimeCount == 1)
         {
-            //SoundManager.instance?.PauseAllSound();
-            Heartbeat heartBeats = FindObjectOfType<Heartbeat>();
-            heartBeats?.Pause();
             Time.timeScale = 0f;
             DisablePlayer();
         }
@@ -92,15 +140,15 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Restart Time");
         stopTimeCount--;
-        if (stopTimeCount == 0)
+        if (stopTimeCount <= 0)
         {
-            //SoundManager.instance?.UnPauseAllSound();
-            Heartbeat heartBeats = FindObjectOfType<Heartbeat>();
-            heartBeats?.UnPause();
-            Time.timeScale = 1f;
+            if(DialogueManager.instance.IsDialogueStarted())
+                Time.timeScale = 0.1f;
+            else
+                Time.timeScale = 1f;
             EnablePlayer();
         }
-        else if (stopTimeCount < 0)
+        if (stopTimeCount < 0)
             stopTimeCount = 0;
     }
 
@@ -112,24 +160,26 @@ public class GameManager : MonoBehaviour
         playerPosition[2] = player.transform.position.z;
 
         // inventory condition
-        resourceCount = Inventory.instance.GetResourceCount();
-        clues = Inventory.instance.GetCluesList();
+        if(resourceCount != null)
+            resourceCount.Clear();
+        resourceCount = new Dictionary<Item, int>(Inventory.instance.GetResourceCount());  // deep copy
 
         // enviroment condition
-        pickableItems = FindObjectsOfType<Pickable>();
-        doors = FindObjectsOfType<Openable>();
-        if (isDoorOpened == null)
-            isDoorOpened = new bool[doors.Length];
-        for (int i = 0; i < doors.Length; i++)
+        if(pickableItems != null)
+            pickableItems.Clear();
+        Pickable[] tempPickableItems = FindObjectsOfType<Pickable>();
+        foreach (Pickable item in tempPickableItems)
         {
-            isDoorOpened[i] = doors[i].isOpen;
+            if(item.item.itemData.isResource)
+                pickableItems.Add(item);
         }
         rainIsOn = rainTrigger.activeSelf;
-        miniGames = FindObjectsOfType<Playable>();
     }
 
     public void LoadGame()
     {
+        PlayerLeaveSafeArea();
+
         // player condition
         player.transform.position = new Vector3(playerPosition[0], playerPosition[1], playerPosition[2]);
         player.GetComponent<PlayerHealth>().RecoverHealth();
@@ -138,50 +188,64 @@ public class GameManager : MonoBehaviour
         player.GetComponent<FrashlightUser>().RecoverPower();
 
         // inventory condition
-        Inventory.instance.ResetData(resourceCount, clues);
+        Inventory.instance.ResetData(resourceCount);
 
         // enviroment condition
-        foreach (Pickable item in pickableItems)
-        {
-            item.gameObject.SetActive(true);
-        }
-        Pickable[]  tempPickableItems = FindObjectsOfType<Pickable>();
+        Pickable[] tempPickableItems = FindObjectsOfType<Pickable>();
         foreach(Pickable item in tempPickableItems)
         {
-            if(!Array.Exists(pickableItems, element => element == item))
-            {
-                Destroy(item.gameObject);
-            }
+            if (item.item.itemData.isResource)
+                item.gameObject?.SetActive(false);
         }
 
-        for (int i = 0; i < doors.Length; i++)
+        foreach (Pickable item in pickableItems)
         {
-            doors[i].Reset(isDoorOpened[i]);
+            item.gameObject?.SetActive(true);
         }
-        rainTrigger.SetActive(false);
-        rainTrigger.SetActive(rainTrigger);
 
-        foreach (Playable miniGame in miniGames)
-        {
-            miniGame.enabled = true;
-        }
+        rainTrigger?.SetActive(false);
 
         if (rainIsOn)
-            rainTrigger.SetActive(true);
+            rainTrigger?.SetActive(true);
         else
-            rainTrigger.SetActive(false);
+            rainTrigger?.SetActive(false);
 
         StartCoroutine(RespawnWaiting());
     }
 
     IEnumerator RespawnWaiting()
     {
-        UIManager.instance.ClossLossPanel();
+        UIManager.instance.CloseLossPanel();
         UIManager.instance.OpenLoadingPanel();
 
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(8f);
 
-        UIManager.instance.ClossLoadingPanel();
+        PlayerRespawn();
+    }
+
+    void PlayerRespawn()
+    {
+        UIManager.instance.CloseLoadingPanel();
+        respawnTimes++;
         EnablePlayer();
+        isPlayerAlive = true;
+        OnPlayerRespawnCallBack?.Invoke();
+    }
+
+    public void PlayerDie()
+    {
+        UIManager.instance?.OpenLossPanel();
+        DisablePlayer();
+        PlayerEnterSafeArea();
+        isPlayerAlive = false;
+        onPlayerDieCallBack?.Invoke();
+        SoundManager.instance?.PlayBGM("MainBGM");
+    }
+
+    public float GetGamingTime()
+    {
+        gameTotalTime += Time.realtimeSinceStartup - startTime;
+        startTime = Time.realtimeSinceStartup;
+        return gameTotalTime;
     }
 }

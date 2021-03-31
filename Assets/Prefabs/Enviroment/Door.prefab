@@ -132,6 +132,7 @@ MonoBehaviour:
   openedObject: {fileID: 5073993251518249307}
   closedObject: {fileID: 4750860935275855801}
   howToUnlockDialogue: {fileID: 1750347551}
+  isLockedPlotOrNot: 0
 --- !u!58 &4750860934453055815
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -164,6 +165,7 @@ MonoBehaviour:
     speaker: 0
     sentences:
     - "\u6211\u9700\u8981\u9470\u5319\u624D\u80FD\u6253\u958B\u9019\u6247\u9580"
+    faceIndexes: 
 --- !u!1 &4750860935275855801
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +178,6 @@ GameObject:
   - component: {fileID: 4750860935275855802}
   - component: {fileID: 4750860935275855780}
   - component: {fileID: 4750860935275855781}
-  - component: {fileID: 2802346659019080900}
   m_Layer: 12
   m_Name: ClosedDoor
   m_TagString: Untagged
@@ -300,20 +301,7 @@ MonoBehaviour:
   - {x: -0.05713608, y: 0.4472607, z: 0}
   m_ShapePathHash: -997539212
   m_Mesh: {fileID: 0}
-  m_InstanceId: 194436
---- !u!114 &2802346659019080900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4750860935275855801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29ac64e123b7aaa40adecd5611222db4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Config: {fileID: 11400000, guid: b326ffdf8cda603499980307d04a352b, type: 2}
+  m_InstanceId: 562532
 --- !u!1 &5073993251518249307
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,7 +314,6 @@ GameObject:
   - component: {fileID: 161421657542520473}
   - component: {fileID: 8162540607774926539}
   - component: {fileID: 7355987150836238762}
-  - component: {fileID: 1013678511403578454}
   m_Layer: 12
   m_Name: OpenedDoor
   m_TagString: Untagged
@@ -450,17 +437,4 @@ MonoBehaviour:
   - {x: -0.05713608, y: 0.4472607, z: 0}
   m_ShapePathHash: -997539212
   m_Mesh: {fileID: 0}
-  m_InstanceId: 194448
---- !u!114 &1013678511403578454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5073993251518249307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29ac64e123b7aaa40adecd5611222db4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Config: {fileID: 11400000, guid: b326ffdf8cda603499980307d04a352b, type: 2}
+  m_InstanceId: 562544

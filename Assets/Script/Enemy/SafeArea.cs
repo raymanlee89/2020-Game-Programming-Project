@@ -8,7 +8,7 @@ public class SafeArea : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            GameManager.instance.playerIsInSafeAreaOrNot = true;
+            GameManager.instance?.PlayerEnterSafeArea();
             Debug.Log("Player is safe right now.");
         }
     }
@@ -17,7 +17,7 @@ public class SafeArea : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            GameManager.instance.playerIsInSafeAreaOrNot = false;
+            GameManager.instance?.PlayerLeaveSafeArea();
             Debug.Log("Player is not safe right now.");
         }
     }

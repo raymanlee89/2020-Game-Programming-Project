@@ -17,9 +17,10 @@ public class FootprintVanisher : MonoBehaviour
     IEnumerator FootprintVanishing()
     {
         Color c = rend.material.color;
+        float originalA = c.a;
         for (float f = keepingTime; f > 0 ; f -= Time.deltaTime)
         {
-            rend.material.color = new Color(c.r, c.g, c.b, c.a * (f / keepingTime));
+            rend.material.color = new Color(c.r, c.g, c.b, originalA * (f / keepingTime));
             yield return null;
         }
         Destroy(gameObject);

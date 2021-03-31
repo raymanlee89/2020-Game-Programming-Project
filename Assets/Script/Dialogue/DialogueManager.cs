@@ -6,15 +6,19 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
     private Queue<string> sentences = new Queue<string>();
+    private Queue<int> faceIndexes = new Queue<int>();
     public GameObject dialoguePanel;
     public Text speakerNameText;
     public Text dialogueText;
+    public Image face;
+    public List<Sprite> playerFaces;
     public string playerName;
     public string friendName;
     bool isTypingSentence = false;
 
     public delegate void OnDialogueEnd();
     public OnDialogueEnd onDialogueEndCallBack;
+    IEnumerator coroutine = null;
 
     #region Singleton
     public static DialogueManager instance;
@@ -35,6 +39,7 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         dialoguePanel.SetActive(false);
+        GameManager.instance.onPlayerDieCallBack += EndDialogue;
     }
 
     public void StartDialogue(Dialogue dialogue)
@@ -52,9 +57,11 @@ public class DialogueManager : MonoBehaviour
         else
             speakerNameText.text = "???";
         sentences.Clear();
-        foreach (string sentence in dialogue.sentences)
+        faceIndexes.Clear();
+        for (int i = 0 ; i < dialogue.sentences.Length ; i++)
         {
-            sentences.Enqueue(sentence);
+            sentences.Enqueue(dialogue.sentences[i]);
+            faceIndexes.Enqueue(dialogue.faceIndexes[i]);
         }
 
         DisplayNextSentence();
@@ -69,22 +76,30 @@ public class DialogueManager : MonoBehaviour
         }
         
         string sentence = sentences.Peek();
+        int faceIndex = faceIndexes.Peek();
+        if (speakerNameText.text == playerName)
+            face.sprite = playerFaces[faceIndex];
 
-        if(isTypingSentence)
+        if (isTypingSentence)
         {
-            StopAllCoroutines();
+            if(coroutine != null)
+            {
+                StopCoroutine(coroutine);
+                sentences.Dequeue();
+                faceIndexes.Dequeue();
+            }
             isTypingSentence = false;
             dialogueText.text = sentence;
-            sentences.Dequeue();
+            
         }
         else
         {
-            StopAllCoroutines();
-            StartCoroutine(TypeSentence(sentence));
+            coroutine = TypeSentence(sentence);
+            StartCoroutine(coroutine);
         }
 
         //StartCoroutine(AutoNextCountdown());
-        Debug.Log("Start auto next countdown");
+        //Debug.Log("Start auto next countdown");
     }
 
     IEnumerator TypeSentence(string sentence)
@@ -94,31 +109,29 @@ public class DialogueManager : MonoBehaviour
         foreach(char letter in sentence)
         {
             dialogueText.text += letter;
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.008f);
         }
-        sentences.Dequeue();
         isTypingSentence = false;
-    }
-
-    IEnumerator AutoNextCountdown()
-    {
-        yield return new WaitForSeconds(5f);
-        if(sentences.Count > 0)
-            DisplayNextSentence();
+        sentences.Dequeue();
+        faceIndexes.Dequeue();
     }
 
     void EndDialogue()
     {
-        dialoguePanel.SetActive(false);
-        sentences.Clear();
-        GameManager.instance.EnablePlayer();
-        onDialogueEndCallBack?.Invoke();
-        Time.timeScale = 1f;
+        if(dialoguePanel.activeSelf)
+        {
+            dialoguePanel.SetActive(false);
+            sentences.Clear();
+            faceIndexes.Clear();
+            GameManager.instance.EnablePlayer();
+            onDialogueEndCallBack?.Invoke();
+            Time.timeScale = 1f;
+        }
     }
 
     private void Update()
     {
-        if(Input.GetButtonDown("NextSentence") && Time.timeScale == 0.1f && dialoguePanel.activeSelf)
+        if(Input.GetButtonDown("NextSentence") && dialoguePanel.activeSelf)
         {
             DisplayNextSentence();
         }

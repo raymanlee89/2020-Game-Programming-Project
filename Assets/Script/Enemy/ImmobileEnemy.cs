@@ -6,17 +6,21 @@ public class ImmobileEnemy : Enemy
 {
     public float lookingAroundAngle;
 
-    void Start()
+    protected override void Start()
     {
         player = GameManager.instance.player.transform;
         ownRb = GetComponent<Rigidbody2D>();
         originalRotation = ownRb.rotation;
+
+        state = EnemyState.Default;
+
+        base.Start();
     }
 
     void Update()
     {
         LookingForPlayer();
-        if(lookingAroundAngle > 0)
+        if(lookingAroundAngle > 0 && !foundPlayerOrNot)
             LookingAround(lookingAroundAngle);
 
         if(foundPlayerOrNot)

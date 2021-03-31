@@ -33,7 +33,7 @@ public class AttackingArea : MonoBehaviour
         if(collision.tag == "Player" && !attackCoolingOrNot)
         {
             PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
+            if (playerHealth != null && playerHealth.enabled)
             {
                 Debug.Log("Attack!");
                 playerHealth.GetHurt(damage);

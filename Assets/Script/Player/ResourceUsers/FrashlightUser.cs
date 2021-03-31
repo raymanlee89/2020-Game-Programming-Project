@@ -34,7 +34,7 @@ public class FrashlightUser : MonoBehaviour
         if (GameManager.instance.IsPlayerDisable())
             return;
 
-        if (Input.GetButtonDown("OpenFrashlight") && !flashingOrNot && !AnimationManager.instance.flareIsInHand)
+        if (Input.GetButtonDown("OpenFrashlight") && !flashingOrNot && !AnimationManager.instance.flareIsInHand && !UIManager.instance.mapPanel.activeSelf)
         {
             MainAction();
         }

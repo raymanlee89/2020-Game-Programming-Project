@@ -26,14 +26,9 @@ public class PlayerHealth : MonoBehaviour
             health = 0;
             // died and respawn
             // loading data
-            Die();
+            GameManager.instance?.PlayerDie();
         }
         UIManager.instance?.healthBar.SetFill(health);
-    }
-
-    void Die()
-    {
-        UIManager.instance.OpenLossPanel();
     }
 
     public void Healing(float healingAmount)

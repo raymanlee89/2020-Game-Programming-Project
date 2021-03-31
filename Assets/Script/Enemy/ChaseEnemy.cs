@@ -12,23 +12,17 @@ public class ChaseEnemy : Enemy
     public float recoverDuration;
 
     float tempRotateSpeed;
-	float timer = 0;
-    EnemyState state;
+	float timer1 = 0;
+    float timer2 = 0;
 
-    SAP2DAgent agent;
+    protected SAP2DAgent agent;
 
-    private enum EnemyState
+    protected override void Start()
     {
-        Chasing,
-        LookingAround,
-        Patroling
-    }
+        state = EnemyState.Default;
 
-	void Start()
-	{
-        state = EnemyState.Patroling;
-    	player = GameManager.instance.player.transform;
-    	current_target_index = 0;
+        player = GameManager.instance.player.transform;
+        current_target_index = 0;
         ownRb = GetComponent<Rigidbody2D>();
         agent = GetComponent<SAP2DAgent>();
         agent.MovementSpeed = moveSpeed;
@@ -37,21 +31,28 @@ public class ChaseEnemy : Enemy
         tempRotateSpeed = agent.RotationSpeed;
 
         checkSafeAreaOrNot = true;
+
+        base.Start();
     }
 
-	void Update()
-    {	
+    void Update()
+    {
+        if (state == EnemyState.Unactive)
+            return;
+
     	LookingForPlayer();
 
         if (foundPlayerOrNot)
     	{
     		if(state != EnemyState.Chasing)
     		{
-    			if(timer < startChasingDelay)
+    			if(timer1 < startChasingDelay)
     			{
-                    if (timer == 0)
+                    if (timer1 == 0)
+                    {
                         agent.enabled = false;
-    				timer += Time.deltaTime;
+                    }
+    				timer1 += Time.deltaTime;
     			}
     			else
     			{
@@ -60,7 +61,7 @@ public class ChaseEnemy : Enemy
                     agent.MovementSpeed = chaseSpeed;
                     agent.Target = player;
     				agent.RotationSpeed = 0;
-                    timer = 0;
+                    timer1 = 0;
 			    }
     		}
 
@@ -70,6 +71,7 @@ public class ChaseEnemy : Enemy
     	}
     	else
     	{
+            timer1 = 0;
             if (state == EnemyState.Chasing)
             {
                 state = EnemyState.LookingAround;
@@ -78,22 +80,22 @@ public class ChaseEnemy : Enemy
             }
             else if (state == EnemyState.LookingAround)
             {
-                if (timer < lookingAroundDuration)
+                if (timer2 < lookingAroundDuration)
                 {
                     LookingAround(lookingAroundAngle);
-                    timer += Time.deltaTime;
+                    timer2 += Time.deltaTime;
                 }
                 else
                 {
-                    state = EnemyState.Patroling;
+                    state = EnemyState.Default;
                     agent.enabled = true;
                     agent.MovementSpeed = moveSpeed;
                     agent.RotationSpeed = tempRotateSpeed;
-                    timer = 0;
+                    timer2 = 0;
                     agent.Target = current_target;
                 }
             }
-            else if (state == EnemyState.Patroling)
+            else if (state == EnemyState.Default)
             {
                 agent.enabled = true;
                 float Dis = Vector2.Distance(agent.Target.position, ownRb.position);

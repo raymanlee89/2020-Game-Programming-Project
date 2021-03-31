@@ -10,24 +10,31 @@ public class RainTrigger : MonoBehaviour
     public float duration;
     public float fadeTime;
     public ParticleSystem rainSystem;
+    float originEmissionRate = 1000;
 
+    IEnumerator coroutine = null;
     private void OnEnable()
     {
-        StartCoroutine(PlaySound());
+        if(coroutine != null)
+            StopCoroutine(coroutine);
+        coroutine = PlaySound();
+        StartCoroutine(coroutine);
     }
 
     IEnumerator PlaySound()
     {
+        ParticleSystem.EmissionModule emissionModule = rainSystem.emission;
+        emissionModule.rateOverTime = originEmissionRate;
         SoundManager.instance.Play("Rainning", fadeTime);
         Debug.Log("Start sound");
+
         yield return new WaitForSeconds(duration);
+
         SoundManager.instance.StopPlay("Rainning", fadeTime);
-        ParticleSystem.EmissionModule emissionModule = rainSystem.emission;
-        float originEmissionRate = emissionModule.rateOverTime.constantMax;
         for (float f = fadeTime; f > 0 ; f -= Time.deltaTime)
         {
             float newMax = originEmissionRate * f / fadeTime;
-            emissionModule.rateOverTime = new ParticleSystem.MinMaxCurve(0.0f, 10.0f);
+            emissionModule.rateOverTime = newMax;
             yield return null;
         }
         gameObject.SetActive(false);

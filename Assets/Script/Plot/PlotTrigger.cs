@@ -12,6 +12,9 @@ public class PlotTrigger : MonoBehaviour
     public int hintChapterIndex;
     public TimelineAsset cutscene = null;
     public bool isTriggeredByCollider = true;
+    public List<GameObject> openObjects;
+    public List<GameObject> closeObjects;
+    public bool turnOffPowerTrigger = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,17 +27,28 @@ public class PlotTrigger : MonoBehaviour
 
     public void TriggerPlot()
     {
+        if (turnOffPowerTrigger)
+            PlotManager.instance?.TurnOffPower();
         GameManager.instance.DisablePlayer();
         plot.TriggerDialogue();
+        
         DialogueManager.instance.onDialogueEndCallBack += TriggerCutscene;
     }
 
     void TriggerCutscene() // if there is no cutscene, it will just show the hint
     {
-        if (hint != "")
-            PlotManager.instance.ShowHint(hint, hintChapterIndex);
+        foreach (GameObject temp in openObjects)
+        {
+            temp.SetActive(true);
+        }
 
-        if(cutscene != null)
+        foreach (GameObject temp in closeObjects)
+        {
+            temp.SetActive(false);
+        }
+        Heartbeat.instance?.ScanEnemy();
+
+        if (cutscene != null)
         {
             Debug.Log("Cutscene Start");
             TimelineManager.instance.StartCutscene(cutscene);
@@ -54,13 +68,16 @@ public class PlotTrigger : MonoBehaviour
         plot2.TriggerDialogue();
         DialogueManager.instance.onDialogueEndCallBack -= TriggerCutscene;
         TimelineManager.instance.playableDirector.stopped -= TriggerPlot2;
-        EndThePlot();
+        DialogueManager.instance.onDialogueEndCallBack += EndThePlot;
     }
 
     void EndThePlot()
     {
+        DialogueManager.instance.onDialogueEndCallBack -= EndThePlot;
         GameManager.instance.EnablePlayer();
         GameManager.instance.SaveGame();
+        if (hint != "")
+            PlotManager.instance.ShowHint(hint, hintChapterIndex);
         Destroy(gameObject);
     }
 }

@@ -1,127 +1,85 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using SAP2D;
 
-public class Instructor : Enemy
+public class Instructor : ChaseEnemy
 {
-    public float chaseSpeed;
-    public float startChasingDelay;
-    public float lookingAroundDuration;
-    public float lookingAroundAngle;
-    public float recoverDuration;
+    public SpriteRenderer GFX;
+    public float GFXVanishingTime;
+    public GameObject nextInstructor;
+    public PlotTrigger changeStagePlot;
+    public GameObject shinning;
+    public GameObject suicideNote;
+    ShadowCaster2D shadow;
 
-    float tempRotateSpeed;
-	float timer = 0;
-    EnemyState state;
-
-    SAP2DAgent agent;
-
-    private enum EnemyState
+    public void ChangeStage()
     {
-        Chasing,
-        LookingAround,
-        Patroling
+        Debug.Log("Change stage");
+        DialogueManager.instance.onDialogueEndCallBack += OpenNextInstructor;
+        Disappear();
     }
 
-	void Start()
-	{
-        state = EnemyState.Patroling;
-    	player = GameManager.instance.player.transform;
-    	current_target_index = 0;
-        ownRb = GetComponent<Rigidbody2D>();
-        agent = GetComponent<SAP2DAgent>();
-        agent.MovementSpeed = moveSpeed;
-        current_target = targets[current_target_index];
-        agent.Target = current_target;
-        tempRotateSpeed = agent.RotationSpeed;
-
-        checkSafeAreaOrNot = true;
-    }
-
-	void Update()
-    {	
-    	LookingForPlayer();
-
-        if (foundPlayerOrNot)
-    	{
-    		if(state != EnemyState.Chasing)
-    		{
-    			if(timer < startChasingDelay)
-    			{
-                    if (timer == 0)
-                        agent.enabled = false;
-    				timer += Time.deltaTime;
-    			}
-    			else
-    			{
-                    state = EnemyState.Chasing;
-                    agent.enabled = true;
-                    agent.MovementSpeed = chaseSpeed;
-                    agent.Target = player;
-    				agent.RotationSpeed = 0;
-                    timer = 0;
-			    }
-    		}
-
-            if (agent.isActiveAndEnabled)
-                agent.MovementSpeed = chaseSpeed;
-    		StareAtPlayer();
-    	}
-    	else
-    	{
-            if (state == EnemyState.Chasing)
-            {
-                state = EnemyState.LookingAround;
-                agent.enabled = false;
-                originalRotation = ownRb.rotation;
-            }
-            else if (state == EnemyState.LookingAround)
-            {
-                if (timer < lookingAroundDuration)
-                {
-                    LookingAround(lookingAroundAngle);
-                    timer += Time.deltaTime;
-                }
-                else
-                {
-                    state = EnemyState.Patroling;
-                    agent.enabled = true;
-                    agent.MovementSpeed = moveSpeed;
-                    agent.RotationSpeed = tempRotateSpeed;
-                    timer = 0;
-                    agent.Target = current_target;
-                }
-            }
-            else if (state == EnemyState.Patroling)
-            {
-                float Dis = Vector2.Distance(agent.Target.position, ownRb.position);
-		        if(Dis <= 0.2)
-		        {
-		        	agent.enabled = true;
-		    	    //ownRb.MovePosition(agent.Target.position);
-		    	    current_target_index = (current_target_index + 1) % targets.Capacity;
-		    	    current_target = targets[current_target_index];
-		    	    agent.Target = current_target;
-		        }
-            }
-    	}
-    }
-
-    public void SlowDown()
+    void OpenNextInstructor()
     {
-        float originSpeed = chaseSpeed;
-        chaseSpeed = 0;
-        StartCoroutine(RecoverSpeed(recoverDuration, originSpeed));
-    }
-
-    IEnumerator RecoverSpeed(float recoverDuration, float originSpeed)
-    {
-        while (chaseSpeed < originSpeed)
+        if (nextInstructor != null)
+            nextInstructor.SetActive(true);
+        else
         {
-            chaseSpeed += (originSpeed / recoverDuration) * Time.deltaTime;
+            if(suicideNote != null)
+            {
+                suicideNote.SetActive(true);
+                suicideNote.transform.position = transform.position;
+            }
+        }
+            
+        GameManager.instance.EnablePlayer();
+        DialogueManager.instance.onDialogueEndCallBack -= OpenNextInstructor;
+        gameObject.SetActive(false);
+    }
+
+    protected override void Disappear()
+    {
+        Debug.Log("Disappear");
+        GameManager.instance.DisablePlayer();
+        agent.enabled = false;
+        state = EnemyState.Unactive;
+        gameObject.tag = "Untagged";
+        shadow = GetComponent<ShadowCaster2D>();
+        if (shadow != null)
+            shadow.enabled = false;
+        Heartbeat.instance?.ScanEnemy();
+        GameManager.instance?.LosePlayer();
+        StartCoroutine(GFXVanishing());
+    }
+
+    IEnumerator GFXVanishing()
+    {
+        shinning.SetActive(true);
+        Color c = GFX.color;
+
+        GFX.color = new Color(c.r, c.g, c.b, 0);
+
+        for (float f = 0; f < GFXVanishingTime; f += Time.deltaTime)
+        {
+            GFX.color = new Color(c.r, c.g, c.b, f / GFXVanishingTime);
             yield return null;
         }
-        chaseSpeed = originSpeed;
+
+        GFX.material.color = new Color(c.r, c.g, c.b, 1);
+
+        for (float f = GFXVanishingTime; f > 0; f -= Time.deltaTime)
+        {
+            GFX.color = new Color(c.r, c.g, c.b, f / GFXVanishingTime);
+            yield return null;
+        }
+
+        if (changeStagePlot != null)
+            changeStagePlot.TriggerPlot();
+        else
+        {
+            OpenNextInstructor();
+        }
     }
 }

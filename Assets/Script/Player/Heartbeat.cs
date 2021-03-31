@@ -53,7 +53,11 @@ public class Heartbeat : MonoBehaviour
     void Update()
     {
         if (enemies.Length == 0)
+        {
+            audioSource.volume = 0;
             return;
+        }
+            
 
         float distance = Mathf.Infinity; //一開始為無限遠（等於沒enemy）
         Vector3 position = transform.position;
@@ -82,6 +86,7 @@ public class Heartbeat : MonoBehaviour
         // go = game object, gos是複數個go的array
         Debug.Log("Scan enemies");
         enemies = GameObject.FindGameObjectsWithTag("Enemy"); //找所有帶有"enemy" tag的物件
+        Debug.Log(enemies.Length);
     }
 
     void OnDrawGizmos()

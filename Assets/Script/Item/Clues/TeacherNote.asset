@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0297d1f0bffdfc64693a5cd735cd3953, type: 3}
+  m_Name: TeacherNote
+  m_EditorClassIdentifier: 
+  itemData:
+    name: "\u67D0\u4F4D\u8001\u5E2B\u7684\u4FBF\u689D"
+    icon: {fileID: 0}
+    isResource: 0
+    image: {fileID: 21300000, guid: 1315326065c557744b04e15cdf6eff6d, type: 3}
+    discription: "\u67D0\u4F4D\u8001\u5E2B\u7559\u7D66\u5B78\u751F\u7684\u4FBF\u689D\uFF0C\u63D0\u9192\u4ED6\u53BB\u62FF\u6559\u5177\u3002"

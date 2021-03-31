@@ -1,0 +1,421 @@
+fileFormatVersion: 2
+guid: b858d85bdf45a814e8fcc103a097d412
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 24561061487554176
+    second: "NPC\u52D5\u756B_0"
+  - first:
+      213: 6898614769082662755
+    second: "NPC\u52D5\u756B_1"
+  - first:
+      213: -1610013180683040915
+    second: "NPC\u52D5\u756B_2"
+  - first:
+      213: 2006942513631739864
+    second: "NPC\u52D5\u756B_3"
+  - first:
+      213: -862912001274950864
+    second: "NPC\u52D5\u756B_4"
+  - first:
+      213: 8534858624915665691
+    second: "NPC\u52D5\u756B_5"
+  - first:
+      213: 1798157774455308239
+    second: "NPC\u52D5\u756B_6"
+  - first:
+      213: -669035097870789785
+    second: "NPC\u52D5\u756B_7"
+  - first:
+      213: 2290558043768707777
+    second: "NPC\u52D5\u756B_8"
+  - first:
+      213: 381291381457488245
+    second: "NPC\u52D5\u756B_0"
+  - first:
+      213: 1204878694716880412
+    second: "NPC\u52D5\u756B_1"
+  - first:
+      213: -5361576438838596448
+    second: "NPC\u52D5\u756B_2"
+  - first:
+      213: 7762999210383659068
+    second: "NPC\u52D5\u756B_3"
+  - first:
+      213: -7833014508781693826
+    second: "NPC\u52D5\u756B_4"
+  - first:
+      213: 9166961024291431312
+    second: "NPC\u52D5\u756B_5"
+  - first:
+      213: 7151442867734755075
+    second: "NPC\u52D5\u756B_6"
+  - first:
+      213: 308017950576275143
+    second: "NPC\u52D5\u756B_7"
+  - first:
+      213: -6525808619977530034
+    second: "NPC\u52D5\u756B_8"
+  - first:
+      213: -481652783314926390
+    second: "NPC\u52D5\u756B_9"
+  - first:
+      213: 5394764140088398239
+    second: "NPC\u52D5\u756B_10"
+  - first:
+      213: -8342520158204816569
+    second: "NPC\u52D5\u756B_11"
+  - first:
+      213: -7748956182407766424
+    second: "NPC\u52D5\u756B_12"
+  - first:
+      213: 2830957987177722840
+    second: "NPC\u52D5\u756B_13"
+  - first:
+      213: -429104953923247503
+    second: "NPC\u52D5\u756B_14"
+  - first:
+      213: -7573556692037614546
+    second: "NPC\u52D5\u756B_15"
+  - first:
+      213: 9058193087752916590
+    second: "NPC\u52D5\u756B_16"
+  - first:
+      213: -4281704552735291852
+    second: "NPC\u52D5\u756B_17"
+  - first:
+      213: -7966559056332290940
+    second: "NPC\u52D5\u756B_18"
+  - first:
+      213: -7381323995324973630
+    second: "NPC\u52D5\u756B_19"
+  - first:
+      213: -8277899280375174344
+    second: "NPC\u52D5\u756B_20"
+  - first:
+      213: 7529008994562723020
+    second: "NPC\u52D5\u756B_21"
+  - first:
+      213: 7895592402693872182
+    second: "NPC\u52D5\u756B_22"
+  - first:
+      213: -2271478213561860872
+    second: "NPC\u52D5\u756B_23"
+  - first:
+      213: -153946477895847181
+    second: "NPC\u52D5\u756B_24"
+  - first:
+      213: -4893758494958346907
+    second: "NPC\u52D5\u756B_25"
+  - first:
+      213: 6909023995375778191
+    second: "NPC\u52D5\u756B_26"
+  - first:
+      213: -8917696300341686642
+    second: "NPC\u52D5\u756B_27"
+  - first:
+      213: -637059961202152406
+    second: "NPC\u52D5\u756B_28"
+  - first:
+      213: 6967688595147942216
+    second: "NPC\u52D5\u756B_29"
+  - first:
+      213: -3311967912059269392
+    second: "NPC\u52D5\u756B_30"
+  - first:
+      213: 3067870951980331988
+    second: "NPC\u52D5\u756B_31"
+  - first:
+      213: -8685346176864798710
+    second: "NPC\u52D5\u756B_32"
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "NPC\u52D5\u756B_0"
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 455
+        width: 170
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57901b3cd7e9a4500800000000000000
+      internalID: 381291381457488245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "NPC\u52D5\u756B_1"
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 255
+        width: 170
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1639040ac698b010800000000000000
+      internalID: 1204878694716880412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "NPC\u52D5\u756B_2"
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 254
+        width: 170
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0acebeeb2aad795b0800000000000000
+      internalID: -5361576438838596448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "NPC\u52D5\u756B_3"
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 257
+        width: 170
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c305e86d6a6bbbb60800000000000000
+      internalID: 7762999210383659068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "NPC\u52D5\u756B_4"
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 254
+        width: 170
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e74169b2eca8b4390800000000000000
+      internalID: -7833014508781693826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "NPC\u52D5\u756B_5"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0.66667175
+        width: 210.5
+        height: 198.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 093edb2ab76973f70800000000000000
+      internalID: 9166961024291431312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "NPC\u52D5\u756B_6"
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 0.66667175
+        width: 210.5
+        height: 198.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 307b4d2f5670f3360800000000000000
+      internalID: 7151442867734755075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "NPC\u52D5\u756B_7"
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 0.66667175
+        width: 210.5
+        height: 198.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ceea80b1bc464400800000000000000
+      internalID: 308017950576275143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "NPC\u52D5\u756B_8"
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 0.66667175
+        width: 210.5
+        height: 198.33333
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e45ae06a2abaf65a0800000000000000
+      internalID: -6525808619977530034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

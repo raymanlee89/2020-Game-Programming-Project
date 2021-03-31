@@ -8,8 +8,6 @@ public class FullScreenFlareUser : ResourceUser
 
     protected override bool ItemAct()
     {
-        if (flareInHand.activeSelf)
-            return false;
         StartCoroutine(TriggerTheFlare());
         UserControler.instance?.frashlightUser.TurnOffFrashlight();
         return true;

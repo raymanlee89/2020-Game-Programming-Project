@@ -9,7 +9,6 @@ public class Lock : MiniGame
 
 	public List<Text> buttonsText;
 	public List<GameObject> buttons;
-	public Sprite unlockSprite;
 
 	private bool isCorrect = false;
 	private bool isDone = false;
@@ -67,8 +66,25 @@ public class Lock : MiniGame
     {
         //開鎖聲
         SoundManager.instance.Play("Unlock");
-        GetComponent<Image>().sprite = unlockSprite;
 
         base.Done();
+    }
+
+    protected override void Reset()
+    {
+        base.Reset();
+
+        for (int i = 0; i < buttonNumber.Capacity; i++)
+        {
+            buttonNumber[i] = 0;
+            buttonsText[i].text = (buttonNumber[i]).ToString();
+        }
+        isCorrect = false;
+        isDone = false;
+
+        for (int i = 0; i < buttons.Capacity; i++)
+        {
+            buttons[i].SetActive(true);
+        }
     }
 }

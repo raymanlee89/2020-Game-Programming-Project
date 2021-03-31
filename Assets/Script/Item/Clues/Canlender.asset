@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData:
     name: "\u8B66\u885B\u7684\u684C\u66C6"
-    icon: {fileID: 21300000, guid: 34d933d0640dd674d967be1beaa4ac44, type: 3}
+    icon: {fileID: 0}
     isResource: 0
     image: {fileID: 21300000, guid: 34d933d0640dd674d967be1beaa4ac44, type: 3}
-    discription: "\u8B66\u885B\u7684\u684C\u66C6\uFF0C\u4E0A\u982D\u53EF\u80FD\u6709\u95DC\u65BC\u5BC6\u78BC\u7684\u7DDA\u7D22\u3002"
+    discription: "\u8B66\u885B\u7684\u684C\u66C6\uFF0C\u8A73\u7D30\u8A18\u8F09\u4E86\u8B66\u885B\u7684\u884C\u7A0B\u3002"
